@@ -13,7 +13,7 @@ jobs:
               with:
                 node-version: 16
             - name: Install dependencies
-              run: npm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.JOBBNORGE_NPM_AUTH_TOKEN }}" && npm ci
+              run: npm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.JOBBNORGE_NPM_AUTH_TOKEN }}" && npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}" && npm ci
             - name: Run build
               run: npm run build
             - name: Release
