@@ -1,0 +1,52 @@
+{
+  "nb-NO": {
+    "slotSettings": {
+      "interviewSlots": "Intervjuslots",
+      "timePerSlot": "Tid per slot",
+      "timeBetweenSlots": "Tid mellom slots",
+      "toFrom": "Fra - Til",
+      "from": "Fra",
+      "to": "Til"
+    },
+    "createSlots": {
+      "1": {
+        "5h": "1.5 time"
+      },
+      "30min": "30 minutter",
+      "45min": "45 minutter",
+      "1h": "1 time",
+      "2h": "2 timer",
+      "15min": "15 minutter",
+      "noBreak": "Ingen",
+      "addMore": "Legg til slots"
+    },
+    "AvailableSlots": {
+      "heading": "Eksisterende slots i denne intervjurunden:"
+    }
+  },
+  "en": {
+    "slotSettings": {
+      "interviewSlots": "Interview slots",
+      "timePerSlot": "Time per slot",
+      "timeBetweenSlots": "Time between slots",
+      "toFrom": "To - From",
+      "from": "From",
+      "to": "To"
+    },
+    "createSlots": {
+      "1": {
+        "5h": "1.5 hours"
+      },
+      "30min": "30 minutes",
+      "45min": "45 minutes",
+      "1h": "1 hour",
+      "2h": "2 hours",
+      "15min": "15 minutes",
+      "noBreak": "No break",
+      "addMore": "Add more slots"
+    },
+    "AvailableSlots": {
+      "heading": "Existing slots in this interview round:"
+    }
+  }
+}

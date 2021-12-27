@@ -1,0 +1,30 @@
+{
+  "nb-NO":{
+    "datepicker":{
+      "remove":"Fjern",
+      "done":"Ferdig",
+      "today":"I dag",
+      "alert": "Du må velge en dag fremover i tid",
+      "hours":"timer",
+      "minutes":"minutter",
+      "selectDate": "Velg dato",
+      "selectPeriod": "Velg dato / periode",
+      "selectTime": "Velg tidspunkt",
+      "selectDateTime": "Velg dato / tid"
+    }
+  },
+  "en": {
+    "datepicker":{
+      "remove":"Remove",
+      "done":"Done",
+      "today":"Today",
+      "alert": "You have to pick a date in the future",
+      "hours":"hours",
+      "minutes":"minutes",
+      "selectDate": "Select date",
+      "selectPeriod": "Select date / period",
+      "selectTime": "Select time",
+      "selectDateTime": "Select date / time"
+    }
+  }
+}
