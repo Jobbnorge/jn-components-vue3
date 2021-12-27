@@ -42,5 +42,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jobbnorge/jn-components-vue3.git"
+  }
 }
