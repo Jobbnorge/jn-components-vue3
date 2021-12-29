@@ -1,5 +1,5 @@
 <template>
-  <div :aria-label="getLabelText">
+  <div :aria-label="getLabelText" class="container">
     <div style="display: flex; gap: 0.5rem; align-items: center">
       <div
         class="picker"
@@ -13,11 +13,16 @@
           :style="displayDate ? 'margin-left: 0.5rem;' : ''"
         ></span>
       </div>
-      <JnButton v-if="displayDate" @JnButton-clicked="displayDate = null">{{
+      <JnButton v-if="displayDate" @JnButton-clicked="reset">{{
         $t("datepicker.remove")
       }}</JnButton>
     </div>
-    <div class="date-time" role="dialog" aria-modal="true">
+    <div
+      class="date-time"
+      role="dialog"
+      aria-modal="true"
+      ref="dateTimeElement"
+    >
       <Calendar
         v-if="type !== 'time' && showCalendar"
         :pickPeriod="pickPeriod"
@@ -32,10 +37,12 @@
         v-if="type != 'date' && !pickPeriod && showCalendar"
         :isTimePickerOnly="type === 'time'"
         :minutesInterval="minutesInterval"
-        :preSelectedTime="{ hour: selectedHour, minute: selectedMinute }"
+        :preSelectedTime="{
+          hour: selectedDate?.hour(),
+          minute: selectedDate?.minute(),
+        }"
         @selectedHour="setSelectedHour"
         @selectedMinute="setSelectedMinute"
-        @updatedSelected="updateSelected"
         @closePicker="closePicker"
       />
     </div>
@@ -79,6 +86,7 @@ export default {
         return ["date", "dateTime", "time"].indexOf(value) !== -1;
       },
     },
+    preselectedDate: String,
   },
   computed: {
     getLabelText() {
@@ -114,6 +122,26 @@ export default {
       displayDate: null,
     };
   },
+  created() {
+    if (this.preselectedDate != undefined) {
+      this.selectedDate = dayjs(this.preselectedDate);
+      this.selectedHour = this.selectedDate.hour();
+      this.selectedMinute = this.selectedDate.minute();
+      switch (this.type) {
+        case "date":
+          this.displayDate = this.selectedDate.format("DD.MM.YYYY");
+          break;
+        case "dateTime":
+          this.displayDate = this.selectedDate.format("DD.MM.YYYY, HH:mm");
+          break;
+      }
+    }
+  },
+  updated() {
+    var el = this.$refs.dateTimeElement;
+    var { right } = el.getBoundingClientRect();
+    el.style.right = right > window.innerWidth ? 0 : null;
+  },
   methods: {
     updateSelected(date) {
       switch (this.type) {
@@ -121,10 +149,10 @@ export default {
           if (this.pickPeriod) {
             this.setDisplayDatesForPeriod(date);
           } else {
-            this.selectedDate = dayjs(date);
+            this.selectedDate = date;
             this.displayDate = this.selectedDate.format("DD.MM.YYYY");
           }
-          return;
+          break;
         case "dateTime":
           this.selectedDate = dayjs(
             new Date(
@@ -134,17 +162,16 @@ export default {
             )
           );
           this.displayDate = this.selectedDate.format("DD.MM.YYYY, HH:mm");
-          return;
+          break;
         case "time":
           this.displayDate = new Date().setHours(
             this.selectedHour,
             this.selectedMinute
           );
           this.displayDate = dayjs(this.displayDate).format("HH:mm");
-          return;
-        default:
-          return;
+          break;
       }
+      this.$emit("selectedDateChanged", this.selectedDate);
     },
     handleError() {
       alert(this.$t("datepicker.alert"));
@@ -169,16 +196,19 @@ export default {
         this.displayDate = date.format("DD.MM.YYYY");
       }
     },
-  },
-  watch: {
-    selectedDate: function (val) {
-      this.$emit("selectedDateChanged", val);
+    reset() {
+      this.displayDate = null;
+      this.selectedDate = null;
+      this.$emit("selectedDateChanged", null);
     },
   },
 };
 </script>
 <i18n src="..\..\localizations/datepicker.json"></i18n>
 <style scoped>
+.container {
+  position: relative;
+}
 .picker {
   height: 1.5rem;
   border: 1px solid var(--gray);
@@ -190,8 +220,9 @@ export default {
   box-sizing: content-box;
 }
 .date-time {
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: flex-start;
+  z-index: 1;
 }
 </style>
