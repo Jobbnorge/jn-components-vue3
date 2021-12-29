@@ -140,7 +140,7 @@ export default {
   updated() {
     var el = this.$refs.dateTimeElement;
     var { right } = el.getBoundingClientRect();
-    el.style.right = right > window.innerWidth ? 0 : null;
+    if (right > window.innerWidth) el.style.right = 0;
   },
   methods: {
     updateSelected(date) {
