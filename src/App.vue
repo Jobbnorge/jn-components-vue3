@@ -1,21 +1,14 @@
 <template>
-  <JnDateTimepicker
-    :pickPeriod="false"
-    :allowPastDates="false"
-    type="dateTime"
-    :minutesInterval="5"
-  />
+  <CreateSlots jobId="5346" interviewBatchId="29" />
 </template>
 
 <script>
-import JnDateTimepicker from "./components/JnDateTimePicker/JnDateTimepicker.vue";
+import CreateSlots from "./components/interview-slots/CreateSlots.vue";
 
 export default {
   name: "App",
   components: {
-    JnDateTimepicker,
+    CreateSlots,
   },
 };
 </script>
-
-<style></style>
