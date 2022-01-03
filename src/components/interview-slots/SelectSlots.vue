@@ -23,9 +23,9 @@
 
 <script>
 import { toRefs, watch, ref } from "vue";
-import { httpService } from "@jobbnorge/js-services/http.service";
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
 import dayjs from "dayjs";
+import { inject } from "vue";
 export default {
   emits: ["slotAdded", "slotRemoved"],
   components: {
@@ -35,6 +35,7 @@ export default {
     const { slotDateSettings, slotTimeSettings } = toRefs(props);
     var params = {};
     const generatedSlots = ref({});
+    const jobId = inject("jobId");
 
     const timeSlotSelected = (e, date) => {
       if (e.selected) ctx.emit("slotAdded", date);
@@ -66,11 +67,18 @@ export default {
         }
 
         if (_dateSettings.length > 0) {
-          httpService
-            .get("job/5346/interview/slot", { params })
-            .then(({ data }) => {
-              generatedSlots.value = data;
-            });
+          var str = Object.entries(params).map((el) => el.join("="));
+
+          fetch(
+            `${process.env.VUE_APP_URLS_APIBASE}/job/${
+              jobId.value
+            }/interview/slot?${str.join("&")}`,
+            {
+              credentials: "include",
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => (generatedSlots.value = data));
         }
       },
       { deep: true }
