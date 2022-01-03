@@ -78,6 +78,7 @@ export default {
     InfoBox,
     MultiSelect,
   },
+  emits: ["slotSettingsUpdated"],
   data() {
     return {
       settings: {
@@ -179,11 +180,6 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin: 1rem 0rem;
-}
-</style>
-<style>
-.multiselect-input {
-  background: #fff;
 }
 </style>
 <style src="@vueform/multiselect/themes/default.css"></style>

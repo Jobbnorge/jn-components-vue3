@@ -7,7 +7,7 @@
         <TimeSlot
           v-for="date in value"
           :key="date.startDate"
-          :startTime="dayjs(startTime).format('HH:mm')"
+          :startTime="dayjs(date.startDate).format('HH:mm')"
           :isSelectable="false"
           :isOccupied="date.isOccupied"
         >
@@ -33,7 +33,6 @@ export default {
           `job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot`
         )
         .then(({ data }) => {
-          console.info(data);
           Object.assign(slots, data);
         });
     }

@@ -54,6 +54,7 @@ import dayjs from "dayjs";
 import Calendar from "./components/Calendar.vue";
 import TimeSelect from "./components/TimeSelect.vue";
 import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButton.vue";
+import { toRaw } from "@vue/reactivity";
 export default {
   name: "DatePicker",
   emits: ["selectedDateChanged"],
@@ -148,6 +149,8 @@ export default {
         case "date":
           if (this.pickPeriod) {
             this.setDisplayDatesForPeriod(date);
+            this.selectedDatesChanged(date);
+            return;
           } else {
             this.selectedDate = date;
             this.displayDate = this.selectedDate.format("DD.MM.YYYY");
@@ -189,12 +192,22 @@ export default {
     },
     setDisplayDatesForPeriod(date) {
       if (date.firstDate && date.secondDate) {
-        this.displayDate = `${dayjs(date.firstDate).format(
+        this.displayDate = `${date.firstDate.format(
           "DD.MM.YYYY"
-        )} - ${dayjs(date.secondDate).format("DD.MM.YYYY")} `;
+        )} - ${date.secondDate.format("DD.MM.YYYY")} `;
       } else {
         this.displayDate = date.format("DD.MM.YYYY");
       }
+    },
+    selectedDatesChanged(dates) {
+      if (dates.firstDate == undefined || dates.secondDate == undefined) return;
+      const arr = [toRaw(dates.firstDate)];
+      var dateBetween = dates.firstDate;
+      while (dateBetween.isBefore(dates.secondDate)) {
+        dateBetween = dateBetween.add(1, "day");
+        arr.push(dateBetween);
+      }
+      this.$emit("selectedDateChanged", arr);
     },
     reset() {
       this.displayDate = null;

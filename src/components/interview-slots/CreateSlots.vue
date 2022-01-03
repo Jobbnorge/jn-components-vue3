@@ -5,35 +5,83 @@
       ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
       >{{ $t("createSlots.addMore") }}</JnButton
     >
-    <SlotSettings v-if="addMoreSlots" />
     <div v-if="addMoreSlots">
+      <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
       <JnDateTimepicker
         :pickPeriod="true"
         :allowPastDates="false"
         type="date"
-        :minutesInterval="5"
+        @selectedDateChanged="slotDateSettingChanged"
+      />
+      <SelectSlots
+        :slotTimeSettings="slotTimeSettings"
+        :slotDateSettings="slotDateSettings"
+        @slotAdded="slotAdded"
+        @slotRemoved="slotRemoved"
       />
     </div>
   </div>
 </template>
 <script>
-import ExistingSlots from "../interview-slots/ExistingSlots.vue";
-import SlotSettings from "../interview-slots/SlotSettings.vue";
+import ExistingSlots from "./ExistingSlots.vue";
+import SlotSettings from "./SlotSettings.vue";
 import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButton.vue";
 import JnDateTimepicker from "../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
-import { provide, toRefs } from "@vue/runtime-core";
+import SelectSlots from "./SelectSlots.vue";
+import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
-  setup(props) {
-    var { jobId, interviewBatchId } = toRefs(props);
+  emits: ["selectedSlotsChanged"],
+  setup(props, ctx) {
+    const { jobId, interviewBatchId } = toRefs(props);
     provide("jobId", jobId);
     provide("interviewBatchId", interviewBatchId);
+
+    const slotTimeSettings = reactive({});
+    const slotDateSettings = ref([]);
+    const selectedSlots = ref([]);
+
+    const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
+    const slotDateSettingChanged = (e) => {
+      slotDateSettings.value.length = 0;
+      e && e.forEach((item) => slotDateSettings.value.push(item));
+    };
+
+    const slotAdded = (date) => {
+      selectedSlots.value.push(date);
+    };
+
+    const slotRemoved = (date) => {
+      var i = selectedSlots.value.findIndex(
+        (slot) =>
+          slot.startDate === date.startDate && slot.endDate === date.endDate
+      );
+      selectedSlots.value.splice(i, 1);
+    };
+
+    watch(
+      () => selectedSlots.value,
+      (val) => {
+        ctx.emit("selectedSlotsChanged", val);
+      },
+      { deep: true }
+    );
+
+    return {
+      slotTimeSettingChanged,
+      slotDateSettingChanged,
+      slotTimeSettings,
+      slotDateSettings,
+      slotAdded,
+      slotRemoved,
+    };
   },
   components: {
     SlotSettings,
     ExistingSlots,
     JnButton,
     JnDateTimepicker,
+    SelectSlots,
   },
   props: {
     jobId: {

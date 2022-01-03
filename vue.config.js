@@ -1,3 +1,5 @@
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+
 module.exports = {
   configureWebpack: {
     externals: {
@@ -11,6 +13,7 @@ module.exports = {
         },
       }),
     },
+    plugins: [new DuplicatePackageCheckerPlugin()],
   },
   chainWebpack: (config) => {
     config.module

@@ -1,5 +1,10 @@
 <template>
-  <CreateSlots jobId="5346" interviewBatchId="29" />
+  <pre>{{ selectedSlots }}</pre>
+  <CreateSlots
+    :jobId="5346"
+    :interviewBatchId="29"
+    @selectedSlotsChanged="($event) => (selectedSlots = $event)"
+  />
 </template>
 
 <script>
@@ -9,6 +14,11 @@ export default {
   name: "App",
   components: {
     CreateSlots,
+  },
+  data: function () {
+    return {
+      selectedSlots: [],
+    };
   },
 };
 </script>
