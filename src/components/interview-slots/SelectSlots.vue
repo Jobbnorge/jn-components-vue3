@@ -1,7 +1,6 @@
 <template>
   <div v-for="(value, key) in generatedSlots" :key="key">
     <h2 style="font-size: 1rem">{{ dayjs(key).format("DD.MM.YYYY") }}</h2>
-    <pre>{{ key }}</pre>
     <div class="slot-container">
       <TimeSlot
         v-for="date in value"

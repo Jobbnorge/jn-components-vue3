@@ -18,15 +18,15 @@
 </template>
 <script>
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
-import { inject, reactive } from "@vue/runtime-core";
+import { inject, reactive, watch } from "@vue/runtime-core";
 import dayjs from "dayjs";
 
 export default {
   setup() {
     const interviewBatchId = inject("interviewBatchId");
+    const jobId = inject("jobId");
     const slots = reactive({});
-    if (interviewBatchId.value != undefined) {
-      const jobId = inject("jobId");
+    const fetchBatches = () => {
       fetch(
         `${process.env.VUE_APP_URLS_APIBASE}/job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot`,
         { credentials: "include" }
@@ -37,7 +37,14 @@ export default {
         .then((data) => {
           Object.assign(slots, data);
         });
-    }
+    };
+    if (interviewBatchId.value != undefined) fetchBatches();
+    watch(
+      () => interviewBatchId.value,
+      (val) => {
+        val && fetchBatches();
+      }
+    );
     return { slots, dayjs };
   },
   components: {
