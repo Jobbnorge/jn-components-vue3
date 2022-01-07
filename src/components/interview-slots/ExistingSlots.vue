@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="Object.keys(slots).length > 0">
     <h1 class="title">{{ $t("AvailableSlots.heading") }}</h1>
     <div v-for="(value, key) in slots" :key="key">
       <h2 style="font-size: 1rem">{{ dayjs(key).format("DD.MM.YYYY") }}</h2>
