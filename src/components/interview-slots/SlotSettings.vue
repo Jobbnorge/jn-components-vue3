@@ -1,37 +1,30 @@
 <template>
   <div style="margin: 1rem 0rem">
-    <h2 style="font-size: 1rem; color: var(--gray)">Innstillinger</h2>
+    <h2 style="font-size: 1rem; color: var(--gray)">{{ $t("slotSettings.title") }}</h2>
     <div class="slot-settings">
       <InfoBox colorTheme="gray" class="settings-box">
         <template #box-content>
           <h1 style="font-size: 1rem; font-weight: bold">
             {{ $t("slotSettings.interviewSlots") }}
           </h1>
-          <label for="create-slots-length"
-            >{{ $t("slotSettings.timePerSlot") }}:</label
+          <SelectDuration
+            id="timePerSlot"
+            :label="$t('slotSettings.timePerSlot')"
+            :interval="15"
+            :maxHours="5"
+            :defaultValue="settings.timePerSlot"
+            @durationSelected="setDuration"
           >
-          <MultiSelect
-            mode="single"
-            id="create-slots-length"
-            :searchable="true"
-            :canClear="false"
-            :options="slotDurations"
-            v-model="settings.timePerSlot"
-            style="margin-bottom: 1rem"
+          </SelectDuration>
+          <SelectDuration
+            id="timePerBreak"
+            :label="$t('slotSettings.timeBetweenSlots')"
+            :interval="5"
+            :maxHours="2"
+            :defaultValue="settings.timePerBreak"
+            @durationSelected="setDuration"
           >
-          </MultiSelect>
-          <label for="create-slots-break"
-            >{{ $t("slotSettings.timeBetweenSlots") }}:</label
-          >
-          <MultiSelect
-            mode="single"
-            id="create-slots-break"
-            :searchable="true"
-            :canClear="false"
-            :options="slotBreakTimes"
-            v-model="settings.timePerBreak"
-          >
-          </MultiSelect>
+          </SelectDuration>
         </template>
       </InfoBox>
       <InfoBox colorTheme="gray" class="settings-box">
@@ -68,6 +61,7 @@
 <script>
 import MultiSelect from "@vueform/multiselect";
 import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
+import SelectDuration from "../SelectDuration.vue";
 
 import dayjs from "dayjs";
 require("dayjs/locale/nb");
@@ -77,6 +71,7 @@ export default {
   components: {
     InfoBox,
     MultiSelect,
+    SelectDuration,
   },
   emits: ["slotSettingsUpdated"],
   data() {
@@ -87,58 +82,6 @@ export default {
         dayStartsAt: "08:00",
         dayEndsAt: "16:00",
       },
-      slotDurations: [
-        {
-          label: this.$t("createSlots.15min"),
-          value: "0:15",
-        },
-        {
-          label: this.$t("createSlots.30min"),
-          value: "0:30",
-        },
-        {
-          label: this.$t("createSlots.45min"),
-          value: "0:45",
-        },
-        {
-          label: this.$t("createSlots.1h"),
-          value: "1:00",
-        },
-        {
-          label: this.$t("createSlots.1.5h"),
-          value: "1:30",
-        },
-        {
-          label: this.$t("createSlots.2h"),
-          value: "2:00",
-        },
-      ],
-      slotBreakTimes: [
-        {
-          label: this.$t("createSlots.noBreak"),
-          value: "0:00",
-        },
-        {
-          label: this.$t("createSlots.15min"),
-          value: "0:15",
-        },
-        {
-          label: this.$t("createSlots.30min"),
-          value: "0:30",
-        },
-        {
-          label: this.$t("createSlots.45min"),
-          value: "0:45",
-        },
-        {
-          label: this.$t("createSlots.1h"),
-          value: "1:00",
-        },
-        {
-          label: this.$t("createSlots.1.5h"),
-          value: "1:30",
-        },
-      ],
       hourOptions: [],
     };
   },
@@ -162,11 +105,11 @@ export default {
         });
       }
     },
-    handleOption(option) {
-      this.selectedTime = option;
-    },
     updateSettings(val) {
       this.$emit("slotSettingsUpdated", val);
+    },
+    setDuration(e) {
+      this.settings[e.id] = e.duration;
     },
   },
 };

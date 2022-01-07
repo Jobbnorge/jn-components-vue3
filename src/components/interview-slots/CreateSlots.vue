@@ -7,6 +7,7 @@
     >
     <div v-if="addMoreSlots">
       <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
+      <label>{{$t('createSlots.selectDatePeriod')}}:</label>
       <JnDateTimepicker
         :pickPeriod="true"
         :allowPastDates="false"

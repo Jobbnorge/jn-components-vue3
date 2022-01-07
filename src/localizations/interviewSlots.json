@@ -1,6 +1,7 @@
 {
   "nb-NO": {
     "slotSettings": {
+      "title": "Innstillinger", 
       "interviewSlots": "Intervjuslots",
       "timePerSlot": "Tid per slot",
       "timeBetweenSlots": "Tid mellom slots",
@@ -9,23 +10,27 @@
       "to": "Til"
     },
     "createSlots": {
-      "1": {
-        "5h": "1.5 time"
-      },
-      "30min": "30 minutter",
-      "45min": "45 minutter",
-      "1h": "1 time",
-      "2h": "2 timer",
-      "15min": "15 minutter",
-      "noBreak": "Ingen",
-      "addMore": "Legg til slots"
+      "addMore": "Legg til slots",
+      "selectDatePeriod": "Velg dato / periode"
     },
     "AvailableSlots": {
       "heading": "Eksisterende slots i denne intervjurunden:"
+    },
+    "selectDuration": {
+      "select": "Velg",
+      "duration": "Varighet",
+      "none": "Ikke valgt",
+      "minute": "1 minutt",
+      "minutes": "{0} minutter",
+      "hour": "{0} time",
+      "hours": "{0} timer",
+      "hourAndMinutes": "{0}t {1}min."
+
     }
   },
   "en": {
     "slotSettings": {
+      "title": "Settings", 
       "interviewSlots": "Interview slots",
       "timePerSlot": "Time per slot",
       "timeBetweenSlots": "Time between slots",
@@ -34,19 +39,22 @@
       "to": "To"
     },
     "createSlots": {
-      "1": {
-        "5h": "1.5 hours"
-      },
-      "30min": "30 minutes",
-      "45min": "45 minutes",
-      "1h": "1 hour",
-      "2h": "2 hours",
-      "15min": "15 minutes",
-      "noBreak": "No break",
-      "addMore": "Add more slots"
+      "addMore": "Add slots",
+      "selectDatePeriod": "Select date / period"
     },
     "AvailableSlots": {
       "heading": "Existing slots in this interview round:"
+    },
+    "selectDuration": {
+      "select": "Select",
+      "duration": "Duration",
+      "none": "Not selected",
+      "minute": "1 minute",
+      "minutes": "{0} minutes",
+      "hour": "{0} hour",
+      "hours": "{0} hours",
+      "hourAndMinutes": "{0}h {1}min."
+
     }
   }
 }
