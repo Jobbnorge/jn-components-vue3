@@ -42,11 +42,10 @@ export default {
     watch(
       () => interviewBatchId.value,
       (val) => {
+        Object.keys(slots).forEach((k) => {
+          delete slots[k];
+        });
         if (val) fetchBatches();
-        else
-          Object.keys(slots).forEach((k) => {
-            delete slots[k];
-          });
       }
     );
     return { slots, dayjs };
