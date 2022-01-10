@@ -7,13 +7,8 @@
         :key="date.startDate"
         :startTime="dayjs(date.startDate).format('HH:mm')"
         :isSelectable="true"
-        @updateTimeSlotSelected="
-          ($event) =>
-            timeSlotSelected($event, {
-              startDate: date.startDate,
-              endDate: date.endDate,
-            })
-        "
+        @updateTimeSlotSelected="($event) => timeSlotSelected($event, date)"
+        :ref="setTimeSlotsRef"
       >
       </TimeSlot>
     </div>
@@ -21,7 +16,7 @@
 </template>
 
 <script>
-import { toRefs, watch, ref } from "vue";
+import { toRefs, watch, ref, onBeforeUpdate, onUpdated } from "vue";
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
 import dayjs from "dayjs";
 import { inject } from "vue";
@@ -41,11 +36,22 @@ export default {
       else if (!e.selected) ctx.emit("slotRemoved", date);
     };
 
+    var timeSlots = [];
+    const setTimeSlotsRef = (ts) => ts && timeSlots.push(ts);
+    onBeforeUpdate(() => (timeSlots = []));
+    onUpdated(() => timeSlots.forEach((ts) => ts.deselect()));
+
     watch(
       () => [slotTimeSettings.value, slotDateSettings.value],
       (values, prevValues) => {
         var [_timeSettings, _dateSettings] = values;
         var [, _prevDateSettings] = prevValues;
+
+        if (_dateSettings.length === 0) {
+          generatedSlots.value = {};
+          return;
+        }
+
         if (Object.keys(_timeSettings).length > 0) {
           params["timePerSlot"] = _timeSettings.timePerSlot;
           params["timePerBreak"] = _timeSettings.timePerBreak;
@@ -83,7 +89,7 @@ export default {
       { deep: true }
     );
 
-    return { generatedSlots, dayjs, timeSlotSelected };
+    return { generatedSlots, dayjs, timeSlotSelected, setTimeSlotsRef };
   },
   props: {
     slotTimeSettings: Object,

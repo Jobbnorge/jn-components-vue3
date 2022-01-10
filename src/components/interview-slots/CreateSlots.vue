@@ -7,12 +7,19 @@
     >
     <div v-if="addMoreSlots">
       <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
-      <label>{{$t('createSlots.selectDatePeriod')}}:</label>
+      <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
       <JnDateTimepicker
         :pickPeriod="true"
-        :allowPastDates="false"
+        :allowPastDates="true"
         type="date"
         @selectedDateChanged="slotDateSettingChanged"
+      />
+      <span v-if="conflictingDates.length === 0">{{
+        $t("createSlots.info")
+      }}</span>
+      <ConflictingDates
+        v-if="conflictingDates.length > 0"
+        :conflictingDates="conflictingDates"
       />
       <SelectSlots
         :slotTimeSettings="slotTimeSettings"
@@ -29,6 +36,7 @@ import SlotSettings from "./SlotSettings.vue";
 import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButton.vue";
 import JnDateTimepicker from "../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import SelectSlots from "./SelectSlots.vue";
+import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
@@ -41,6 +49,7 @@ export default {
     const slotTimeSettings = reactive({});
     const slotDateSettings = ref([]);
     const selectedSlots = ref([]);
+    const conflictingDates = ref([]);
 
     const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
     const slotDateSettingChanged = (e) => {
@@ -49,7 +58,11 @@ export default {
     };
 
     const slotAdded = (date) => {
-      selectedSlots.value.push(date);
+      selectedSlots.value.push({
+        startDate: date.startDate,
+        endDate: date.endDate,
+      });
+      if (date.conflictingDates.length > 0) conflictingDates.value.push(date);
     };
 
     const slotRemoved = (date) => {
@@ -58,6 +71,12 @@ export default {
           slot.startDate === date.startDate && slot.endDate === date.endDate
       );
       selectedSlots.value.splice(i, 1);
+      if (date.conflictingDates.length > 0) {
+        i = conflictingDates.value.findIndex(
+          (cd) => cd.startDate === date.startDate && cd.endDate === date.endDate
+        );
+      }
+      conflictingDates.value.splice(i, 1);
     };
 
     watch(
@@ -68,6 +87,12 @@ export default {
       { deep: true }
     );
 
+    watch(
+      () => [slotTimeSettings, slotDateSettings.value],
+      () => (selectedSlots.value.length = 0),
+      { deep: true }
+    );
+
     return {
       slotTimeSettingChanged,
       slotDateSettingChanged,
@@ -75,6 +100,7 @@ export default {
       slotDateSettings,
       slotAdded,
       slotRemoved,
+      conflictingDates,
     };
   },
   components: {
@@ -83,6 +109,7 @@ export default {
     JnButton,
     JnDateTimepicker,
     SelectSlots,
+    ConflictingDates,
   },
   props: {
     jobId: {
