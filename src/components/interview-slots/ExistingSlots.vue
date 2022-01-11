@@ -28,7 +28,7 @@ export default {
     const slots = reactive({});
     const fetchBatches = () => {
       fetch(
-        `${process.env.VUE_APP_URLS_APIBASE}/job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot`,
+        `${process.env.VUE_APP_URLS_APIBASE}job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot`,
         { credentials: "include" }
       )
         .then((res) => {

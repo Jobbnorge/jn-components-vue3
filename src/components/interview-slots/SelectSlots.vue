@@ -75,7 +75,7 @@ export default {
           var str = Object.entries(params).map((el) => el.join("="));
 
           fetch(
-            `${process.env.VUE_APP_URLS_APIBASE}/job/${
+            `${process.env.VUE_APP_URLS_APIBASE}job/${
               jobId.value
             }/interview/slot?${str.join("&")}`,
             {
