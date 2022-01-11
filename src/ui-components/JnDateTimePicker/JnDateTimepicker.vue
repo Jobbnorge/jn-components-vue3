@@ -200,14 +200,18 @@ export default {
       }
     },
     selectedDatesChanged(dates) {
-      if (dates.firstDate == undefined || dates.secondDate == undefined) return;
-      const arr = [toRaw(dates.firstDate)];
-      var dateBetween = dates.firstDate;
-      while (dateBetween.isBefore(dates.secondDate)) {
-        dateBetween = dateBetween.add(1, "day");
-        arr.push(dateBetween);
+      if (dates.firstDate == undefined || dates.secondDate == undefined) {
+        //single date selected
+        this.$emit("selectedDateChanged", dates);
+      } else {
+        const arr = [toRaw(dates.firstDate)];
+        var dateBetween = dates.firstDate;
+        while (dateBetween.isBefore(dates.secondDate)) {
+          dateBetween = dateBetween.add(1, "day");
+          arr.push(dateBetween);
+        }
+        this.$emit("selectedDateChanged", arr);
       }
-      this.$emit("selectedDateChanged", arr);
     },
     reset() {
       this.displayDate = null;

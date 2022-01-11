@@ -7,7 +7,7 @@
     >
     <div v-if="addMoreSlots">
       <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
-      <div>
+      <div style="margin: 1rem 0rem">
         <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
         <JnDateTimepicker
           :pickPeriod="true"
@@ -16,9 +16,10 @@
           @selectedDateChanged="slotDateSettingChanged"
         />
       </div>
-      <span v-if="selectedSlots.length > 0 && conflictingDates.length === 0">{{
-        $t("createSlots.info")
-      }}</span>
+      <span
+        v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
+        >{{ $t("createSlots.info") }}</span
+      >
       <ConflictingDates
         v-if="conflictingDates.length > 0"
         :conflictingDates="conflictingDates"
@@ -56,7 +57,10 @@ export default {
     const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
     const slotDateSettingChanged = (e) => {
       slotDateSettings.value.length = 0;
-      e && e.forEach((item) => slotDateSettings.value.push(item));
+      e.length > 0
+        ? e.forEach((item) => slotDateSettings.value.push(item))
+        : slotDateSettings.value.push(e);
+      //e && e.forEach((item) => slotDateSettings.value.push(item));
     };
 
     const slotAdded = (date) => {
@@ -102,7 +106,6 @@ export default {
       slotDateSettings,
       slotAdded,
       slotRemoved,
-      selectedSlots,
       conflictingDates,
     };
   },
