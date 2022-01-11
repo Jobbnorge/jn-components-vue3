@@ -7,16 +7,19 @@
     >
     <div v-if="addMoreSlots">
       <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
-      <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
-      <JnDateTimepicker
-        :pickPeriod="true"
-        :allowPastDates="true"
-        type="date"
-        @selectedDateChanged="slotDateSettingChanged"
-      />
-      <span v-if="conflictingDates.length === 0">{{
-        $t("createSlots.info")
-      }}</span>
+      <div style="margin: 1rem 0rem">
+        <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
+        <JnDateTimepicker
+          :pickPeriod="true"
+          :allowPastDates="false"
+          type="date"
+          @selectedDateChanged="slotDateSettingChanged"
+        />
+      </div>
+      <span
+        v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
+        >{{ $t("createSlots.info") }}</span
+      >
       <ConflictingDates
         v-if="conflictingDates.length > 0"
         :conflictingDates="conflictingDates"
@@ -54,7 +57,10 @@ export default {
     const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
     const slotDateSettingChanged = (e) => {
       slotDateSettings.value.length = 0;
-      e && e.forEach((item) => slotDateSettings.value.push(item));
+      e.length > 0
+        ? e.forEach((item) => slotDateSettings.value.push(item))
+        : slotDateSettings.value.push(e);
+      //e && e.forEach((item) => slotDateSettings.value.push(item));
     };
 
     const slotAdded = (date) => {

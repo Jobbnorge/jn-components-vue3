@@ -15,6 +15,10 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <h1 class="title">{{ $t("AvailableSlots.noExistingSlotsHeading") }}</h1>
+    <p>{{ $t("AvailableSlots.noExistingSlots") }}</p>
+  </div>
 </template>
 <script>
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";

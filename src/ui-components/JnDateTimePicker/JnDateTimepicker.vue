@@ -1,5 +1,5 @@
 <template>
-  <div :aria-label="getLabelText" class="container">
+  <div :aria-label="getLabelText" class="datetime-container">
     <div style="display: flex; gap: 0.5rem; align-items: center">
       <div
         class="picker"
@@ -200,14 +200,18 @@ export default {
       }
     },
     selectedDatesChanged(dates) {
-      if (dates.firstDate == undefined || dates.secondDate == undefined) return;
-      const arr = [toRaw(dates.firstDate)];
-      var dateBetween = dates.firstDate;
-      while (dateBetween.isBefore(dates.secondDate)) {
-        dateBetween = dateBetween.add(1, "day");
-        arr.push(dateBetween);
+      if (dates.firstDate == undefined || dates.secondDate == undefined) {
+        //single date selected
+        this.$emit("selectedDateChanged", dates);
+      } else {
+        const arr = [toRaw(dates.firstDate)];
+        var dateBetween = dates.firstDate;
+        while (dateBetween.isBefore(dates.secondDate)) {
+          dateBetween = dateBetween.add(1, "day");
+          arr.push(dateBetween);
+        }
+        this.$emit("selectedDateChanged", arr);
       }
-      this.$emit("selectedDateChanged", arr);
     },
     reset() {
       this.displayDate = null;
@@ -219,7 +223,7 @@ export default {
 </script>
 <i18n src="..\..\localizations/datepicker.json"></i18n>
 <style scoped>
-.container {
+.datetime-container {
   position: relative;
 }
 .picker {

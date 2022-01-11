@@ -66,7 +66,7 @@ export default {
       },
     },
   },
-  emits: ["selectedHour", "selectedMinute"],
+  emits: ["selectedHour", "selectedMinute", "closePicker"],
   data() {
     return {
       hours: [],
