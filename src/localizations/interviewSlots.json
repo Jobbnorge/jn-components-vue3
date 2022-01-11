@@ -15,10 +15,13 @@
       "info": "Trykk på et tidspunkt for å legge til en slot i utvalget kandidatene kan velge blant."
     },
     "conflictingDates": {
-      "error": "kl {0} overlapper med hendelse(r) registrert kl. {1}"
+      "error": "kl {0} overlapper med hendelse(r) registrert kl. {1}",
+      "heading": "Ett eller flere tidspunkt er i konflikt med tidligere avtaler:"
     },
     "AvailableSlots": {
-      "heading": "Eksisterende slots i denne intervjurunden:"
+      "heading": "Eksisterende slots for denne rekrutteringen:",
+      "noExistingSlotsHeading": "Ingen eksisterende slots",
+      "noExistingSlots": "Trykk på 'Legg til slots' for å komme i gang"
     },
     "selectDuration": {
       "select": "Velg",
@@ -43,10 +46,17 @@
     },
     "createSlots": {
       "addMore": "Add slots",
-      "selectDatePeriod": "Select date / period"
+      "selectDatePeriod": "Select date / period",
+      "info": "Tap on a time-slot to add a it to the selection candidates can choose from."
+    },
+    "conflictingDates": {
+      "error": "The time slot at {0} overlaps with another event registered at {1}",
+      "heading": "One or more time slots is in conflict with previously registered events: "
     },
     "AvailableSlots": {
-      "heading": "Existing slots in this interview round:"
+      "heading": "Existing slots in this interview round:",
+      "noExistingSlotsHeading": "No existing slots",
+      "noExistingSlots": "Click the 'Add slots'-button to get started"
     },
     "selectDuration": {
       "select": "Select",

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>Ett eller flere tidspunkt er i konflikt med tidligere avtaler:</span>
+    <span>{{$t("conflictingDates.heading")}}</span>
     <ul>
       <li v-for="(date, index) in conflictingDates" :key="index">
         {{

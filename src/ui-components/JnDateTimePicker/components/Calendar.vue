@@ -69,7 +69,7 @@ export default {
       type: Object,
     },
   },
-  emits: ["updatedSelected", "showSelectedDate", "invalidDatePicked"],
+  emits: ["updatedSelected", "showSelectedDate", "invalidDatePicked", "closePicker"],
   data() {
     return {
       selectedDate: null,

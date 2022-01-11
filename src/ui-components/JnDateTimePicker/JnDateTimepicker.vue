@@ -1,5 +1,5 @@
 <template>
-  <div :aria-label="getLabelText" class="container">
+  <div :aria-label="getLabelText" class="datetime-container">
     <div style="display: flex; gap: 0.5rem; align-items: center">
       <div
         class="picker"
@@ -219,7 +219,7 @@ export default {
 </script>
 <i18n src="..\..\localizations/datepicker.json"></i18n>
 <style scoped>
-.container {
+.datetime-container {
   position: relative;
 }
 .picker {
