@@ -1,9 +1,10 @@
 <template>
   <pre>{{ selectedSlots }}</pre>
   <CreateSlots
-    :jobId="5346"
+    :jobId="5347"
     :interviewBatchId="interviewBatchId"
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
+    @existingSlotsChanged="existingSlotsChanged"
   />
 </template>
 
@@ -18,8 +19,11 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 21,
+      interviewBatchId: 51,
     };
+  },
+  methods: {
+    existingSlotsChanged: (e) => console.info(e),
   },
 };
 </script>

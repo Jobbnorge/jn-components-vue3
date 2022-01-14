@@ -26,7 +26,8 @@ import { inject, reactive, watch } from "@vue/runtime-core";
 import dayjs from "dayjs";
 
 export default {
-  setup() {
+  emits: ["existingSlotsChanged"],
+  setup(props, ctx) {
     const interviewBatchId = inject("interviewBatchId");
     const jobId = inject("jobId");
     const slots = reactive({});
@@ -51,6 +52,14 @@ export default {
         });
         if (val) fetchBatches();
       }
+    );
+
+    watch(
+      () => slots,
+      (val) => {
+        ctx.emit("existingSlotsChanged", val);
+      },
+      { deep: true }
     );
     return { slots, dayjs };
   },

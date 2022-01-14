@@ -1,6 +1,9 @@
 <template>
   <div>
-    <ExistingSlots style="margin: 1rem 0rem" />
+    <ExistingSlots
+      style="margin: 1rem 0rem"
+      @existingSlotsChanged="($event) => $emit('existingSlotsChanged', $event)"
+    />
     <JnButton @JnButton-clicked="addMoreSlots = true"
       ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
       >{{ $t("createSlots.addMore") }}</JnButton
@@ -43,7 +46,7 @@ import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
-  emits: ["selectedSlotsChanged"],
+  emits: ["selectedSlotsChanged", "existingSlotsChanged"],
   setup(props, ctx) {
     const { jobId, interviewBatchId } = toRefs(props);
     provide("jobId", jobId);
@@ -60,7 +63,6 @@ export default {
       e.length > 0
         ? e.forEach((item) => slotDateSettings.value.push(item))
         : slotDateSettings.value.push(e);
-      //e && e.forEach((item) => slotDateSettings.value.push(item));
     };
 
     const slotAdded = (date) => {
