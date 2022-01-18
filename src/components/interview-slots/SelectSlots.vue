@@ -1,6 +1,15 @@
 <template>
   <div v-for="(value, key) in generatedSlots" :key="key">
-    <h2 style="font-size: 1rem">{{ dayjs(key).format("DD.MM.YYYY") }}</h2>
+    <h2 style="font-size: 1rem">
+      {{ firstCharToUpperCase(dayjs(key).format("MMMM DD.MM.YYYY")) }}
+      <span
+        v-if="
+          numberSelectedSlotsPerDate.has(key) &&
+          numberSelectedSlotsPerDate.get(key) > 0
+        "
+        >: {{ numberSelectedSlotsPerDate.get(key) }} valgt</span
+      >
+    </h2>
     <div class="slot-container">
       <TimeSlot
         v-for="date in value"
@@ -16,10 +25,12 @@
 </template>
 
 <script>
-import { toRefs, watch, ref, onBeforeUpdate, onUpdated } from "vue";
+import { toRefs, watch, ref, onBeforeUpdate } from "vue";
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
 import dayjs from "dayjs";
 import { inject } from "vue";
+require("dayjs/locale/nb");
+dayjs.locale("nb");
 export default {
   emits: ["slotAdded", "slotRemoved"],
   components: {
@@ -31,15 +42,32 @@ export default {
     const generatedSlots = ref({});
     const jobId = inject("jobId");
 
+    const numberSelectedSlotsPerDate = ref(new Map());
+
     const timeSlotSelected = (e, date) => {
-      if (e.selected) ctx.emit("slotAdded", date);
-      else if (!e.selected) ctx.emit("slotRemoved", date);
+      var key = `${dayjs(date.startDate).format("YYYY-MM-DD")}T00:00:00`;
+      if (e.selected) {
+        ctx.emit("slotAdded", date);
+        if (numberSelectedSlotsPerDate.value.has(key)) {
+          numberSelectedSlotsPerDate.value.set(
+            key,
+            numberSelectedSlotsPerDate.value.get(key) + 1
+          );
+        } else {
+          numberSelectedSlotsPerDate.value.set(key, 1);
+        }
+      } else if (!e.selected) {
+        ctx.emit("slotRemoved", date);
+        numberSelectedSlotsPerDate.value.set(
+          key,
+          numberSelectedSlotsPerDate.value.get(key) - 1
+        );
+      }
     };
 
     var timeSlots = [];
     const setTimeSlotsRef = (ts) => ts && timeSlots.push(ts);
     onBeforeUpdate(() => (timeSlots = []));
-    onUpdated(() => timeSlots.forEach((ts) => ts.deselect()));
 
     watch(
       () => [slotTimeSettings.value, slotDateSettings.value],
@@ -47,10 +75,13 @@ export default {
         var [_timeSettings, _dateSettings] = values;
         var [, _prevDateSettings] = prevValues;
 
-        if (_dateSettings.length === 0) {
+        if (_dateSettings.length <= 0) {
           generatedSlots.value = {};
           return;
         }
+
+        timeSlots.forEach((ts) => ts.deselect());
+        numberSelectedSlotsPerDate.value.clear();
 
         if (Object.keys(_timeSettings).length > 0) {
           params["timePerSlot"] = _timeSettings.timePerSlot;
@@ -71,25 +102,32 @@ export default {
           );
         }
 
-        if (_dateSettings.length > 0) {
-          var str = Object.entries(params).map((el) => el.join("="));
-
-          fetch(
-            `${process.env.VUE_APP_URLS_APIBASE}job/${
-              jobId.value
-            }/interview/slot?${str.join("&")}`,
-            {
-              credentials: "include",
-            }
-          )
-            .then((res) => res.json())
-            .then((data) => (generatedSlots.value = data));
-        }
+        var str = Object.entries(params).map((el) => el.join("="));
+        fetch(
+          `${process.env.VUE_APP_URLS_APIBASE}job/${
+            jobId.value
+          }/interview/slot?${str.join("&")}`,
+          {
+            credentials: "include",
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => (generatedSlots.value = data));
       },
       { deep: true }
     );
 
-    return { generatedSlots, dayjs, timeSlotSelected, setTimeSlotsRef };
+    const firstCharToUpperCase = (str) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
+
+    return {
+      generatedSlots,
+      dayjs,
+      timeSlotSelected,
+      setTimeSlotsRef,
+      firstCharToUpperCase,
+      numberSelectedSlotsPerDate,
+    };
   },
   props: {
     slotTimeSettings: Object,

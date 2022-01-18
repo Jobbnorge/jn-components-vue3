@@ -60,6 +60,7 @@ export default {
     const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
     const slotDateSettingChanged = (e) => {
       slotDateSettings.value.length = 0;
+      if (!e) return;
       e.length > 0
         ? e.forEach((item) => slotDateSettings.value.push(item))
         : slotDateSettings.value.push(e);
@@ -90,6 +91,7 @@ export default {
     watch(
       () => selectedSlots.value,
       (val) => {
+        if (val.length === 0) conflictingDates.value.length = 0;
         ctx.emit("selectedSlotsChanged", val);
       },
       { deep: true }
