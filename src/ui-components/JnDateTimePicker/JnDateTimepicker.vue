@@ -6,6 +6,7 @@
         role="button"
         :style="getStyles"
         @click="showCalendar = !showCalendar"
+        ref="inputElement"
       >
         {{ displayDate
         }}<span
@@ -36,7 +37,7 @@
       />
       <!-- (type === 'dateTime' || type === 'time')  -->
       <TimeSelect
-        v-if="type != 'date' && !pickPeriod && showCalendar"
+        v-show="type != 'date' && !pickPeriod && showCalendar"
         :isTimePickerOnly="type === 'time'"
         :minutesInterval="minutesInterval"
         :preSelectedTime="{
@@ -143,6 +144,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.registerClosePickerOnOutsideClickEvent();
+  },
   updated() {
     var el = this.$refs.dateTimeElement;
     var { right } = el.getBoundingClientRect();
@@ -166,6 +170,7 @@ export default {
           }
           break;
         case "dateTime":
+          if (!date) break;
           this.selectedDate = dayjs(
             new Date(
               `${date.format("MM")}, ${date.format("DD")}, ${date.format(
@@ -220,6 +225,30 @@ export default {
       this.selectedDate = null;
       this.$emit("selectedDateChanged", null);
       this.$refs.calendar.reset();
+    },
+    registerClosePickerOnOutsideClickEvent: function () {
+      var dateTimeChildren = [
+        this.$refs.dateTimeElement,
+        ...Array.from(
+          this.$refs.dateTimeElement.getElementsByTagName("*")
+        ).filter((el) => !el.className.includes("jn-date-timepicker-day")),
+      ];
+      var inputChildren = [
+        this.$refs.inputElement,
+        ...Array.from(this.$refs.inputElement.getElementsByTagName("*")),
+      ];
+
+      var calendarChildren = dateTimeChildren.concat(inputChildren);
+
+      window.addEventListener("click", ({ target }) => {
+        if (
+          !this.showCalendar ||
+          (target.tagName === "LI" &&
+            target.className.includes("jn-date-timepicker-day"))
+        )
+          return;
+        if (!calendarChildren.some((el) => el === target)) this.closePicker();
+      });
     },
   },
 };

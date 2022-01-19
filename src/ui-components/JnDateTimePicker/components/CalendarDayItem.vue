@@ -5,6 +5,7 @@
       isToday ? 'is-today' : '',
       isSelected || isFirstDate || isSecondDate ? 'is-selected' : '',
       isCurrentPeriod ? 'period' : '',
+      'jn-date-timepicker-day',
     ]"
     :tabindex="isFocused ? 0 : -1"
     :aria-label="getAriaLabel"
@@ -71,7 +72,7 @@ export default {
       this.$emit("daySelected", dayjs(this.day.date));
     },
     handleArrowKeys(direction) {
-      console.log(`${direction}-key is not supported yet`)
+      console.log(`${direction}-key is not supported yet`);
       /* switch (direction) {
         case "up":
           return this.$emit("setFocus", {
