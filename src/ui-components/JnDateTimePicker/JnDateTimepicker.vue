@@ -24,13 +24,15 @@
       ref="dateTimeElement"
     >
       <Calendar
-        v-if="type !== 'time' && showCalendar"
+        v-show="type !== 'time' && showCalendar"
         :pickPeriod="pickPeriod"
+        :multipleDates="multipleDates"
         :allowPastDates="allowPastDates"
         :preSelectedDate="selectedDate"
         @updatedSelected="updateSelected"
         @invalidDatePicked="handleError"
         @closePicker="closePicker"
+        ref="calendar"
       />
       <!-- (type === 'dateTime' || type === 'time')  -->
       <TimeSelect
@@ -54,7 +56,6 @@ import dayjs from "dayjs";
 import Calendar from "./components/Calendar.vue";
 import TimeSelect from "./components/TimeSelect.vue";
 import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButton.vue";
-import { toRaw } from "@vue/reactivity";
 export default {
   name: "DatePicker",
   emits: ["selectedDateChanged"],
@@ -65,6 +66,10 @@ export default {
   },
   props: {
     pickPeriod: {
+      type: Boolean,
+      default: false,
+    },
+    multipleDates: {
       type: Boolean,
       default: false,
     },
@@ -151,6 +156,10 @@ export default {
             this.setDisplayDatesForPeriod(date);
             this.selectedDatesChanged(date);
             return;
+          } else if (this.multipleDates) {
+            this.setDisplayForMultipleDates(date);
+            this.selectedDatesChanged(date);
+            return;
           } else {
             this.selectedDate = date;
             this.displayDate = this.selectedDate.format("DD.MM.YYYY");
@@ -190,33 +199,27 @@ export default {
     closePicker() {
       this.showCalendar = false;
     },
-    setDisplayDatesForPeriod(date) {
-      if (date.firstDate && date.secondDate) {
-        this.displayDate = `${date.firstDate.format(
-          "DD.MM.YYYY"
-        )} - ${date.secondDate.format("DD.MM.YYYY")} `;
-      } else {
-        this.displayDate = date.format("DD.MM.YYYY");
-      }
+    setDisplayDatesForPeriod(dates) {
+      this.displayDate =
+        dates.length <= 1
+          ? dates[0].format("DD.MM.YYYY")
+          : `${dates[0].format("DD.MM.YYYY")} - ${dates[
+              dates.length - 1
+            ].format("DD.MM.YYYY")} `;
+    },
+    setDisplayForMultipleDates(dates) {
+      this.displayDate = this.$t("datepicker.selected days", [dates.length]);
     },
     selectedDatesChanged(dates) {
-      if (dates.firstDate == undefined || dates.secondDate == undefined) {
-        //single date selected
-        this.$emit("selectedDateChanged", dates);
-      } else {
-        const arr = [toRaw(dates.firstDate)];
-        var dateBetween = dates.firstDate;
-        while (dateBetween.isBefore(dates.secondDate)) {
-          dateBetween = dateBetween.add(1, "day");
-          arr.push(dateBetween);
-        }
-        this.$emit("selectedDateChanged", arr);
-      }
+      dates.length <= 1
+        ? this.$emit("selectedDateChanged", dates[0]) //single date selected
+        : this.$emit("selectedDateChanged", dates);
     },
     reset() {
       this.displayDate = null;
       this.selectedDate = null;
       this.$emit("selectedDateChanged", null);
+      this.$refs.calendar.reset();
     },
   },
 };

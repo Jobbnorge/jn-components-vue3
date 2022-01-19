@@ -36,7 +36,6 @@ import dayjs from "dayjs";
 require("dayjs/locale/nb");
 dayjs.locale("nb");
 import weekday from "dayjs/plugin/weekday";
-//import weekOfYear from "dayjs/plugin/weekOfYear";
 import CalendarMonthSelector from "../components/CalendarMonthSelector.vue";
 import CalendarWeekdays from "../components/CalendarWeekdays.vue";
 import CalendarDayItem from "../components/CalendarDayItem.vue";
@@ -68,11 +67,21 @@ export default {
     preSelectedDate: {
       type: Object,
     },
+    multipleDates: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["updatedSelected", "showSelectedDate", "invalidDatePicked", "closePicker"],
+  emits: [
+    "updatedSelected",
+    "showSelectedDate",
+    "invalidDatePicked",
+    "closePicker",
+  ],
   data() {
     return {
       selectedDate: null,
+      selectedDates: [],
       firstDate: null,
       secondDate: null,
       focusedDate: dayjs(),
@@ -229,25 +238,36 @@ export default {
       if (!this.allowPastDates && newSelectedDate.diff(this.today) < 0) {
         this.$emit("invalidDatePicked");
       } else {
-        this.selectedDate = newSelectedDate;
+        if (this.multipleDates) {
+          var i = this.selectedDates.findIndex((d) =>
+            d.isSame(newSelectedDate)
+          );
+          if (i !== -1) this.selectedDates.splice(i, 1);
+          else this.selectedDates.push(newSelectedDate);
 
-        if (this.pickPeriod) {
-          if (this.firstDate) {
-            this.secondDate = this.selectedDate;
-            this.$emit("updatedSelected", {
-              firstDate: this.firstDate,
-              secondDate: this.secondDate,
-            });
-            return;
-          } else {
-            this.firstDate = this.selectedDate;
+          this.$emit("updatedSelected", this.selectedDates);
+        } else {
+          this.selectedDate = newSelectedDate;
+
+          if (this.pickPeriod) {
+            if (this.firstDate) {
+              this.secondDate = this.selectedDate;
+              this.$emit("updatedSelected", this.selectedPeriod);
+              return;
+            } else {
+              this.firstDate = this.selectedDate;
+              this.$emit("updatedSelected", [this.selectedDate]);
+              return;
+            }
           }
+          this.$emit("updatedSelected", this.selectedDate);
         }
-        this.$emit("updatedSelected", this.selectedDate);
       }
     },
     isSelected(day) {
-      return day.date === this.selectedDate.format("YYYY-MM-DD");
+      return this.multipleDates
+        ? this.selectedDates.some((d) => d.isSame(day.date))
+        : day.date === this.selectedDate.format("YYYY-MM-DD");
     },
     isFirstDate(day) {
       return this.firstDate
@@ -271,6 +291,12 @@ export default {
       if (el) {
         el.focus();
       }
+    },
+    reset() {
+      this.selectedDate = dayjs();
+      this.selectedDates.length = 0;
+      this.firstDate = null;
+      this.secondDate = null;
     },
   },
 };

@@ -13,7 +13,7 @@
       <div style="margin: 1rem 0rem">
         <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
         <JnDateTimepicker
-          :pickPeriod="true"
+          :multipleDates="true"
           :allowPastDates="false"
           type="date"
           @selectedDateChanged="slotDateSettingChanged"

@@ -8,30 +8,11 @@ feat: (minor)
 perf: (major)
 ```
 
-## Project setup
+## Release notes
 
-```
-npm install
-```
+v1.6.0
 
-### Compiles and hot-reloads for development
+### Breaking
 
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**JnDateTimepicker:**
+If used with "period-picker" it now returns a list of dayjs dates instead of an object with a start and an end date
