@@ -1,7 +1,7 @@
 <template>
-  <div v-for="(value, key) in generatedSlots" :key="key">
+  <div v-for="(value, key) in generatedSlots" :key="key" style="margin: 2rem 0rem">
     <h2 style="font-size: 1rem">
-      {{ firstCharToUpperCase(dayjs(key).format("MMMM DD.MM.YYYY")) }}
+      {{ firstCharToUpperCase(dayjs(key).format("dddd DD.MM.YYYY")) }}
       <span
         v-if="
           numberSelectedSlotsPerDate.has(key) &&
@@ -80,7 +80,7 @@ export default {
           return;
         }
 
-        timeSlots.forEach((ts) => ts.deselect());
+        //timeSlots.forEach((ts) => ts.deselect());
         numberSelectedSlotsPerDate.value.clear();
 
         if (Object.keys(_timeSettings).length > 0) {
@@ -132,7 +132,6 @@ export default {
   props: {
     slotTimeSettings: Object,
     slotDateSettings: Array,
-    selectedSlots: Array,
   },
 };
 </script>

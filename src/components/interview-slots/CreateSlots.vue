@@ -4,13 +4,16 @@
       style="margin: 1rem 0rem"
       @existingSlotsChanged="($event) => $emit('existingSlotsChanged', $event)"
     />
-    <JnButton @JnButton-clicked="addMoreSlots = true"
-      ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
-      >{{ $t("createSlots.addMore") }}</JnButton
-    >
+    <hr style="border: 1px solid #f6f5f6" />
+    <div>
+      <JnButton @JnButton-clicked="addMoreSlots = !addMoreSlots"
+        ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
+        >{{ $t("createSlots.addMore") }}</JnButton
+      >
+    </div>
     <div v-if="addMoreSlots">
       <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
-      <div style="margin: 1rem 0rem">
+      <div style="margin: 2rem 0rem">
         <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
         <JnDateTimepicker
           :multipleDates="true"
@@ -19,10 +22,15 @@
           @selectedDateChanged="slotDateSettingChanged"
         />
       </div>
-      <span
-        v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
-        >{{ $t("createSlots.info") }}</span
+      <span class="far fa-info-circle" style="color: var(--darkBlue)">
+        <p
+          style="color: var(--gray)"
+          v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
+        >
+          {{ $t("createSlots.info") }}
+        </p></span
       >
+
       <ConflictingDates
         v-if="conflictingDates.length > 0"
         :conflictingDates="conflictingDates"

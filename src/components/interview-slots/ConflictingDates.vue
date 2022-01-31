@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>{{$t("conflictingDates.heading")}}</span>
+    <span class="fas fa-info-circle" style="color: #890E0E;  margin-right: 0.3rem; "><strong>{{$t("conflictingDates.heading")}}</strong></span>
     <ul>
       <li v-for="(date, index) in conflictingDates" :key="index">
         {{
@@ -33,4 +33,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+ul {
+  list-style-type: disc;
+}
+ul li {
+  padding: 0.3rem;
+}
+</style>
 <i18n src="../../localizations/interviewSlots.json"></i18n>
