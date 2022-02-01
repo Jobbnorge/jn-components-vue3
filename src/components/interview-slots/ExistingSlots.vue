@@ -136,23 +136,6 @@ export default {
   border-radius: 3px;
   width: fit-content;
 }
-.fadeIn {
-  animation: fade 0.5s ease-in;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 100px;
-}
-
-@keyframes fade {
-  0% {
-    transform: translate3d(0, -10px, 0);
-    opacity: 0;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
 .fade-enter-active,
 .fade-leave-active {
   transition: transform 0.4s, opacity 0.3s;

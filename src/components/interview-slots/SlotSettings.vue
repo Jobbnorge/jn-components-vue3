@@ -149,7 +149,6 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin: 1rem 0rem;
-  transform: scaleY(1); 
 }
 .fade-enter-active,
 .fade-leave-active {
