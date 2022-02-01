@@ -1,0 +1,22 @@
+{
+  "nb-NO": {
+    "interviewHeader": {
+      "switch": "Bruk intervjuslots",
+      "slotInfoText": "Her må det komme en beskrivende tekst om intervjuslots for de som trenger litt hjelp"
+    },
+    "selectInterviewBatch": {
+      "Intervjurunden har # kandidater fra før": "Intervjurunden har {0} kandidater fra før",
+      "Intervjurunden har ingen kandidater fra før": "Intervjurunden har ingen kandidater fra før",
+      "Kandidatene er en del av:": "Kandidatene er en del av:",
+      "Opprett ny runde": "Opprett ny runde",
+      "Gi intervjurunden et navn:": "Gi intervjurunden et navn:"
+    }
+  },
+  "en": {
+    "interviewHeader": {
+      "switch": "Use interview slots",
+      "slotInfoText": "Her må det komme en beskrivende tekst om intervjuslots for de som trenger litt hjelp"
+    },
+    "selectInterviewBatch": {}
+  }
+}

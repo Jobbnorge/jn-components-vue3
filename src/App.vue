@@ -1,4 +1,8 @@
 <template>
+  <InterviewHeader
+    @displaySlot="displaySlotChanged"
+    @selectedBatchChanged="setInterviewBatch"
+  ></InterviewHeader>
   <JnDateTimePicker
     :pickPeriod="true"
     :multipleDates="false"
@@ -25,7 +29,7 @@
   <div v-else>Select a date!</div>
 
   <CreateSlots
-    :jobId="9261"
+    :jobId="5347"
     :interviewBatchId="interviewBatchId"
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
     @existingSlotsChanged="existingSlotsChanged"
@@ -35,22 +39,26 @@
 <script>
 import CreateSlots from "./components/interview-slots/CreateSlots.vue";
 import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.vue";
+import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
 
 export default {
   name: "App",
   components: {
     CreateSlots,
     JnDateTimePicker,
+    InterviewHeader,
   },
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 8,
+      interviewBatchId: 51,
       selectedDates: null,
     };
   },
   methods: {
     existingSlotsChanged: (e) => console.info(e),
+    displaySlotChanged: (e) => console.info(e),
+    setInterviewBatch: (e) => console.info(e),
   },
 };
 </script>
