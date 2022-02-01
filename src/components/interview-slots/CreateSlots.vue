@@ -22,11 +22,12 @@
           @selectedDateChanged="slotDateSettingChanged"
         />
       </div>
-      <span class="far fa-info-circle" style="color: var(--darkBlue)">
-        <p
-          style="color: var(--gray)"
-          v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
-        >
+      <span
+        v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
+        class="far fa-info-circle"
+        style="color: var(--darkBlue)"
+      >
+        <p style="color: var(--gray)">
           {{ $t("createSlots.info") }}
         </p></span
       >
