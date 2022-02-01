@@ -97,6 +97,8 @@ export default {
         Object.keys(slots).forEach((k) => {
           delete slots[k];
         });
+        numberOfDates.value = 0;
+        totalNumberOfSlots.value = 0;
         if (val) fetchBatches();
       }
     );
