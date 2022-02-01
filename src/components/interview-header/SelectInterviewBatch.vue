@@ -88,7 +88,7 @@ export default {
           newBatchDisabled.value = true;
         } else {
           data.forEach((el) =>
-            batches.value.push({ value: el.id, label: el.title })
+            batches.value.push({ value: el.id, label: el.title, numberCanChooseSlot: el.canChooseInterviewSlot })
           );
           selectedBatch.value = batches.value[data.length - 1].value;
         }
@@ -104,6 +104,7 @@ export default {
         ctx.emit("selectedBatchChanged", {
           id: batch.value,
           title: batch.label,
+          canChooseInterviewSlot: batch.numberCanChooseSlot
         });
     });
 
