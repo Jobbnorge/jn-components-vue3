@@ -29,7 +29,7 @@
   <div v-else>Select a date!</div>
 
   <CreateSlots
-    :jobId="9261"
+    :jobId="5347"
     :interviewBatchId="interviewBatchId"
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
     @existingSlotsChanged="existingSlotsChanged"
@@ -58,7 +58,7 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 8,
+      interviewBatchId: 51,
       selectedDates: null,
     };
   },
