@@ -1,0 +1,16 @@
+{
+  "nb-NO": {
+    "dateLocationInput": {
+      "tidspunkt": "Tidspunkt",
+      "varighet": "Varighet",
+      "sted": "Sted"
+    }
+  },
+  "en": {
+    "dateLocationInput": {
+      "tidspunkt": "Date",
+      "varighet": "Duration",
+      "sted": "Location"
+    }
+  }
+}

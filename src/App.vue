@@ -34,12 +34,18 @@
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
     @existingSlotsChanged="existingSlotsChanged"
   />
+
+  <DateLocationInput
+    :candidateId="1"
+    @inputChanged="dateLocationInputUpdated"
+  ></DateLocationInput>
 </template>
 
 <script>
 import CreateSlots from "./components/interview-slots/CreateSlots.vue";
 import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
+import DateLocationInput from "./components/DateLocationInput.vue";
 
 export default {
   name: "App",
@@ -47,6 +53,7 @@ export default {
     CreateSlots,
     JnDateTimePicker,
     InterviewHeader,
+    DateLocationInput,
   },
   data: function () {
     return {
@@ -59,6 +66,7 @@ export default {
     existingSlotsChanged: (e) => console.info(e),
     displaySlotChanged: (e) => console.info(e),
     setInterviewBatch: (e) => console.info(e),
+    dateLocationInputUpdated: (e) => console.info(e),
   },
 };
 </script>

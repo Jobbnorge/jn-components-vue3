@@ -9,7 +9,6 @@
     :options="options"
     :canClear="isClearable"
     v-model="selectedDuration"
-    @select="handleSelect"
     style="margin-bottom: 1rem"
   ></MultiSelect>
 </template>
@@ -46,13 +45,15 @@ export default {
     }
     this.options = this.durationOptions();
   },
-  methods: {
-    handleSelect() {
+  watch: {
+    selectedDuration: function (val) {
       this.$emit("durationSelected", {
         id: this.id,
-        duration: this.selectedDuration,
+        duration: val,
       });
     },
+  },
+  methods: {
     durationOptions() {
       let durationArr = [];
       for (let hour = 0; hour <= this.maxHours; hour++) {
