@@ -72,7 +72,7 @@ export default {
     const totalNumberOfSlots = ref(0);
     const showExistingSlots = ref(true);
 
-    const fetchBatches = () => {
+    const fetchSlots = () => {
       fetch(
         `${process.env.VUE_APP_URLS_APIBASE}job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot/`,
         { credentials: "include" }
@@ -89,18 +89,17 @@ export default {
         });
     };
 
-    if (interviewBatchId.value != undefined) fetchBatches();
-
     watch(
-      () => interviewBatchId.value,
-      (val) => {
+      () => [interviewBatchId.value, jobId.value],
+      (values) => {
         Object.keys(slots).forEach((k) => {
           delete slots[k];
         });
         numberOfDates.value = 0;
         totalNumberOfSlots.value = 0;
-        if (val) fetchBatches();
-      }
+        if (values.every((val) => val != undefined)) fetchSlots();
+      },
+      { immediate: true }
     );
 
     watch(
