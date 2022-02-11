@@ -65,6 +65,7 @@ export default {
     const slotDateSettings = ref([]);
     const selectedSlots = ref([]);
     const conflictingDates = ref([]);
+    const addMoreSlots = ref(false);
 
     const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
     const slotDateSettingChanged = (e) => {
@@ -120,6 +121,7 @@ export default {
       slotAdded,
       slotRemoved,
       conflictingDates,
+      addMoreSlots,
     };
   },
   components: {
@@ -136,11 +138,6 @@ export default {
       required: true,
     },
     interviewBatchId: Number,
-  },
-  data() {
-    return {
-      addMoreSlots: false,
-    };
   },
 };
 </script>

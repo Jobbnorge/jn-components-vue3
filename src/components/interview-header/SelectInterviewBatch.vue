@@ -75,27 +75,33 @@ export default {
       () => applicationsOnBatch.value.length
     );
 
-    fetch(`${process.env.VUE_APP_URLS_APIBASE}job/${jobId}/interviewbatch`, {
-      credentials: "include",
-    })
-      .then((res) => {
-        return res.json();
+    const fetchBatches = () => {
+      fetch(`${process.env.VUE_APP_URLS_APIBASE}job/${jobId}/interviewbatch`, {
+        credentials: "include",
       })
-      .then((data) => {
-        batches.length = 0;
-        if (data.length === 0) {
-          newBatch.value = true;
-          newBatchDisabled.value = true;
-        } else {
-          data.forEach((el) =>
-            batches.value.push({ value: el.id, label: el.title, numberCanChooseSlot: el.canChooseInterviewSlot })
-          );
-          selectedBatch.value = batches.value[data.length - 1].value;
-        }
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          batches.length = 0;
+          if (data.length === 0) {
+            newBatch.value = true;
+            newBatchDisabled.value = true;
+          } else {
+            data.forEach((el) =>
+              batches.value.push({
+                value: el.id,
+                label: el.title,
+                numberCanChooseSlot: el.canChooseInterviewSlot,
+              })
+            );
+            selectedBatch.value = batches.value[data.length - 1].value;
+          }
+        });
+    };
 
-        newBatchTitle.value = `Intervjurunde ${data.length + 1}`;
-        emitBatchTitle();
-      });
+    if (jobId != undefined) fetchBatches();
+    else console.warn("could not read jobid from uri query params");
 
     watch(selectedBatch, (val) => {
       let batch = batches.value.find((b) => b.value === val);
@@ -104,7 +110,7 @@ export default {
         ctx.emit("selectedBatchChanged", {
           id: batch.value,
           title: batch.label,
-          canChooseInterviewSlot: batch.numberCanChooseSlot
+          canChooseInterviewSlot: batch.numberCanChooseSlot,
         });
     });
 
