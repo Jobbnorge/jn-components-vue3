@@ -1,50 +1,89 @@
 <template>
-  <div v-show="showInfoBox" class="infobox-help">
-    {{ $t("interviewHeader.slotInfoText") }}
-  </div>
-  <div id="interviewHeader">
-    <div>
-      <SelectInterviewBatch
-        @selectedBatchChanged="
-          ($event) => $emit('selectedBatchChanged', $event)
-        "
-        @newBatchTitleChanged="
-          ($event) => $emit('newBatchTitleChanged', $event)
-        "
-      />
-    </div>
-    <div style="align-self: center">
-      <JnSwitch
-        @switchHasChanged="($event) => $emit('displaySlot', $event)"
-      ></JnSwitch>
-      {{ $t("interviewHeader.switch") }}
-      <span
-        class="fas fa-info-circle"
-        style="color: var(--pink); font-size: 1rem; cursor: pointer"
-        @click="toggleInfoBox"
-      ></span>
-    </div>
-  </div>
+  <InfoBox colorTheme="green" style="background: hsla(141, 63%, 89%, 0.5)">
+    <template #box-content>
+      <h1 style="font-size: 1rem; margin-bottom: 1rem">
+        {{ $t("interviewHeader.title")
+        }}<span
+          class="fas fa-info-circle"
+          style="margin-left: 0.3rem; color: var(--pink); cursor: pointer"
+          @click="toggleInfoBox"
+          ><span class="sr-only">{{
+            $t("InterviewHeader.sr-helpText")
+          }}</span></span
+        >
+      </h1>
+      <div id="interviewHeader">
+        <div>
+          <SelectInterviewBatch
+            :jobId="jobId"
+            @selectedBatchChanged="selectedBatchChanged"
+            @newBatchTitleChanged="
+              ($event) => $emit('newBatchTitleChanged', $event)
+            "
+          />
+        </div>
+        <div>
+          <CreateSlots
+            :jobId="jobId"
+            :interviewBatchId="interviewBatchId"
+            :showExistingSlotsSummary="true"
+            @selectedSlotsChanged="($event) => (selectedSlots = $event)"
+            @existingSlotsChanged="existingSlotsChanged"
+          />
+        </div>
+      </div>
+      <InfoBox
+        class="infobox-help"
+        v-if="showInfoBox"
+        colorTheme="pink"
+        canClose
+        @info-box-closed="toggleInfoBox"
+      >
+        <template #box-content>
+          {{ $t("interviewHeader.slotInfoText") }}
+        </template>
+      </InfoBox>
+    </template>
+  </InfoBox>
 </template>
 
 <script>
-import JnSwitch from "@jobbnorge/jn-components/src/ui_components/buttons/JnSwitch.vue";
 import SelectInterviewBatch from "./SelectInterviewBatch.vue";
+import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
+import CreateSlots from "../interview-slots/CreateSlots.vue";
 
 import { ref } from "vue";
 
 export default {
   emits: ["displaySlot", "selectedBatchChanged", "newBatchTitleChanged"],
-  setup() {
+  setup(props, ctx) {
+
     const showInfoBox = ref(false);
+    const interviewBatchTitle = ref("");
+    const interviewBatchId = ref(undefined);
+
+    const selectedBatchChanged = (e) => {
+      interviewBatchTitle.value = e.title;
+      interviewBatchId.value = e.id;
+      ctx.emit("selectedBatchChanged", e);
+    };
 
     const toggleInfoBox = () => {
       showInfoBox.value = !showInfoBox.value;
     };
 
-    return { showInfoBox, toggleInfoBox };
+    return {
+      showInfoBox,
+      toggleInfoBox,
+      selectedBatchChanged,
+      interviewBatchId,
+    };
   },
-  components: { JnSwitch, SelectInterviewBatch },
+  components: { InfoBox, SelectInterviewBatch, CreateSlots },
+  props: {
+    showExistingSlotsSummary: Boolean,
+    jobId: Number,
+  },
 };
 </script>
 
@@ -56,17 +95,31 @@ export default {
   gap: 1rem;
 }
 .infobox-help {
-  background-color: var(--lightPink);
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 3px;
   position: absolute;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   z-index: 2;
   width: 20rem;
-  right: 3rem;
-  top: 5rem;
-  min-width: 20rem;
-  min-height: 10rem;
-  padding: 0.5rem;
+  left: 3rem;
+  top: 3rem;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 </style>
 <i18n src="../../localizations/interviewHeader.json"></i18n>

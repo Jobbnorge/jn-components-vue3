@@ -261,6 +261,7 @@ export default {
 .picker {
   height: 1.5rem;
   border: 1px solid var(--gray);
+  background-color: #fff;
   border-radius: 3px;
   cursor: pointer;
   display: flex;

@@ -12,7 +12,8 @@
       "showSettings": "Vis innstillinger"
     },
     "createSlots": {
-      "addMore": "Legg til slots",
+      "addMore": "Opprett intervjuslots",
+      "addMoreCancel": "Avbryt", 
       "selectDatePeriod": "Velg den / de datoene som er aktuelle",
       "info": "Trykk på et tidspunkt for å legge til en slot i utvalget kandidatene kan velge blant."
     },
@@ -21,12 +22,23 @@
       "heading": "Ett eller flere tidspunkt er i konflikt med tidligere avtaler:"
     },
     "AvailableSlots": {
-      "heading": "Eksisterende slots i denne intervjurunden",
-      "noExistingSlotsHeading": "Ingen eksisterende slots",
+      "heading": "Tilgjengelige slots i denne intervjurunden",
+      "subtitle": "Søkeren(e) kan velge mellom følgende tidspunkt", 
+      "showExisting": "Se tilgjenglige slots",
+      "hideExisting": "Skjul slots", 
+      "noExistingSlotsHeading": "Ingen tilgjengelige slots i intervjurunden",
       "noExistingSlots": "Trykk på 'Legg til slots' for å komme i gang",
       "show": "(Vis)",
       "hide": "(Skjul)",
-      "summaryExisting": "Totalt: {0} slots fordelt på {1} dager"
+      "summaryExisting": "Intervjurunden har {0} slots fordelt på {1} dager",
+      "title": "Intervjuslots",
+      "summaryNoExisting": "Ingen tilgjengelige intervjuslots i runden, vil du opprette slots?",
+      "noExistingSubtitle": "Du må legge til slots i runden før det er mulig å invitere søker(e) til å velge tidspunkt.",
+      "noSummaryTitle": "Tilgjengelige intervjuslots i runden"
+    },
+    "selectSlots": {
+      "numberSelected": "{0} valgt",
+      "empty": "Ingen valgt"
     },
     "selectDuration": {
       "select": "Velg",
@@ -52,7 +64,8 @@
       "showSettings": "Show settings"
     },
     "createSlots": {
-      "addMore": "Add slots",
+      "addMore": "Create interview slots",
+      "addMoreCancel": "Cancel", 
       "selectDatePeriod": "Select relevant date(s)",
       "info": "Tap on a time-slot to add a it to the selection candidates can choose from."
     },
@@ -61,12 +74,22 @@
       "heading": "One or more time slots is in conflict with previously registered events: "
     },
     "AvailableSlots": {
-      "heading": "Existing slots for this interview round",
-      "noExistingSlotsHeading": "No existing slots",
+      "heading": "Available interviewslots in the selected round",
+      "subtitle": "The applicant(s) can choose between the following times", 
+      "showExisting": "Show available slots",
+      "hideExisting": "Hide slots", 
+      "noExistingSlotsHeading": "No available slots in the interview round",
       "noExistingSlots": "Click the 'Add slots'-button to get started",
       "show": "(Show)",
       "hide": "(Hide)",
-      "summaryExisting": "In total: {0} slots and {1} dates"
+      "summaryExisting": "The interview round has {0} slots and {1} dates",
+      "title": "Interview slots",
+      "summaryNoExisting": "No available slots in the interview round, would you like to create slots for this round?"
+
+    },
+    "selectSlots": {
+      "numberSelected": "{0} selected",
+      "empty": "None selected"
     },
     "selectDuration": {
       "select": "Select",

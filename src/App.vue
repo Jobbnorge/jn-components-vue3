@@ -1,5 +1,6 @@
 <template>
   <InterviewHeader
+    :jobId="jobId"
     @displaySlot="displaySlotChanged"
     @selectedBatchChanged="setInterviewBatch"
   ></InterviewHeader>
@@ -29,16 +30,24 @@
   <div v-else>Select a date!</div>
 
   <CreateSlots
-    :jobId="5347"
+    v-if="currentInterviewBatch"
+    :jobId="jobId"
+    :showExistingSlotsSummary="false"
     :interviewBatchId="interviewBatchId"
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
     @existingSlotsChanged="existingSlotsChanged"
   />
-
   <DateLocationInput
     :candidateId="1"
     @inputChanged="dateLocationInputUpdated"
   ></DateLocationInput>
+  <h1>ExistingSlots</h1>
+  <ExistingSlots
+    :slots="slotExample"
+    :totalNumberOfSlots="5"
+    :numberOfDates="2"
+    :showExistingSlotsSummary="false"
+  />
 </template>
 
 <script>
@@ -46,6 +55,7 @@ import CreateSlots from "./components/interview-slots/CreateSlots.vue";
 import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
 import DateLocationInput from "./components/DateLocationInput.vue";
+import ExistingSlots from "./components/interview-slots/ExistingSlots.vue"; 
 
 export default {
   name: "App",
@@ -54,18 +64,71 @@ export default {
     JnDateTimePicker,
     InterviewHeader,
     DateLocationInput,
+    ExistingSlots
   },
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 51,
+      interviewBatchId: 8,
+      jobId: 9262,
       selectedDates: null,
+      currentInterviewBatch: null,
+      slotExample: {
+        "2022-02-17T00:00:00": [
+          {
+            id: 1,
+            startDate: "2022-02-17T10:30:00",
+            endDate: "2022-02-17T11:30:00",
+            isOccupied: false,
+          },
+          {
+            id: 2,
+            startDate: "2022-02-17T11:45:00",
+            endDate: "2022-02-17T12:45:00",
+            isOccupied: false,
+          },
+          {
+            id: 3,
+            startDate: "2022-02-17T14:15:00",
+            endDate: "2022-02-17T15:15:00",
+            isOccupied: false,
+          },
+        ],
+        "2022-02-19T00:00:00": [
+          {
+            id: 4,
+            startDate: "2022-02-19T10:30:00",
+            endDate: "2022-02-19T11:30:00",
+            isOccupied: false,
+          },
+          {
+            id: 5,
+            startDate: "2022-02-19T09:15:00",
+            endDate: "2022-02-19T10:15:00",
+            isOccupied: false,
+          },
+          {
+            id: 6,
+            startDate: "2022-02-19T11:45:00",
+            endDate: "2022-02-19T12:45:00",
+            isOccupied: false,
+          },
+          {
+            id: 7,
+            startDate: "2022-02-19T14:15:00",
+            endDate: "2022-02-19T15:15:00",
+            isOccupied: false,
+          },
+        ],
+      },
     };
   },
   methods: {
     existingSlotsChanged: (e) => console.info(e),
     displaySlotChanged: (e) => console.info(e),
-    setInterviewBatch: (e) => console.info(e),
+    setInterviewBatch(e) {
+      this.currentInterviewBatch = e;
+    },
     dateLocationInputUpdated: (e) => console.info(e),
   },
 };

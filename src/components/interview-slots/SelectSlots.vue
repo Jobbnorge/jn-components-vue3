@@ -11,8 +11,14 @@
           numberSelectedSlotsPerDate.has(key) &&
           numberSelectedSlotsPerDate.get(key) > 0
         "
-        >: {{ numberSelectedSlotsPerDate.get(key) }} valgt</span
+        >:
+        {{
+          $t("selectSlots.numberSelected", [
+            numberSelectedSlotsPerDate.get(key),
+          ])
+        }}</span
       >
+      <span v-else> ({{ $t("selectSlots.empty") }}) </span>
     </h2>
     <div class="slot-container">
       <TimeSlot
@@ -151,3 +157,4 @@ export default {
   width: fit-content;
 }
 </style>
+<i18n src="../../localizations/interviewSlots.json"></i18n>

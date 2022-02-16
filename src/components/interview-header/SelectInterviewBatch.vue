@@ -2,23 +2,19 @@
   <div id="selectInterviewBatch" style="width: 30rem">
     <div v-show="!newBatch">
       <div>
-        <span
-          v-if="numberExistingAppsOnBatch > 0"
-          style="color: var(--lightGray2)"
-          >{{
-            $t("selectInterviewBatch.Intervjurunden har # kandidater fra før", [
-              numberExistingAppsOnBatch,
-            ])
-          }}</span
-        >
-        <span v-else style="color: var(--lightGray2)">{{
+        <span v-if="numberExistingAppsOnBatch > 0" style="color: var(--gray)">{{
+          $t("selectInterviewBatch.Intervjurunden har # kandidater fra før", [
+            numberExistingAppsOnBatch,
+          ])
+        }}</span>
+        <span v-else style="color: var(--gray)">{{
           $t("selectInterviewBatch.Intervjurunden har ingen kandidater fra før")
         }}</span>
       </div>
       <div class="select-batch">
-        <span style="white-space: nowrap; font-size: 1rem">{{
-          $t("selectInterviewBatch.Kandidatene er en del av:")
-        }}</span>
+        <span style="white-space: nowrap; font-size: 1rem"
+          >{{ $t("selectInterviewBatch.Kandidaten(e) skal inn i") }}:</span
+        >
         <Multiselect
           :options="batches"
           v-model="selectedBatch"
@@ -65,7 +61,6 @@ export default {
   setup(props, ctx) {
     const multiselect = ref(null);
     const batches = ref([]);
-    const jobId = new URLSearchParams(window.location.search).get("jobid");
     const newBatch = ref(false);
     const newBatchDisabled = ref(false);
     const newBatchTitle = ref(null);
@@ -76,7 +71,7 @@ export default {
     );
 
     const fetchBatches = () => {
-      fetch(`${process.env.VUE_APP_URLS_APIBASE}job/${jobId}/interviewbatch`, {
+      fetch(`${process.env.VUE_APP_URLS_APIBASE}job/${props.jobId}/interviewbatch`, {
         credentials: "include",
       })
         .then((res) => {
@@ -100,8 +95,8 @@ export default {
         });
     };
 
-    if (jobId != undefined) fetchBatches();
-    else console.warn("could not read jobid from uri query params");
+    if (props.jobId != undefined) fetchBatches();
+    else console.warn("could not read jobid props");
 
     watch(selectedBatch, (val) => {
       let batch = batches.value.find((b) => b.value === val);
@@ -139,6 +134,9 @@ export default {
       numberExistingAppsOnBatch,
     };
   },
+  props: {
+    jobId: Number
+  }
 };
 </script>
 <style scoped>

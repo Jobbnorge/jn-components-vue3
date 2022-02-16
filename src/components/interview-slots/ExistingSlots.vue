@@ -1,43 +1,34 @@
 <template>
-  <div v-if="Object.keys(slots).length > 0">
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      "
-    >
+  <div v-if="totalNumberOfSlots > 0">
+    <div v-if="showExistingSlotsSummary">
       <h1 class="title">
-        {{ $t("AvailableSlots.heading") }}
-        <span
-          style="text-decoration: underline; cursor: pointer"
-          @click="
-            () => {
-              showExistingSlots = !showExistingSlots;
-            }
-          "
-          >{{
-            showExistingSlots
-              ? $t("AvailableSlots.hide")
-              : $t("AvailableSlots.show")
-          }}</span
-        >
-        :
-      </h1>
-      <p style="color: var(--lightGray2)">
         {{
-          $t("AvailableSlots.summaryExisting", [
-            totalNumberOfSlots,
-            numberOfDates,
-          ])
+          showExistingSlots
+            ? $t("AvailableSlots.heading")
+            : $t("AvailableSlots.title")
+        }}
+      </h1>
+      <p style="color: var(--gray)">
+        {{
+          showExistingSlots
+            ? $t("AvailableSlots.subtitle")
+            : $t("AvailableSlots.summaryExisting", [
+                totalNumberOfSlots,
+                numberOfDates,
+              ])
         }}
       </p>
+    </div>
+    <div v-else>
+      <h1 class="title">
+        {{ $t("AvailableSlots.heading") }}
+      </h1>
+      <p>{{ $t("AvailableSlots.subtitle") }}</p>
     </div>
     <transition name="fade">
       <div v-if="showExistingSlots">
         <div v-for="(value, key) in slots" :key="key">
-          <h2 style="font-size: 1rem">{{ dayjs(key).format("DD.MM.YYYY") }}</h2>
+          <h2 style="font-size: 1rem">{{ displayDate(key) }}</h2>
           <div class="slot-container">
             <TimeSlot
               v-for="date in value"
@@ -51,74 +42,75 @@
         </div>
       </div>
     </transition>
+    <JnMiniButton
+      v-if="showExistingSlotsSummary"
+      @miniButton-clicked="toggleExistingSlots"
+      ><span class="fal fa-arrow-down"></span
+      >{{
+        showExistingSlots
+          ? $t("AvailableSlots.hideExisting")
+          : $t("AvailableSlots.showExisting")
+      }}</JnMiniButton
+    >
   </div>
+  <!-- NO SLOTS -->
   <div v-else>
-    <h1 class="title">{{ $t("AvailableSlots.noExistingSlotsHeading") }}</h1>
-    <p>{{ $t("AvailableSlots.noExistingSlots") }}</p>
+    <h1 class="title">
+      {{
+        showExistingSlotsSummary
+          ? $t("AvailableSlots.noSummaryTitle")
+          : $t("AvailableSlots.noExistingSlotsHeading")
+      }}
+    </h1>
+    <p>
+      {{
+        showExistingSlotsSummary
+          ? $t("AvailableSlots.summaryNoExisting")
+          : $t("AvailableSlots.noExistingSubtitle")
+      }}
+    </p>
   </div>
 </template>
 <script>
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
-import { inject, reactive, ref, watch } from "@vue/runtime-core";
+import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnMiniButton.vue";
+import { toRefs, ref, inject } from "@vue/runtime-core";
 import dayjs from "dayjs";
 
 export default {
-  emits: ["existingSlotsChanged"],
+  emits: ["showExistingSlots"],
   setup(props, ctx) {
-    const interviewBatchId = inject("interviewBatchId");
-    const jobId = inject("jobId");
-    const slots = reactive({});
-    const numberOfDates = ref(0);
-    const totalNumberOfSlots = ref(0);
-    const showExistingSlots = ref(true);
+    const interviewBatchTitle = inject("interviewBatchTitle");
+    const { showExistingSlotsSummary } = toRefs(props);
+    const showExistingSlots = ref(!showExistingSlotsSummary.value);
 
-    const fetchSlots = () => {
-      fetch(
-        `${process.env.VUE_APP_URLS_APIBASE}job/${jobId.value}/interviewbatch/${interviewBatchId.value}/interviewslot/`,
-        { credentials: "include" }
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          numberOfDates.value = Object.keys(data).length;
-          Object.values(data).forEach((date) => {
-            totalNumberOfSlots.value += date.length;
-          });
-          Object.assign(slots, data);
-        });
+    const toggleExistingSlots = () => {
+      showExistingSlots.value = !showExistingSlots.value;
+      ctx.emit("showExistingSlots", showExistingSlots.value);
     };
 
-    watch(
-      () => [interviewBatchId.value, jobId.value],
-      (values) => {
-        Object.keys(slots).forEach((k) => {
-          delete slots[k];
-        });
-        numberOfDates.value = 0;
-        totalNumberOfSlots.value = 0;
-        if (values.every((val) => val != undefined)) fetchSlots();
-      },
-      { immediate: true }
-    );
+    const displayDate = (day) => {
+      let dateString = dayjs(day).format("dddd, DD.MM.YYYY");
+      return dateString.charAt(0).toUpperCase() + dateString.slice(1);
+    };
 
-    watch(
-      () => slots,
-      (val) => {
-        ctx.emit("existingSlotsChanged", val);
-      },
-      { deep: true }
-    );
     return {
-      slots,
       dayjs,
-      numberOfDates,
-      totalNumberOfSlots,
       showExistingSlots,
+      toggleExistingSlots,
+      interviewBatchTitle,
+      displayDate,
     };
   },
   components: {
     TimeSlot,
+    JnMiniButton,
+  },
+  props: {
+    slots: Object,
+    totalNumberOfSlots: Number,
+    numberOfDates: Number,
+    showExistingSlotsSummary: Boolean,
   },
 };
 </script>
