@@ -74,13 +74,12 @@
 <script>
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
 import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnMiniButton.vue";
-import { toRefs, ref, inject } from "@vue/runtime-core";
+import { toRefs, ref } from "@vue/runtime-core";
 import dayjs from "dayjs";
 
 export default {
   emits: ["showExistingSlots"],
   setup(props, ctx) {
-    const interviewBatchTitle = inject("interviewBatchTitle");
     const { showExistingSlotsSummary } = toRefs(props);
     const showExistingSlots = ref(!showExistingSlotsSummary.value);
 
