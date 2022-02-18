@@ -97,7 +97,6 @@ export default {
       dayjs,
       showExistingSlots,
       toggleExistingSlots,
-      interviewBatchTitle,
       displayDate,
     };
   },
