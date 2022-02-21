@@ -28,7 +28,6 @@
             :interviewBatchId="interviewBatchId"
             :showExistingSlotsSummary="true"
             @selectedSlotsChanged="($event) => (selectedSlots = $event)"
-            @existingSlotsChanged="existingSlotsChanged"
           />
         </div>
       </div>

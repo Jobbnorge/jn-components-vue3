@@ -46,11 +46,12 @@
     </transition>
     <div v-if="canAddMoreSlots && selectedSlots.length === 0">
       <JnMiniButton @miniButton-clicked="toggleAddMoreSlots"
-        ><span
-          class="fal fa-plus"
-          style="margin-right: 0.5rem"
-        ></span
-        >{{ showAddMoreSlots ? $t("createSlots.addMoreCancel") : $t("createSlots.addMore") }}</JnMiniButton
+        ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
+        >{{
+          showAddMoreSlots
+            ? $t("createSlots.addMoreCancel")
+            : $t("createSlots.addMore")
+        }}</JnMiniButton
       >
     </div>
   </div>
@@ -65,7 +66,7 @@ import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
-  emits: ["selectedSlotsChanged", "existingSlotsChanged"],
+  emits: ["selectedSlotsChanged"],
   setup(props, ctx) {
     const { jobId, interviewBatchId, showExistingSlotsSummary } = toRefs(props);
     provide("jobId", jobId);
@@ -79,7 +80,7 @@ export default {
     const totalNumberOfSlots = ref(0);
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
-    const canAddMoreSlots = showExistingSlotsSummary ? ref(true) : ref(false);
+    const canAddMoreSlots = ref(!showExistingSlotsSummary.value);
 
     const fetchSlots = () => {
       fetch(
@@ -134,8 +135,8 @@ export default {
     };
 
     const toggleAddMoreSlots = () => {
-      showAddMoreSlots.value = !showAddMoreSlots.value
-    }
+      showAddMoreSlots.value = !showAddMoreSlots.value;
+    };
 
     watch(
       () => [interviewBatchId.value, jobId.value],
@@ -149,14 +150,6 @@ export default {
       },
       { immediate: true }
     );
-
-    /*     watch(
-      () => slots,
-      (val) => {
-        ctx.emit("existingSlotsChanged", val);
-      },
-      { deep: true }
-    ); */
 
     watch(
       () => selectedSlots.value,
@@ -188,7 +181,7 @@ export default {
       showAddMoreSlots,
       setCanAddMoreSlots,
       canAddMoreSlots,
-      toggleAddMoreSlots
+      toggleAddMoreSlots,
     };
   },
   components: {

@@ -55,7 +55,7 @@ import CreateSlots from "./components/interview-slots/CreateSlots.vue";
 import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
 import DateLocationInput from "./components/DateLocationInput.vue";
-import ExistingSlots from "./components/interview-slots/ExistingSlots.vue"; 
+import ExistingSlots from "./components/interview-slots/ExistingSlots.vue";
 
 export default {
   name: "App",
@@ -64,7 +64,7 @@ export default {
     JnDateTimePicker,
     InterviewHeader,
     DateLocationInput,
-    ExistingSlots
+    ExistingSlots,
   },
   data: function () {
     return {
