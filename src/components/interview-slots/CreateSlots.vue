@@ -46,7 +46,7 @@
     </transition>
     <div v-if="canAddMoreSlots && selectedSlots.length === 0">
       <JnMiniButton @miniButton-clicked="toggleAddMoreSlots"
-        ><span class="fal fa-plus" style="margin-right: 0.5rem"></span
+        ><span class="fal fa-plus" style="margin-right: 0.3rem"></span
         >{{
           showAddMoreSlots
             ? $t("createSlots.addMoreCancel")

@@ -7,9 +7,8 @@
           class="fas fa-info-circle"
           style="margin-left: 0.3rem; color: var(--pink); cursor: pointer"
           @click="toggleInfoBox"
-          ><span class="sr-only">{{
-            $t("InterviewHeader.sr-helpText")
-          }}</span></span
+          ><span class="sr-only">{{ $t("InterviewHeader.sr-helpText") }}</span
+          ></span
         >
       </h1>
       <div id="interviewHeader">
@@ -39,7 +38,8 @@
         @info-box-closed="toggleInfoBox"
       >
         <template #box-content>
-          {{ $t("interviewHeader.slotInfoText") }}
+          <p>{{ $t("interviewHeader.slotInfoText") }}</p>
+          <p>{{ $t("interviewHeader.slotInfoText2") }}</p>
         </template>
       </InfoBox>
     </template>
@@ -56,7 +56,6 @@ import { ref } from "vue";
 export default {
   emits: ["displaySlot", "selectedBatchChanged", "newBatchTitleChanged"],
   setup(props, ctx) {
-
     const showInfoBox = ref(false);
     const interviewBatchTitle = ref("");
     const interviewBatchId = ref(undefined);
@@ -96,10 +95,11 @@ export default {
 .infobox-help {
   position: absolute;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-  z-index: 2;
-  width: 20rem;
+  z-index: 1000;
+  max-width: 35rem;
   left: 3rem;
   top: 3rem;
+  padding: 1rem; 
 }
 .sr-only {
   position: absolute;

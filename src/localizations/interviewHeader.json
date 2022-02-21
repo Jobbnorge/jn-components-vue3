@@ -1,8 +1,9 @@
 {
   "nb-NO": {
     "interviewHeader": {
-      "title": "Valg for intervjurunde", 
-      "slotInfoText": "Her må det komme en beskrivende tekst om intervjuslots for de som trenger litt hjelp",
+      "title": "Valg for intervjurunde",
+      "slotInfoText": "Søkere som registreres til intervju vil alltid måtte være en del av en intervjurunde. Navn på runden vil default settes av systemet, men kan overskrives, om ønskelig.", 
+      "slotInfoText2": "Du kan velge å opprette ny runde, dersom du eksempelvis skal registrere søkere til 2. gangs intervju. Det er også valg for å opprette alternative intervjutidspunkter tilknyttet runden, såkalte intervjuslots. Intervjuslots som du setter opp, kan du  senere invitere kandidatene til å velge mellom. Slots lar kandidatene velge selv det tidspunktet som passer best, i stedet for at du registrerer et fast intervjutidspunkt for de enkelte intervjuene",
       "sr-helpText": "Les mer om intervjurunder og slots"
     },
     "selectInterviewBatch": {
@@ -15,8 +16,9 @@
   },
   "en": {
     "interviewHeader": {
-      "title": "Options for interview round", 
-      "slotInfoText": "Her må det komme en beskrivende tekst om intervjuslots for de som trenger litt hjelp",
+      "title": "Options for interview round",
+      "slotInfoText": "Candidates that are registered for an interview will always be part of an interview round. The name of the round will be default set by the system, but can be overwritten, if desired." ,
+      "slotInfoText2": "You can choose to create a new round, if, for example, you are registering applicants for a second interview. There are also options for creating alternative interview times associated with the round, so-called interview slots. You can later invite the candidates to choose from the slots set up for the round, which allows the candidates to choose the time that suits them best, instead of registering a fixed interview time for the individual interviews.",
       "sr-helpText": "Read more about interview rounds and slots"
     },
     "selectInterviewBatch": {

@@ -45,7 +45,7 @@
     <JnMiniButton
       v-if="showExistingSlotsSummary"
       @miniButton-clicked="toggleExistingSlots"
-      ><span class="fal fa-arrow-down"></span
+      ><span style="margin-right: 0.3rem;" class="fal fa-arrow-down"></span
       >{{
         showExistingSlots
           ? $t("AvailableSlots.hideExisting")
