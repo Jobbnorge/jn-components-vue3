@@ -9,7 +9,7 @@
   "dependencies": {
     "@jobbnorge/jn-components": "^2.3.1",
     "@vueform/multiselect": "^2.3.2",
-    "core-js": "^3.21.0",
+    "core-js": "^3.21.1",
     "dayjs": "^1.10.7",
     "vue": "^3.2.31",
     "vue-i18n": "^9.2.0-beta.30"
