@@ -35,7 +35,6 @@
     :showExistingSlotsSummary="false"
     :interviewBatchId="interviewBatchId"
     @selectedSlotsChanged="($event) => (selectedSlots = $event)"
-    @existingSlotsChanged="existingSlotsChanged"
   />
   <DateLocationInput
     :candidateId="1"

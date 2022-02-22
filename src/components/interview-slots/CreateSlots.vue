@@ -46,7 +46,10 @@
     </transition>
     <div v-if="canAddMoreSlots && selectedSlots.length === 0">
       <JnMiniButton @miniButton-clicked="toggleAddMoreSlots"
-        ><span class="fal fa-plus" style="margin-right: 0.3rem"></span
+        ><span
+          :class="[showAddMoreSlots ? 'fal fa-plus' : '']"
+          style="margin-right: 0.3rem"
+        ></span
         >{{
           showAddMoreSlots
             ? $t("createSlots.addMoreCancel")
@@ -63,7 +66,7 @@ import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnM
 import JnDateTimepicker from "../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import SelectSlots from "./SelectSlots.vue";
 import ConflictingDates from "./ConflictingDates.vue";
-import { provide, reactive, ref, toRefs, watch } from "vue";
+import { provide, reactive, ref, toRefs, watch, computed } from "vue";
 
 export default {
   emits: ["selectedSlotsChanged"],
@@ -80,7 +83,9 @@ export default {
     const totalNumberOfSlots = ref(0);
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
-    const canAddMoreSlots = ref(!showExistingSlotsSummary.value);
+    const canAddMoreSlots = computed(() =>
+      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary
+    );
 
     const fetchSlots = () => {
       fetch(
