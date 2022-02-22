@@ -47,7 +47,7 @@
     <div v-if="canAddMoreSlots && selectedSlots.length === 0">
       <JnMiniButton @miniButton-clicked="toggleAddMoreSlots"
         ><span
-          :class="[showAddMoreSlots ? 'fal fa-plus' : '']"
+          :class="[showAddMoreSlots ? '' : 'fal fa-plus']"
           style="margin-right: 0.3rem"
         ></span
         >{{
@@ -84,7 +84,7 @@ export default {
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
     const canAddMoreSlots = computed(() =>
-      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary
+      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value
     );
 
     const fetchSlots = () => {
