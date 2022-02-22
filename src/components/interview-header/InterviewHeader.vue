@@ -26,7 +26,7 @@
             :jobId="jobId"
             :interviewBatchId="interviewBatchId"
             :showExistingSlotsSummary="true"
-            @selectedSlotsChanged="($event) => (selectedSlots = $event)"
+            @selectedSlotsChanged="($event) => $emit('selectedSlotsChanged', $event)"
           />
         </div>
       </div>
@@ -54,7 +54,7 @@ import CreateSlots from "../interview-slots/CreateSlots.vue";
 import { ref } from "vue";
 
 export default {
-  emits: ["displaySlot", "selectedBatchChanged", "newBatchTitleChanged"],
+  emits: ["displaySlot", "selectedBatchChanged", "newBatchTitleChanged", "selectedSlotsChanged"],
   setup(props, ctx) {
     const showInfoBox = ref(false);
     const interviewBatchTitle = ref("");
