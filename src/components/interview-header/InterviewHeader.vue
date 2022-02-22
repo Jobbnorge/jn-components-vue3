@@ -7,7 +7,7 @@
           class="fas fa-info-circle"
           style="margin-left: 0.3rem; color: var(--pink); cursor: pointer"
           @click="toggleInfoBox"
-          ><span class="sr-only">{{ $t("InterviewHeader.sr-helpText") }}</span
+          ><span class="sr-only">{{ $t("interviewHeader.sr-helpText") }}</span
           ></span
         >
       </h1>

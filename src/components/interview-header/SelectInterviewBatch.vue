@@ -18,6 +18,7 @@
         <Multiselect
           :options="batches"
           v-model="selectedBatch"
+          :canClear="false"
           ref="multiselect"
         />
       </div>

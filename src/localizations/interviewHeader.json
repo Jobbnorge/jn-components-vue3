@@ -2,8 +2,8 @@
   "nb-NO": {
     "interviewHeader": {
       "title": "Valg for intervjurunde",
-      "slotInfoText": "Søkere som registreres til intervju vil alltid måtte være en del av en intervjurunde. Navn på runden vil default settes av systemet, men kan overskrives, om ønskelig.", 
-      "slotInfoText2": "Du kan velge å opprette ny runde, dersom du eksempelvis skal registrere søkere til 2. gangs intervju. Det er også valg for å opprette alternative intervjutidspunkter tilknyttet runden, såkalte intervjuslots. Intervjuslots som du setter opp, kan du  senere invitere kandidatene til å velge mellom. Slots lar kandidatene velge selv det tidspunktet som passer best, i stedet for at du registrerer et fast intervjutidspunkt for de enkelte intervjuene",
+      "slotInfoText": "Søkere som registreres til intervju må alltid være en del av en intervjurunde. Navn på runden vil foreslås av systemet, men kan overskrives. Du kan opprette en ny runde, dersom du f.eks. skal registrere søkere til 2. gangs intervju.", 
+      "slotInfoText2": "Det er også mulig å opprette alternative intervjutidspunkter for runden, såkalte intervjuslots. Du kan senere invitere kandidatene til å velge mellom slotsene du har satt opp, slik at kandidatene selv kan velge det tidspunktet som passer best.",
       "sr-helpText": "Les mer om intervjurunder og slots"
     },
     "selectInterviewBatch": {
@@ -17,8 +17,8 @@
   "en": {
     "interviewHeader": {
       "title": "Options for interview round",
-      "slotInfoText": "Candidates that are registered for an interview will always be part of an interview round. The name of the round will be default set by the system, but can be overwritten, if desired." ,
-      "slotInfoText2": "You can choose to create a new round, if, for example, you are registering applicants for a second interview. There are also options for creating alternative interview times associated with the round, so-called interview slots. You can later invite the candidates to choose from the slots set up for the round, which allows the candidates to choose the time that suits them best, instead of registering a fixed interview time for the individual interviews.",
+      "slotInfoText": "NOT TRANSLATED" ,
+      "slotInfoText2": "NOT TRANSLATED 2",
       "sr-helpText": "Read more about interview rounds and slots"
     },
     "selectInterviewBatch": {
