@@ -221,9 +221,9 @@ export default {
         : this.$emit("selectedDateChanged", dates);
     },
     reset() {
-      this.displayDate = null;
-      this.selectedDate = null;
-      this.$emit("selectedDateChanged", null);
+      this.displayDate = undefined;
+      this.selectedDate = undefined;
+      this.$emit("selectedDateChanged", undefined);
       this.$refs.calendar.reset();
     },
     registerClosePickerOnOutsideClickEvent: function () {
