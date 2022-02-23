@@ -25,9 +25,9 @@
         <span
           v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
           class="far fa-info-circle"
-          style="color: var(--darkBlue)"
+          style="display: flex; color: var(--darkBlue)"
         >
-          <p style="color: var(--gray)">
+          <p style="font-family: 'Roboto'; margin-left: 0.3rem; color: var(--gray)">
             {{ $t("createSlots.info") }}
           </p></span
         >

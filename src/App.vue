@@ -127,6 +127,7 @@ export default {
     displaySlotChanged: (e) => console.info(e),
     setInterviewBatch(e) {
       this.currentInterviewBatch = e;
+      console.info(e);
     },
     dateLocationInputUpdated: (e) => console.info(e),
   },

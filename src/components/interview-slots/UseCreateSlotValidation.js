@@ -6,7 +6,6 @@ function existsOnBatch(appId, batch) {
 
 function useCreateSlotValidation(
   selectedSlots,
-  displaySlot,
   requiredNumberSlots,
   numberExisistingSlots,
   interviewBatch
@@ -15,8 +14,8 @@ function useCreateSlotValidation(
     let _selectedSlots = selectedSlots.value ? selectedSlots.value.length : 0;
     let arr = [];
     if (
-      displaySlot.value &&
-      requiredNumberSlots.value > numberExisistingSlots.value + _selectedSlots
+      requiredNumberSlots.value >
+      numberExisistingSlots.value + _selectedSlots
     )
       arr.push(
         `Du må velge minst ${

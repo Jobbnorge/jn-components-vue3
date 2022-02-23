@@ -54,7 +54,7 @@ import CreateSlots from "../interview-slots/CreateSlots.vue";
 import { ref } from "vue";
 
 export default {
-  emits: ["displaySlot", "selectedBatchChanged", "newBatchTitleChanged", "selectedSlotsChanged"],
+  emits: ["selectedBatchChanged", "newBatchTitleChanged", "selectedSlotsChanged"],
   setup(props, ctx) {
     const showInfoBox = ref(false);
     const interviewBatchTitle = ref("");
