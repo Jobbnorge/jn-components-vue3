@@ -66,7 +66,7 @@ import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnM
 import JnDateTimepicker from "../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import SelectSlots from "./SelectSlots.vue";
 import ConflictingDates from "./ConflictingDates.vue";
-import { provide, reactive, ref, toRefs, watch, computed } from "vue";
+import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
   emits: ["selectedSlotsChanged"],
@@ -83,9 +83,7 @@ export default {
     const totalNumberOfSlots = ref(0);
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
-    const canAddMoreSlots = computed(() =>
-      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value
-    );
+    const canAddMoreSlots = ref(totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value);
 
     const fetchSlots = () => {
       fetch(
