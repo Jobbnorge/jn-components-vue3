@@ -87,8 +87,7 @@ export default {
             data.forEach((el) =>
               batches.value.push({
                 value: el.id,
-                label: el.title,
-                numberCanChooseSlot: el.canChooseInterviewSlot,
+                label: el.title
               })
             );
             selectedBatch.value = batches.value[data.length - 1].value;
@@ -105,8 +104,7 @@ export default {
       else
         ctx.emit("selectedBatchChanged", {
           id: batch.value,
-          title: batch.label,
-          canChooseInterviewSlot: batch.numberCanChooseSlot,
+          title: batch.label
         });
     });
 

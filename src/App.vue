@@ -3,6 +3,7 @@
     :jobId="jobId"
     @displaySlot="displaySlotChanged"
     @selectedBatchChanged="setInterviewBatch"
+    @selectedSlotsChanged="selectedSlotsChanged"
   ></InterviewHeader>
   <JnDateTimePicker
     :pickPeriod="true"
@@ -34,7 +35,7 @@
     :jobId="jobId"
     :showExistingSlotsSummary="false"
     :interviewBatchId="interviewBatchId"
-    @selectedSlotsChanged="($event) => (selectedSlots = $event)"
+    @selectedSlotsChanged="selectedSlotsChanged"
   />
   <DateLocationInput
     :candidateId="1"
@@ -47,6 +48,19 @@
     :numberOfDates="2"
     :showExistingSlotsSummary="false"
   />
+  <h2>Empty slots with custom empty state slot</h2>
+  <ExistingSlots
+    :slots="slotExample2"
+    :totalNumberOfSlots="0"
+    :numberOfDates="0"
+    :showExistingSlotsSummary="false"
+  >
+    <template #emptyState
+      ><div style="background: yellow; padding: 1rem; width: fit-content">
+        HER E DET INGEN JÆVLA SLOTS
+      </div></template
+    >
+  </ExistingSlots>
 </template>
 
 <script>
@@ -72,6 +86,7 @@ export default {
       jobId: 9262,
       selectedDates: null,
       currentInterviewBatch: null,
+      emptySlotExample: {},
       slotExample: {
         "2022-02-17T00:00:00": [
           {
@@ -130,6 +145,10 @@ export default {
       console.info(e);
     },
     dateLocationInputUpdated: (e) => console.info(e),
+    selectedSlotsChanged(e) {
+      this.selectedSlots = e;
+      console.info(e);
+    },
   },
 };
 </script>

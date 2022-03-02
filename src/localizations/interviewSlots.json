@@ -34,7 +34,8 @@
       "title": "Intervjuslots",
       "summaryNoExisting": "Ingen tilgjengelige intervjuslots i runden, vil du opprette slots?",
       "noExistingSubtitle": "Du må legge til slots i runden før det er mulig å invitere søker(e) til å velge tidspunkt.",
-      "noSummaryTitle": "Tilgjengelige intervjuslots i runden"
+      "noSummaryTitle": "Tilgjengelige intervjuslots i runden",
+      "none": "Ingen"
     },
     "selectSlots": {
       "numberSelected": "{0} valgt",
@@ -84,7 +85,8 @@
       "hide": "(Hide)",
       "summaryExisting": "The interview round has {0} slots and {1} dates",
       "title": "Interview slots",
-      "summaryNoExisting": "No available slots in the interview round, would you like to create slots for this round?"
+      "summaryNoExisting": "No available slots in the interview round, would you like to create slots for this round?",
+      "none": "None"
 
     },
     "selectSlots": {

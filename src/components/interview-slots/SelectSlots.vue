@@ -1,56 +1,82 @@
 <template>
-  <div
+  <InfoBox
+    colorTheme="gray"
+    class="slot-box"
     v-for="(value, key) in generatedSlots"
     :key="key"
-    style="margin: 2rem 0rem"
   >
-    <h2 style="font-size: 1rem">
-      {{ firstCharToUpperCase(dayjs(key).format("dddd DD.MM.YYYY")) }}
-      <span
-        v-if="
-          numberSelectedSlotsPerDate.has(key) &&
-          numberSelectedSlotsPerDate.get(key) > 0
-        "
-        >:
-        {{
-          $t("selectSlots.numberSelected", [
-            numberSelectedSlotsPerDate.get(key),
-          ])
-        }}</span
-      >
-      <span v-else> ({{ $t("selectSlots.empty") }}) </span>
-    </h2>
-    <div class="slot-container">
-      <TimeSlot
-        v-for="date in value"
-        :key="date.startDate"
-        :startTime="dayjs(date.startDate).format('HH:mm')"
-        :isSelectable="true"
-        @updateTimeSlotSelected="($event) => timeSlotSelected($event, date)"
-        :ref="setTimeSlotsRef"
-      >
-      </TimeSlot>
-    </div>
-  </div>
+    <template #box-content>
+      <div>
+        <h2 style="font-size: 1rem">
+          {{ firstCharToUpperCase(dayjs(key).format("dddd DD.MM.YYYY")) }}
+          <span
+            v-if="
+              numberSelectedSlotsPerDate.has(key) &&
+              numberSelectedSlotsPerDate.get(key) > 0
+            "
+            >:
+            {{
+              $t("selectSlots.numberSelected", [
+                numberSelectedSlotsPerDate.get(key),
+              ])
+            }}</span
+          >
+          <span v-else> ({{ $t("selectSlots.empty") }}) </span>
+        </h2>
+        <div>
+          <div class="slot-container">
+            <TimeSlot
+              v-for="date in value"
+              :key="date.startDate"
+              :startTime="dayjs(date.startDate).format('HH:mm')"
+              :isSelectable="true"
+              @updateTimeSlotSelected="
+                ($event) => timeSlotSelected($event, date)
+              "
+              :ref="setTimeSlotsRef"
+            >
+            </TimeSlot>
+          </div>
+          <div>
+            <label
+              :for="`slot-location-${dayjs(key).format('DD-MM-YYYY')}`"
+              style="margin-right: 0.5rem"
+              >Sted:
+            </label>
+            <input
+              :id="`slot-location-${dayjs(key).format('DD-MM-YYYY')}`"
+              type="text"
+              size="40"
+              v-model="slotDateLocation[key]"
+              @blur="slotDateLocationChanged(key)"
+            />
+          </div>
+        </div>
+      </div>
+    </template>
+  </InfoBox>
 </template>
 
 <script>
 import { toRefs, watch, ref, onBeforeUpdate } from "vue";
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
+import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 import dayjs from "dayjs";
 import { inject } from "vue";
 require("dayjs/locale/nb");
 dayjs.locale("nb");
 export default {
-  emits: ["slotAdded", "slotRemoved"],
+  emits: ["slotAdded", "slotRemoved", "slotDateLocationChanged"],
   components: {
     TimeSlot,
+    InfoBox,
   },
   setup(props, ctx) {
     const { slotDateSettings, slotTimeSettings } = toRefs(props);
     var params = {};
     const generatedSlots = ref({});
     const jobId = inject("jobId");
+    const slotDateLocation = ref({});
 
     const numberSelectedSlotsPerDate = ref(new Map());
 
@@ -130,6 +156,13 @@ export default {
     const firstCharToUpperCase = (str) =>
       str.charAt(0).toUpperCase() + str.slice(1);
 
+    const slotDateLocationChanged = (date) => {
+      ctx.emit("slotDateLocationChanged", {
+        date: date,
+        location: slotDateLocation.value[date],
+      });
+    };
+
     return {
       generatedSlots,
       dayjs,
@@ -137,6 +170,8 @@ export default {
       setTimeSlotsRef,
       firstCharToUpperCase,
       numberSelectedSlotsPerDate,
+      slotDateLocation,
+      slotDateLocationChanged,
     };
   },
   props: {
@@ -152,9 +187,10 @@ export default {
   gap: 0.3rem;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  border: 1px solid var(--lightGray);
-  border-radius: 3px;
   width: fit-content;
+}
+.slot-box {
+  margin-bottom: 1rem;
 }
 </style>
 <i18n src="../../localizations/interviewSlots.json"></i18n>

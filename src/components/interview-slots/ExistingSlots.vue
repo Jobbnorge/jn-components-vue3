@@ -12,10 +12,12 @@
         {{
           showExistingSlots
             ? $t("AvailableSlots.subtitle")
-            : $t("AvailableSlots.summaryExisting", [
+            : numberOfDates !== 0
+            ? $t("AvailableSlots.summaryExisting", [
                 totalNumberOfSlots,
                 numberOfDates,
               ])
+            : $t("AvailableSlots.none")
         }}
       </p>
     </div>
@@ -45,7 +47,7 @@
     <JnMiniButton
       v-if="showExistingSlotsSummary"
       @miniButton-clicked="toggleExistingSlots"
-      ><span style="margin-right: 0.3rem;" class="fal fa-arrow-down"></span
+      ><span style="margin-right: 0.3rem" class="fal fa-arrow-down"></span
       >{{
         showExistingSlots
           ? $t("AvailableSlots.hideExisting")
@@ -55,20 +57,22 @@
   </div>
   <!-- NO SLOTS -->
   <div v-else>
-    <h1 class="title">
-      {{
-        showExistingSlotsSummary
-          ? $t("AvailableSlots.noSummaryTitle")
-          : $t("AvailableSlots.noExistingSlotsHeading")
-      }}
-    </h1>
-    <p>
-      {{
-        showExistingSlotsSummary
-          ? $t("AvailableSlots.summaryNoExisting")
-          : $t("AvailableSlots.noExistingSubtitle")
-      }}
-    </p>
+    <slot name="emptyState">
+      <h1 class="title">
+        {{
+          showExistingSlotsSummary
+            ? $t("AvailableSlots.noSummaryTitle")
+            : $t("AvailableSlots.noExistingSlotsHeading")
+        }}
+      </h1>
+      <p>
+        {{
+          showExistingSlotsSummary
+            ? $t("AvailableSlots.summaryNoExisting")
+            : $t("AvailableSlots.noExistingSubtitle")
+        }}
+      </p>
+    </slot>
   </div>
 </template>
 <script>

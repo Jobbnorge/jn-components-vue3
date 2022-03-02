@@ -27,7 +27,13 @@
           class="far fa-info-circle"
           style="display: flex; color: var(--darkBlue)"
         >
-          <p style="font-family: 'Roboto'; margin-left: 0.3rem; color: var(--gray)">
+          <p
+            style="
+              font-family: 'Roboto';
+              margin-left: 0.3rem;
+              color: var(--gray);
+            "
+          >
             {{ $t("createSlots.info") }}
           </p></span
         >
@@ -41,6 +47,7 @@
           :slotDateSettings="slotDateSettings"
           @slotAdded="slotAdded"
           @slotRemoved="slotRemoved"
+          @slotDateLocationChanged="slotDateLocationChanged"
         />
       </div>
     </transition>
@@ -83,7 +90,9 @@ export default {
     const totalNumberOfSlots = ref(0);
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
-    const canAddMoreSlots = ref(totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value);
+    const canAddMoreSlots = ref(
+      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value
+    );
 
     const fetchSlots = () => {
       fetch(
@@ -141,6 +150,14 @@ export default {
       showAddMoreSlots.value = !showAddMoreSlots.value;
     };
 
+    const slotDateLocationChanged = (event) => {
+
+      selectedSlots.value.forEach((slot) => {
+        let slotDateStr = slot.startDate.slice(0, 10)
+        if(event.date.slice(0, 10) === slotDateStr) slot.location = event.location
+      })
+    }
+
     watch(
       () => [interviewBatchId.value, jobId.value],
       (values) => {
@@ -185,6 +202,7 @@ export default {
       setCanAddMoreSlots,
       canAddMoreSlots,
       toggleAddMoreSlots,
+      slotDateLocationChanged
     };
   },
   components: {
