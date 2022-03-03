@@ -94,18 +94,21 @@ export default {
             startDate: "2022-02-17T10:30:00",
             endDate: "2022-02-17T11:30:00",
             isOccupied: false,
+            location: "Inspirasjon 3.etg, fløy B",
           },
           {
             id: 2,
             startDate: "2022-02-17T11:45:00",
             endDate: "2022-02-17T12:45:00",
             isOccupied: false,
+            location: "Inspirasjon 3.etg, fløy B",
           },
           {
             id: 3,
             startDate: "2022-02-17T14:15:00",
             endDate: "2022-02-17T15:15:00",
             isOccupied: false,
+            location: "Inspirasjon 3.etg, fløy B",
           },
         ],
         "2022-02-19T00:00:00": [

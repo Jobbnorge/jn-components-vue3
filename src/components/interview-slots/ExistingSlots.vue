@@ -29,19 +29,36 @@
     </div>
     <transition name="fade">
       <div v-if="showExistingSlots">
-        <div v-for="(value, key) in slots" :key="key">
-          <h2 style="font-size: 1rem">{{ displayDate(key) }}</h2>
-          <div class="slot-container">
-            <TimeSlot
-              v-for="date in value"
-              :key="date.startDate"
-              :startTime="dayjs(date.startDate).format('HH:mm')"
-              :isSelectable="false"
-              :isOccupied="date.isOccupied"
-            >
-            </TimeSlot>
-          </div>
-        </div>
+        <InfoBox
+          v-for="(value, key) in slots"
+          :key="key"
+          colorTheme="gray"
+          class="slot-box"
+        >
+          <template #box-content>
+            <div>
+              <h2 style="font-size: 1rem">{{ displayDate(key) }}</h2>
+              <div class="slot-container">
+                <TimeSlot
+                  v-for="date in value"
+                  :key="date.startDate"
+                  :startTime="dayjs(date.startDate).format('HH:mm')"
+                  :isSelectable="false"
+                  :isOccupied="date.isOccupied"
+                >
+                </TimeSlot>
+              </div>
+              <div>
+                {{ $t("AvailableSlots.place") }}:
+                {{
+                  value[0].location
+                    ? value[0].location
+                    : $t("AvailableSlots.notRegistered")
+                }}
+              </div>
+            </div>
+          </template>
+        </InfoBox>
       </div>
     </transition>
     <JnMiniButton
@@ -77,6 +94,7 @@
 </template>
 <script>
 import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
+import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnMiniButton.vue";
 import { toRefs, ref } from "@vue/runtime-core";
 import dayjs from "dayjs";
@@ -107,6 +125,7 @@ export default {
   components: {
     TimeSlot,
     JnMiniButton,
+    InfoBox,
   },
   props: {
     slots: Object,
@@ -140,6 +159,9 @@ export default {
 .fade-leave-to {
   transform: translate3d(0, -10px, 0);
   opacity: 0;
+}
+.slot-box {
+  margin-bottom: 1rem;
 }
 </style>
 <i18n src="../../localizations/interviewSlots.json"></i18n>
