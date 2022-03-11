@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@jobbnorge/jn-components": "^2.3.1",
+    "@popperjs/core": "^2.11.2",
     "@vueform/multiselect": "^2.3.2",
     "core-js": "^3.21.1",
     "dayjs": "^1.10.7",

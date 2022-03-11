@@ -61,6 +61,19 @@
       </div></template
     >
   </ExistingSlots>
+  <div style="margin-top: 2rem;">
+    <DropDownButton
+      text="Velg et element"
+      isPrimary
+      :options="[
+        { id: '1', text: 'Item1' },
+        { id: '2', text: 'hello 2' },
+        { id: '2', text: 'hello 3', disabled: true },
+      ]"
+      @itemClicked="itemClicked"
+      id="mydrop"
+    />
+  </div>
 </template>
 
 <script>
@@ -69,6 +82,7 @@ import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.
 import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
 import DateLocationInput from "./components/DateLocationInput.vue";
 import ExistingSlots from "./components/interview-slots/ExistingSlots.vue";
+import DropDownButton from "./ui-components/DropDownButton/DropDownButton.vue"; 
 
 export default {
   name: "App",
@@ -78,6 +92,7 @@ export default {
     InterviewHeader,
     DateLocationInput,
     ExistingSlots,
+    DropDownButton
   },
   data: function () {
     return {
@@ -152,6 +167,7 @@ export default {
       this.selectedSlots = e;
       console.info(e);
     },
+    itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id)
   },
 };
 </script>
