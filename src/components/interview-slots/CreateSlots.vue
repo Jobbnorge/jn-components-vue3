@@ -91,8 +91,8 @@ export default {
     const conflictingDates = ref([]);
     const showAddMoreSlots = ref(false);
     const canAddMoreSlots = ref(
-      totalNumberOfSlots.value === 0 ? true : !showExistingSlotsSummary.value
-    );
+      totalNumberOfSlots.value === 0 || showExistingSlotsSummary.value === false
+    ); //Set initial value
 
     const fetchSlots = () => {
       fetch(
@@ -108,6 +108,7 @@ export default {
             totalNumberOfSlots.value += date.length;
           });
           Object.assign(slots, data);
+          setCanAddMoreSlots(totalNumberOfSlots.value === 0);
         });
     };
 
@@ -151,12 +152,12 @@ export default {
     };
 
     const slotDateLocationChanged = (event) => {
-
       selectedSlots.value.forEach((slot) => {
-        let slotDateStr = slot.startDate.slice(0, 10)
-        if(event.date.slice(0, 10) === slotDateStr) slot.location = event.location
-      })
-    }
+        let slotDateStr = slot.startDate.slice(0, 10);
+        if (event.date.slice(0, 10) === slotDateStr)
+          slot.location = event.location;
+      });
+    };
 
     watch(
       () => [interviewBatchId.value, jobId.value],
@@ -202,7 +203,7 @@ export default {
       setCanAddMoreSlots,
       canAddMoreSlots,
       toggleAddMoreSlots,
-      slotDateLocationChanged
+      slotDateLocationChanged,
     };
   },
   components: {

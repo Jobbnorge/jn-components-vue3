@@ -8,7 +8,7 @@
           ])
         }}</span>
       </div>
-      <div class="select-batch">
+      <div class="select-batch" v-show="!isLoading">
         <span style="white-space: nowrap; font-size: 1rem"
           >{{ $t("selectInterviewBatch.Kandidaten(e) skal inn i") }}:</span
         >
@@ -18,6 +18,9 @@
           :canClear="false"
           ref="multiselect"
         />
+      </div>
+      <div v-show="isLoading" style="margin-bottom: 1rem;">
+        {{ $t("selectInterviewBatch.Henter informasjon") }}
       </div>
     </div>
     <div class="input">
@@ -67,15 +70,21 @@ export default {
     const numberExistingAppsOnBatch = computed(
       () => applicationsOnBatch.value.length
     );
+    const isLoading = ref(false);
 
     const fetchBatches = () => {
-      fetch(`${process.env.VUE_APP_URLS_APIBASE}job/${props.jobId}/interviewbatch`, {
-        credentials: "include",
-      })
+      isLoading.value = true;
+      fetch(
+        `${process.env.VUE_APP_URLS_APIBASE}job/${props.jobId}/interviewbatch`,
+        {
+          credentials: "include",
+        }
+      )
         .then((res) => {
           return res.json();
         })
         .then((data) => {
+          isLoading.value = false;
           batches.length = 0;
           if (data.length === 0) {
             newBatch.value = true;
@@ -84,7 +93,7 @@ export default {
             data.forEach((el) =>
               batches.value.push({
                 value: el.id,
-                label: el.title
+                label: el.title,
               })
             );
             selectedBatch.value = batches.value[data.length - 1].value;
@@ -101,7 +110,7 @@ export default {
       else
         ctx.emit("selectedBatchChanged", {
           id: batch.value,
-          title: batch.label
+          title: batch.label,
         });
     });
 
@@ -128,11 +137,12 @@ export default {
       emitBatchTitle,
       selectedBatch,
       numberExistingAppsOnBatch,
+      isLoading,
     };
   },
   props: {
-    jobId: Number
-  }
+    jobId: Number,
+  },
 };
 </script>
 <style scoped>
