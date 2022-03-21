@@ -7,9 +7,6 @@
             numberExistingAppsOnBatch,
           ])
         }}</span>
-        <span v-else style="color: var(--gray)">{{
-          $t("selectInterviewBatch.Intervjurunden har ingen kandidater fra før")
-        }}</span>
       </div>
       <div class="select-batch">
         <span style="white-space: nowrap; font-size: 1rem"
