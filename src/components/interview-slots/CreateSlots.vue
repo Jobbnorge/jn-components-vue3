@@ -11,7 +11,7 @@
     <hr style="border: 1px solid #f6f5f6" />
 
     <transition name="fade">
-      <div v-if="showAddMoreSlots">
+      <div v-if="showSlotSettings">
         <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
         <div style="margin: 2rem 0rem">
           <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
@@ -52,13 +52,13 @@
       </div>
     </transition>
     <div v-if="canAddMoreSlots && selectedSlots.length === 0">
-      <JnMiniButton @miniButton-clicked="toggleAddMoreSlots"
+      <JnMiniButton @miniButton-clicked="toggleSlotSettings"
         ><span
-          :class="[showAddMoreSlots ? '' : 'fal fa-plus']"
+          :class="[showSlotSettings ? '' : 'fal fa-plus']"
           style="margin-right: 0.3rem"
         ></span
         >{{
-          showAddMoreSlots
+          showSlotSettings
             ? $t("createSlots.addMoreCancel")
             : $t("createSlots.addMore")
         }}</JnMiniButton
@@ -89,9 +89,9 @@ export default {
     const numberOfDates = ref(0);
     const totalNumberOfSlots = ref(0);
     const conflictingDates = ref([]);
-    const showAddMoreSlots = ref(false);
+    const showSlotSettings = ref(false);
     const canAddMoreSlots = ref(
-      totalNumberOfSlots.value === 0 || showExistingSlotsSummary.value === false
+      showExistingSlotsSummary.value === false || totalNumberOfSlots.value === 0
     ); //Set initial value
 
     const fetchSlots = () => {
@@ -108,7 +108,10 @@ export default {
             totalNumberOfSlots.value += date.length;
           });
           Object.assign(slots, data);
-          setCanAddMoreSlots(totalNumberOfSlots.value === 0);
+          setCanAddMoreSlots(
+            showExistingSlotsSummary.value === false ||
+              totalNumberOfSlots.value === 0
+          );
         });
     };
 
@@ -144,11 +147,13 @@ export default {
     };
 
     const setCanAddMoreSlots = (val) => {
-      canAddMoreSlots.value = val;
+      if (totalNumberOfSlots.value === 0) {
+        canAddMoreSlots.value = true;
+      } else canAddMoreSlots.value = val;
     };
 
-    const toggleAddMoreSlots = () => {
-      showAddMoreSlots.value = !showAddMoreSlots.value;
+    const toggleSlotSettings = () => {
+      showSlotSettings.value = !showSlotSettings.value;
     };
 
     const slotDateLocationChanged = (event) => {
@@ -199,10 +204,10 @@ export default {
       slotAdded,
       slotRemoved,
       conflictingDates,
-      showAddMoreSlots,
+      showSlotSettings,
       setCanAddMoreSlots,
       canAddMoreSlots,
-      toggleAddMoreSlots,
+      toggleSlotSettings,
       slotDateLocationChanged,
     };
   },
