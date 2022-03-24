@@ -8,7 +8,7 @@
       :showExistingSlotsSummary="showExistingSlotsSummary"
       @showExistingSlots="setCanAddMoreSlots"
     />
-    <hr style="border: 1px solid #f6f5f6" />
+    <hr style="border: 1px solid #f6f5f6;" />
 
     <transition name="fade">
       <div v-if="showSlotSettings">
