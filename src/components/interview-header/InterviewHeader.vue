@@ -2,23 +2,13 @@
   <InfoBox colorTheme="green" style="background: hsla(141, 63%, 89%, 0.5)">
     <template #box-content>
       <h1 style="font-size: 1rem; margin-bottom: 1rem">
-        {{ $t("interviewHeader.title")
-        }}<span
-          class="fas fa-info-circle"
-          style="margin-left: 0.3rem; color: var(--pink); cursor: pointer"
-          @click="toggleInfoBox"
-          ><span class="sr-only">{{ $t("interviewHeader.sr-helpText") }}</span
-          ></span
-        >
+        {{ $t("interviewHeader.title") }}
       </h1>
       <div id="interviewHeader">
         <div>
           <SelectInterviewBatch
             :jobId="jobId"
             @selectedBatchChanged="selectedBatchChanged"
-            @newBatchTitleChanged="
-              ($event) => $emit('newBatchTitleChanged', $event)
-            "
           />
         </div>
         <div>
@@ -26,35 +16,29 @@
             :jobId="jobId"
             :interviewBatchId="interviewBatchId"
             :showExistingSlotsSummary="true"
-            @selectedSlotsChanged="($event) => $emit('selectedSlotsChanged', $event)"
+            @selectedSlotsChanged="
+              ($event) => $emit('selectedSlotsChanged', $event)
+            "
           />
         </div>
       </div>
-      <InfoBox
-        class="infobox-help"
-        v-if="showInfoBox"
-        colorTheme="pink"
-        canClose
-        @info-box-closed="toggleInfoBox"
-      >
-        <template #box-content>
-          <p>{{ $t("interviewHeader.slotInfoText") }}</p>
-          <p>{{ $t("interviewHeader.slotInfoText2") }}</p>
-        </template>
-      </InfoBox>
     </template>
   </InfoBox>
 </template>
 
 <script>
 import SelectInterviewBatch from "./SelectInterviewBatch.vue";
-import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 import CreateSlots from "../interview-slots/CreateSlots.vue";
+import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue"
 
 import { ref } from "vue";
 
 export default {
-  emits: ["selectedBatchChanged", "newBatchTitleChanged", "selectedSlotsChanged"],
+  emits: [
+    "selectedBatchChanged",
+    "newBatchTitleChanged",
+    "selectedSlotsChanged",
+  ],
   setup(props, ctx) {
     const showInfoBox = ref(false);
     const interviewBatchTitle = ref("");
@@ -77,7 +61,7 @@ export default {
       interviewBatchId,
     };
   },
-  components: { InfoBox, SelectInterviewBatch, CreateSlots },
+  components: { SelectInterviewBatch, CreateSlots, InfoBox },
   props: {
     showExistingSlotsSummary: Boolean,
     jobId: Number,
@@ -91,15 +75,6 @@ export default {
   justify-content: space-between;
   flex-flow: wrap;
   gap: 1rem;
-}
-.infobox-help {
-  position: absolute;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-  z-index: 1000;
-  max-width: 35rem;
-  left: 3rem;
-  top: 3rem;
-  padding: 1rem; 
 }
 .sr-only {
   position: absolute;

@@ -91,7 +91,7 @@ export default {
     const conflictingDates = ref([]);
     const showSlotSettings = ref(false);
     const canAddMoreSlots = ref(
-      showExistingSlotsSummary.value === false || totalNumberOfSlots.value === 0
+      showExistingSlotsSummary.value === false || totalNumberOfSlots.value == 0
     ); //Set initial value
 
     const fetchSlots = () => {
@@ -110,7 +110,7 @@ export default {
           Object.assign(slots, data);
           setCanAddMoreSlots(
             showExistingSlotsSummary.value === false ||
-              totalNumberOfSlots.value === 0
+              totalNumberOfSlots.value == 0
           );
         });
     };
@@ -147,7 +147,7 @@ export default {
     };
 
     const setCanAddMoreSlots = (val) => {
-      if (totalNumberOfSlots.value === 0) {
+      if (totalNumberOfSlots.value == 0) {
         canAddMoreSlots.value = true;
       } else canAddMoreSlots.value = val;
     };
