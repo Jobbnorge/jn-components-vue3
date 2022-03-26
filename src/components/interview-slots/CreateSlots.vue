@@ -8,7 +8,7 @@
       :showExistingSlotsSummary="showExistingSlotsSummary"
       @showExistingSlots="setCanAddMoreSlots"
     />
-    <hr style="border: 1px solid #f6f5f6;" />
+    <hr style="border: 1px solid #f6f5f6" />
 
     <transition name="fade">
       <div v-if="showSlotSettings">
@@ -78,7 +78,8 @@ import { provide, reactive, ref, toRefs, watch } from "vue";
 export default {
   emits: ["selectedSlotsChanged"],
   setup(props, ctx) {
-    const { jobId, interviewBatchId, showExistingSlotsSummary } = toRefs(props);
+    const { jobId, interviewBatchId, showExistingSlotsSummary, isNewBatch } =
+      toRefs(props);
     provide("jobId", jobId);
     provide("interviewBatchId", interviewBatchId);
 
@@ -91,7 +92,9 @@ export default {
     const conflictingDates = ref([]);
     const showSlotSettings = ref(false);
     const canAddMoreSlots = ref(
-      showExistingSlotsSummary.value === false || totalNumberOfSlots.value == 0
+      showExistingSlotsSummary.value === false ||
+        totalNumberOfSlots.value == 0 ||
+        isNewBatch.value == true
     ); //Set initial value
 
     const fetchSlots = () => {
@@ -170,11 +173,21 @@ export default {
         Object.keys(slots).forEach((k) => {
           delete slots[k];
         });
+
         numberOfDates.value = 0;
         totalNumberOfSlots.value = 0;
         if (values.every((val) => val != undefined)) fetchSlots();
-      },
-      { immediate: true }
+      }
+      //{ immediate: true }
+    );
+
+    watch(
+      () => isNewBatch.value,
+      (val) => {
+        if (val === true) {
+          setCanAddMoreSlots(true);
+        }
+      }
     );
 
     watch(
@@ -226,6 +239,7 @@ export default {
     },
     interviewBatchId: Number,
     showExistingSlotsSummary: Boolean,
+    isNewBatch: Boolean,
   },
 };
 </script>

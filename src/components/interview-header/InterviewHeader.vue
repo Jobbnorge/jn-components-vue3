@@ -9,6 +9,7 @@
           <SelectInterviewBatch
             :jobId="jobId"
             @selectedBatchChanged="selectedBatchChanged"
+            @newBatchTitleChanged="newBatchTitleChanged"
           />
         </div>
         <div>
@@ -16,6 +17,7 @@
             :jobId="jobId"
             :interviewBatchId="interviewBatchId"
             :showExistingSlotsSummary="true"
+            :isNewBatch="isNewBatch"
             @selectedSlotsChanged="
               ($event) => $emit('selectedSlotsChanged', $event)
             "
@@ -29,7 +31,7 @@
 <script>
 import SelectInterviewBatch from "./SelectInterviewBatch.vue";
 import CreateSlots from "../interview-slots/CreateSlots.vue";
-import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue"
+import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 
 import { ref } from "vue";
 
@@ -40,25 +42,26 @@ export default {
     "selectedSlotsChanged",
   ],
   setup(props, ctx) {
-    const showInfoBox = ref(false);
     const interviewBatchTitle = ref("");
     const interviewBatchId = ref(undefined);
+    const isNewBatch = ref(false);
 
     const selectedBatchChanged = (e) => {
       interviewBatchTitle.value = e.title;
       interviewBatchId.value = e.id;
       ctx.emit("selectedBatchChanged", e);
     };
-
-    const toggleInfoBox = () => {
-      showInfoBox.value = !showInfoBox.value;
+    const newBatchTitleChanged = (e) => {
+      interviewBatchTitle.value = e.title;
+      interviewBatchId.value = e.id;
+      isNewBatch.value = true;
     };
 
     return {
-      showInfoBox,
-      toggleInfoBox,
       selectedBatchChanged,
       interviewBatchId,
+      newBatchTitleChanged,
+      isNewBatch,
     };
   },
   components: { SelectInterviewBatch, CreateSlots, InfoBox },

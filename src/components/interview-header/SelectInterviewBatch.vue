@@ -55,7 +55,7 @@ import { computed, ref } from "@vue/reactivity";
 import { inject, watch } from "@vue/runtime-core";
 
 export default {
-  emits: ["selectedBatchChanged"],
+  emits: ["selectedBatchChanged", "newBatchTitleChanged"],
   components: {
     Multiselect,
   },
@@ -120,10 +120,13 @@ export default {
         newBatchTitle.value = `Intervjurunde ${batches.value.length + 1}`;
         emitBatchTitle();
       }
+      else {
+        selectedBatch.value = batches.value[batches.value.length-1].value; 
+      }
     });
 
     const emitBatchTitle = () =>
-      ctx.emit("selectedBatchChanged", {
+      ctx.emit("newBatchTitleChanged", {
         id: null,
         title: newBatchTitle.value,
       });
