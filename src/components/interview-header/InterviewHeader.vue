@@ -55,6 +55,7 @@ export default {
       interviewBatchTitle.value = e.title;
       interviewBatchId.value = e.id;
       isNewBatch.value = true;
+      ctx.emit("newBatchTitleChanged", e);
     };
 
     return {

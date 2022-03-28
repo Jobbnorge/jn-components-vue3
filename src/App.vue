@@ -3,6 +3,7 @@
     :jobId="jobId"
     @displaySlot="displaySlotChanged"
     @selectedBatchChanged="setInterviewBatch"
+    @newBatchTitleChanged="setNewBatch"
     @selectedSlotsChanged="selectedSlotsChanged"
   ></InterviewHeader>
   <JnDateTimePicker
@@ -97,8 +98,8 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 1042,
-      jobId: 9268,
+      interviewBatchId: undefined,
+      jobId: 9271,
       selectedDates: null,
       currentInterviewBatch: null,
       emptySlotExample: {},
@@ -167,7 +168,8 @@ export default {
       this.selectedSlots = e;
       console.info(e);
     },
-    itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id)
+    itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id),
+    setNewBatch: (e) => console.info("We are creating a new batch...", e)
   },
 };
 </script>
