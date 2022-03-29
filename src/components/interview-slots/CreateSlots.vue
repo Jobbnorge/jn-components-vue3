@@ -177,8 +177,8 @@ export default {
         numberOfDates.value = 0;
         totalNumberOfSlots.value = 0;
         if (values.every((val) => val != undefined)) fetchSlots();
-      }
-      //{ immediate: true }
+      },
+      { immediate: true }
     );
 
     watch(

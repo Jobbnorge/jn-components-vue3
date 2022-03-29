@@ -32,7 +32,6 @@
   <div v-else>Select a date!</div>
 
   <CreateSlots
-    v-if="currentInterviewBatch"
     :jobId="jobId"
     :showExistingSlotsSummary="false"
     :interviewBatchId="interviewBatchId"
@@ -98,8 +97,8 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: undefined,
-      jobId: 9271,
+      interviewBatchId: 1081,
+      jobId: 9261,
       selectedDates: null,
       currentInterviewBatch: null,
       emptySlotExample: {},
