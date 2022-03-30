@@ -14,7 +14,7 @@
         </div>
         <div>
           <CreateSlots
-            v-show="interviewBatchId"
+            v-show="isNewBatch || interviewBatchId"
             :jobId="jobId"
             :interviewBatchId="interviewBatchId"
             :showExistingSlotsSummary="true"
