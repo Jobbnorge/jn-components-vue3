@@ -34,7 +34,7 @@ import SelectInterviewBatch from "./SelectInterviewBatch.vue";
 import CreateSlots from "../interview-slots/CreateSlots.vue";
 import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export default {
   emits: [
@@ -55,9 +55,19 @@ export default {
     const newBatchTitleChanged = (e) => {
       interviewBatchTitle.value = e.title;
       interviewBatchId.value = e.id;
-      isNewBatch.value = true;
       ctx.emit("newBatchTitleChanged", e);
     };
+
+    watch(
+      () => interviewBatchId.value,
+      (val) => {
+        if (val > 0) {
+          isNewBatch.value = false;
+        } else {
+          isNewBatch.value = true;
+        }
+      }
+    );
 
     return {
       selectedBatchChanged,
