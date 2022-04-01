@@ -10,7 +10,7 @@
           <span class="fal fa-chevron-right" />
         </JnButton>
       </div>
-      <button type="button" class="today-btn" @click="selectToday">
+      <button v-if="useTodayButton" type="button" class="today-btn" @click="selectToday">
         {{ $t("datepicker.today") }}
       </button>
     </div>
@@ -31,24 +31,27 @@ export default {
     today: String,
     focusedDate: Object,
   },
-  emits: ["dateSelected"],
+  emits: ["selectToday", "monthSelected"],
   computed: {
     monthNameYear() {
       return this.selectedDate.format("MMMM, YYYY");
     },
+    useTodayButton() {
+      return false
+    }
   },
   methods: {
     getPreviousMonth() {
       let newSelectedDate = dayjs(this.selectedDate).subtract(1, "month");
-      this.$emit("dateSelected", newSelectedDate);
+      this.$emit("monthSelected", newSelectedDate);
     },
     getNextMonth() {
       let newSelectedDate = dayjs(this.selectedDate).add(1, "month");
-      this.$emit("dateSelected", newSelectedDate);
+      this.$emit("monthSelected", newSelectedDate);
     },
     selectToday() {
       let newSelectedDate = dayjs(this.today);
-      this.$emit("dateSelected", newSelectedDate);
+      this.$emit("selectToday", newSelectedDate);
     },
   },
 };

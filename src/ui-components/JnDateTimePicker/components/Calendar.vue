@@ -3,7 +3,8 @@
     <CalendarMonthSelector
       :selectedDate="selectedDate"
       :today="today"
-      @dateSelected="setNewSelectedMonth"
+      @monthSelected="setNewSelectedMonth"
+      @dateSelected="setTodaysDate"
     />
     <CalendarWeekdays />
     <div class="calendar-days">
@@ -234,7 +235,12 @@ export default {
       //selected month
       this.selectedDate = newSelectedDate;
     },
+    setTodaysDate(newSelectedDate) {
+      this.selectedDate = newSelectedDate;
+      this.$emit("updatedSelected", this.selectedDate);
+    },
     setNewSelectedDay(newSelectedDate) {
+      
       if (!this.allowPastDates && newSelectedDate.diff(this.today) < 0) {
         this.$emit("invalidDatePicked");
       } else {

@@ -7,8 +7,8 @@
     @selectedSlotsChanged="selectedSlotsChanged"
   ></InterviewHeader>
   <JnDateTimePicker
-    :pickPeriod="true"
-    :multipleDates="false"
+    :pickPeriod="false"
+    :multipleDates="true"
     :allowPastDates="true"
     type="date"
     @selectedDateChanged="($event) => (selectedDates = $event)"
