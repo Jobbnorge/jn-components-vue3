@@ -97,8 +97,8 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 1081,
-      jobId: 9261,
+      interviewBatchId: 46,
+      jobId: 8318,
       selectedDates: null,
       currentInterviewBatch: null,
       emptySlotExample: {},
