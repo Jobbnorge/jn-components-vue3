@@ -4,7 +4,7 @@
       <span>{{ $t("dateLocationInput.tidspunkt") }}</span>
       <JnDateTimepicker
         :pickPeriod="false"
-        :allowPastDates="false"
+        :allowPastDates="true"
         type="dateTime"
         :minutesInterval="5"
         @selectedDateChanged="selectedDateChanged($event)"
