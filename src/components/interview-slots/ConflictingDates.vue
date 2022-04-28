@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="fas fa-info-circle" style="color: #890E0E;  margin-right: 0.3rem; "><strong>{{$t("conflictingDates.heading")}}</strong></span>
+    <span class="fas fa-info-circle" style="color: #333;  margin-right: 0.3rem; "><strong> {{$t("conflictingDates.heading")}}</strong></span>
     <ul>
       <li v-for="(date, index) in conflictingDates" :key="index">
         {{

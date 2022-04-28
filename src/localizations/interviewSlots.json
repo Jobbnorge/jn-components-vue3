@@ -19,7 +19,7 @@
     },
     "conflictingDates": {
       "error": "kl {0} overlapper med hendelse(r) registrert kl. {1}",
-      "heading": "Ett eller flere tidspunkt er i konflikt med tidligere avtaler:"
+      "heading": "Vær oppmerksom på at ett eller flere tidspunkt er i konflikt med tidligere avtaler:"
     },
     "AvailableSlots": {
       "heading": "Tilgjengelige slots i denne intervjurunden",
@@ -74,7 +74,7 @@
     },
     "conflictingDates": {
       "error": "The time slot at {0} overlaps with another event registered at {1}",
-      "heading": "One or more time slots is in conflict with previously registered events: "
+      "heading": "Please note that one or more time slots is in conflict with previously registered events: "
     },
     "AvailableSlots": {
       "heading": "Available interviewslots in the selected round",
