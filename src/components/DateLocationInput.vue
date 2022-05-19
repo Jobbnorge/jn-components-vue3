@@ -15,6 +15,7 @@
         :interval="15"
         :maxHours="5"
         :id="`duration--${candidateId}`"
+        :defaultValue="getDuration(preSelectedDetails.startDate, preSelectedDetails.endDate)"
         @durationSelected="selectedDurationChanged($event)"
       />
     </div>
@@ -28,12 +29,15 @@
 <script>
 import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicker.vue";
 import SelectDuration from "./SelectDuration.vue";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+dayjs.extend(duration);
 import { ref } from "vue";
 export default {
   setup(props, ctx) {
     const duration = ref(0);
     const date = ref("");
-    const comment = ref("");
+    const comment = ref(props.preSelectedDetails.details);
 
     const update = () =>
       ctx.emit("inputChanged", {
@@ -62,7 +66,28 @@ export default {
   },
   emits: ["inputChanged"],
   components: { JnDateTimepicker, SelectDuration },
-  props: { candidateId: Number },
+  props: { candidateId: Number, preSelectedDetails: Object },
+  methods: {
+    getDuration(startDate, endDate){
+      let diff = dayjs(endDate).diff(dayjs(startDate), 'minute');
+      if(diff == 0){
+        return "0:00";
+      }
+    
+      if(diff > 59){
+        let hours = dayjs(diff).duration().asHours();
+        let minutes = diff - (hours*60);
+        return hours.toString() + ":" + minutes.toString();
+      }
+      else if(diff < 10){
+        let minutes = diff;
+        return "0:0"+minutes.toString();
+      }
+      else{
+        return "0:"+diff.toString();
+      }
+    }
+  }
 };
 </script>
 

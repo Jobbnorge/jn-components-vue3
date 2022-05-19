@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      selectedDuration: "00:00",
+      selectedDuration: "0:00",
       isClearable: true,
       options: [],
     };
