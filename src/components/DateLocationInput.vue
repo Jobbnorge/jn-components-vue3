@@ -15,7 +15,7 @@
         :interval="15"
         :maxHours="5"
         :id="`duration--${candidateId}`"
-        :defaultValue="getDuration(preSelectedDetails.startDate, preSelectedDetails.endDate)"
+        :defaultValue="getDuration()"
         @durationSelected="selectedDurationChanged($event)"
       />
     </div>
@@ -54,22 +54,10 @@ export default {
       update();
     };
 
-    return {
-      duration,
-      selectedDateChanged,
-      selectedDurationChanged,
-      comment,
-      update,
-    };
-  },
-  emits: ["inputChanged"],
-  components: { JnDateTimepicker, SelectDuration },
-  props: { candidateId: Number, preSelectedDetails: Object },
-  methods: {
-    getDuration(startDate, endDate){
-      if(endDate){
-        let diffMinutes = dayjs(endDate).diff(dayjs(startDate), 'minute');
-        let diffHours = dayjs(endDate).diff(dayjs(startDate), 'hour');
+    const getDuration = () => {
+      if(props.preSelectedDetails.endDate){
+        let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'minute');
+        let diffHours = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'hour');
 
         if(diffMinutes > 59){
           let minutes = diffMinutes - (diffHours*60);
@@ -83,7 +71,19 @@ export default {
         }
       }
     }
-  }
+
+    return {
+      duration,
+      selectedDateChanged,
+      selectedDurationChanged,
+      comment,
+      update,
+      getDuration,
+    };
+  },
+  emits: ["inputChanged"],
+  components: { JnDateTimepicker, SelectDuration },
+  props: { candidateId: Number, preSelectedDetails: Object },
 };
 </script>
 
