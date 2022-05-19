@@ -30,8 +30,6 @@
 import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicker.vue";
 import SelectDuration from "./SelectDuration.vue";
 import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-dayjs.extend(duration);
 import { ref } from "vue";
 export default {
   setup(props, ctx) {
@@ -69,23 +67,21 @@ export default {
   props: { candidateId: Number, preSelectedDetails: Object },
   methods: {
     getDuration(startDate, endDate){
-      let diff = dayjs(endDate).diff(dayjs(startDate), 'minute');
-      if(diff == 0){
-        return "0:00";
+      if(endDate){
+        let diffMinutes = dayjs(endDate).diff(dayjs(startDate), 'minute');
+        let diffHours = dayjs(endDate).diff(dayjs(startDate), 'hour');
+
+        if(diffMinutes > 59){
+          let minutes = diffMinutes - (diffHours*60);
+          return diffHours.toString() + ":" + minutes.toString();
+        }
+        else if(diffMinutes < 10){
+          return "0:0"+diffMinutes.toString();
+        }
+        else{
+          return "0:"+diffMinutes.toString();
+        }
       }
-    
-      if(diff > 59){
-        let hours = dayjs(diff).duration().asHours();
-        let minutes = diff - (hours*60);
-        return hours.toString() + ":" + minutes.toString();
-      }
-      else if(diff < 10){
-        let minutes = diff;
-        return "0:0"+minutes.toString();
-      }
-      else{
-        return "0:"+diff.toString();
-      } 
     }
   }
 };
