@@ -22,7 +22,7 @@
     </div>
     <div class="input-container">
       <span>{{ $t("dateLocationInput.sted") }}</span>
-      <input style="width: 100%" @blur="update" v-model="comment" />
+      <input style="width: 100%"  v-model="selectedValues.details" />
     </div>
   </div>
 </template>
@@ -40,8 +40,11 @@ export default {
                 let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'minute');
                 let diffHours = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'hour');
 
-                if (diffMinutes > 60) {
+                if (diffMinutes > 59) {
                     let minutes = diffMinutes - (diffHours * 60);
+                    if(minutes < 10){
+                      return diffHours.toString() + ":0" + minutes.toString();
+                    }
                     return diffHours.toString() + ":" + minutes.toString();
                 } else if (diffMinutes < 10) {
                     return "0:0" + diffMinutes.toString();
@@ -84,6 +87,7 @@ export default {
       selectedDurationChanged,
       update,
       getDuration,
+      selectedValues
     };
   },
   emits: ["inputChanged"],
