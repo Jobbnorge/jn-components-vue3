@@ -42,10 +42,9 @@ export default {
 
                 if (diffMinutes > 59) {
                     let minutes = diffMinutes - (diffHours * 60);
-                    if(minutes < 10){
-                      return diffHours.toString() + ":0" + minutes.toString();
-                    }
-                    return diffHours.toString() + ":" + minutes.toString();
+                    return minutes < 10 
+                    ? diffHours.toString() + ":0" + minutes.toString() 
+                    : diffHours.toString() + ":" + minutes.toString();
                 } else if (diffMinutes < 10) {
                     return "0:0" + diffMinutes.toString();
                 } else {
