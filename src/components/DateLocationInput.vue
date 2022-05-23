@@ -7,6 +7,7 @@
         :allowPastDates="true"
         type="dateTime"
         :minutesInterval="5"
+        :preselectedDate="preSelectedDetails?.startDate ? preSelectedDetails.startDate : undefined"
         @selectedDateChanged="selectedDateChanged($event)"
       />
     </div>
@@ -30,53 +31,57 @@
 import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicker.vue";
 import SelectDuration from "./SelectDuration.vue";
 import dayjs from "dayjs";
-import { ref } from "vue";
+import { reactive } from "vue";
+import { watch, computed } from "@vue/runtime-core";
 export default {
   setup(props, ctx) {
-    const duration = ref(0);
-    const date = ref("");
-    const comment = ref(props.preSelectedDetails.details);
+    const getDuration = () => {
+            if (props.preSelectedDetails?.endDate) {
+                let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'minute');
+                let diffHours = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'hour');
+
+                if (diffMinutes > 60) {
+                    let minutes = diffMinutes - (diffHours * 60);
+                    return diffHours.toString() + ":" + minutes.toString();
+                } else if (diffMinutes < 10) {
+                    return "0:0" + diffMinutes.toString();
+                } else {
+                    return "0:" + diffMinutes.toString();
+                }
+            }
+            return "0:00";
+        };
+
+    const selectedValues = props.preSelectedDetails ? reactive({
+          "date": props.preSelectedDetails.startDate,
+          "details": props.preSelectedDetails.details,
+          "duration": getDuration()
+        }) : reactive({
+            "date": '',
+            "details": '',
+            "duration": ''
+        });
 
     const update = () =>
       ctx.emit("inputChanged", {
-        candidateid: props.candidateId,
-        date: date.value,
-        comment: comment.value,
-        duration: duration.value,
-      });
+                candidateid: props.candidateId,
+                ...selectedValues
+            });
 
     const selectedDateChanged = (_date) => {
-      date.value = _date;
-      update();
+      selectedValues.date = _date;
     };
     const selectedDurationChanged = (updatedValue) => {
-      duration.value = updatedValue.duration;
-      update();
+      selectedValues.duration = updatedValue.duration;
     };
 
-    const getDuration = () => {
-      if(props.preSelectedDetails.endDate){
-        let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'minute');
-        let diffHours = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'hour');
-
-        if(diffMinutes > 59){
-          let minutes = diffMinutes - (diffHours*60);
-          return diffHours.toString() + ":" + minutes.toString();
-        }
-        else if(diffMinutes < 10){
-          return "0:0"+diffMinutes.toString();
-        }
-        else{
-          return "0:"+diffMinutes.toString();
-        }
-      }
-    }
+    watch(selectedValues, () => {
+            update();
+        })
 
     return {
-      duration,
       selectedDateChanged,
       selectedDurationChanged,
-      comment,
       update,
       getDuration,
     };
