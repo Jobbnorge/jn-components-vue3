@@ -32,7 +32,7 @@ import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicke
 import SelectDuration from "./SelectDuration.vue";
 import dayjs from "dayjs";
 import { reactive } from "vue";
-import { watch, computed } from "@vue/runtime-core";
+import { watch } from "@vue/runtime-core";
 export default {
   setup(props, ctx) {
     const getDuration = () => {
