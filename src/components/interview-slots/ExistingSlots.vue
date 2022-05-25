@@ -36,26 +36,21 @@
           class="slot-box"
         >
           <template #box-content>
-            <div>
-              <h2 style="font-size: 1rem">{{ displayDate(key) }}</h2>
-              <div class="slot-container">
-                <TimeSlot
-                  v-for="date in value"
-                  :key="date.startDate"
-                  :startTime="dayjs(date.startDate).format('HH:mm')"
-                  :isSelectable="false"
-                  :isOccupied="date.isOccupied"
-                >
-                </TimeSlot>
-              </div>
-              <div>
-                {{ $t("AvailableSlots.place") }}:
-                {{
-                  value[0].location
-                    ? value[0].location
-                    : $t("AvailableSlots.notRegistered")
-                }}
-              </div>
+            <h2 style="font-size: 1rem">{{ displayDate(key) }}</h2>
+            <div class="slot-container">
+              <InterviewSlotCard
+                v-for="date in value"
+                :key="date.startDate"
+                :startTime="dayjs(date.startDate).format('HH:mm')"
+                :endTime="dayjs(date.endDate).format('HH:mm')"
+                :isOccupied="date.isOccupied"
+                :place="date.location"
+                :canBeDeleted="canDeleteSlots"
+                :slotId="date.id"
+                :buttonText="$t('AvailableSlots.delete')"
+                @deleteSlot="($event) => $emit('deleteSlot', $event)"
+              >
+              </InterviewSlotCard>
             </div>
           </template>
         </InfoBox>
@@ -93,14 +88,14 @@
   </div>
 </template>
 <script>
-import TimeSlot from "@jobbnorge/jn-components/src/ui_components/buttons/TimeSlot.vue";
+import InterviewSlotCard from "@jobbnorge/jn-components/src/ui_components/cards/InterviewSlotCard.vue";
 import InfoBox from "@jobbnorge/jn-components/src/ui_components/containers/InfoBox.vue";
 import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnMiniButton.vue";
 import { toRefs, ref } from "@vue/runtime-core";
 import dayjs from "dayjs";
 
 export default {
-  emits: ["showExistingSlots"],
+  emits: ["showExistingSlots", "deleteSlot"],
   setup(props, ctx) {
     const { showExistingSlotsSummary } = toRefs(props);
     const showExistingSlots = ref(!showExistingSlotsSummary.value);
@@ -123,15 +118,19 @@ export default {
     };
   },
   components: {
-    TimeSlot,
     JnMiniButton,
     InfoBox,
+    InterviewSlotCard,
   },
   props: {
     slots: Object,
     totalNumberOfSlots: Number,
     numberOfDates: Number,
     showExistingSlotsSummary: Boolean,
+    canDeleteSlots: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>

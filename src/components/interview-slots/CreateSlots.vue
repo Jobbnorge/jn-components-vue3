@@ -5,8 +5,10 @@
       :slots="slots"
       :totalNumberOfSlots="totalNumberOfSlots"
       :numberOfDates="numberOfDates"
+      :canDeleteSlots="canDeleteSlots"
       :showExistingSlotsSummary="showExistingSlotsSummary"
       @showExistingSlots="setCanAddMoreSlots"
+      @deleteSlot="($event) => $emit('deleteSlot', $event)"
     />
     <hr style="border: 1px solid #f6f5f6" />
 
@@ -76,10 +78,15 @@ import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
 
 export default {
-  emits: ["selectedSlotsChanged"],
+  emits: ["selectedSlotsChanged", "deleteSlot"],
   setup(props, ctx) {
-    const { jobId, interviewBatchId, showExistingSlotsSummary, isNewBatch } =
-      toRefs(props);
+    const {
+      jobId,
+      interviewBatchId,
+      showExistingSlotsSummary,
+      isNewBatch,
+      slotsHasChanged,
+    } = toRefs(props);
     provide("jobId", jobId);
     provide("interviewBatchId", interviewBatchId);
 
@@ -167,16 +174,27 @@ export default {
       });
     };
 
+    const deleteAndRefetchSlots = () => {
+      Object.keys(slots).forEach((k) => {
+        delete slots[k];
+      });
+      numberOfDates.value = 0;
+      totalNumberOfSlots.value = 0;
+      fetchSlots();
+    };
+
+    watch(
+      () => slotsHasChanged.value,
+      (val) => {
+        if (val === true) {
+          deleteAndRefetchSlots();
+        }
+      }
+    );
     watch(
       () => [interviewBatchId.value, jobId.value],
       (values) => {
-        Object.keys(slots).forEach((k) => {
-          delete slots[k];
-        });
-
-        numberOfDates.value = 0;
-        totalNumberOfSlots.value = 0;
-        if (values.every((val) => val != undefined)) fetchSlots();
+        if (values.every((val) => val != undefined)) deleteAndRefetchSlots();
       },
       { immediate: true }
     );
@@ -240,6 +258,14 @@ export default {
     interviewBatchId: Number,
     showExistingSlotsSummary: Boolean,
     isNewBatch: Boolean,
+    canDeleteSlots: {
+      type: Boolean,
+      default: false,
+    },
+    slotsHasChanged: {
+      type: Boolean,
+      deafault: false,
+    },
   },
 };
 </script>

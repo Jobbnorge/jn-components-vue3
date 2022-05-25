@@ -30,30 +30,37 @@
     Selected Date: {{ selectedDates.format("YYYY-MM-DD") }}
   </div>
   <div v-else>Select a date!</div>
-
   <CreateSlots
     :jobId="jobId"
     :showExistingSlotsSummary="false"
     :interviewBatchId="interviewBatchId"
+    :canDeleteSlots="true"
+    :slotsHasChanged="slotsHasChanged"
+    @deleteSlot="deleteSlot"
     @selectedSlotsChanged="selectedSlotsChanged"
   />
+  <button @click="slotsHasChanged = !slotsHasChanged">
+    TOGGLE SLOTS HAS CHANGED
+  </button>
   <DateLocationInput
     :candidateId="1"
     @inputChanged="dateLocationInputUpdated"
   ></DateLocationInput>
-  <h1>ExistingSlots</h1>
+  <h1>ExistingSlots -kan ikke slettes pga inviteHasBeenSent</h1>
   <ExistingSlots
     :slots="slotExample"
     :totalNumberOfSlots="5"
     :numberOfDates="2"
     :showExistingSlotsSummary="false"
+    :canDeleteSlots="true"
+    @deleteSlot="deleteSlot"
   />
   <h2>Empty slots with custom empty state slot</h2>
   <ExistingSlots
     :slots="slotExample2"
     :totalNumberOfSlots="0"
     :numberOfDates="0"
-    :showExistingSlotsSummary="false"
+    @deleteSlot="deleteSlot"
   >
     <template #emptyState
       ><div style="background: yellow; padding: 1rem; width: fit-content">
@@ -61,7 +68,7 @@
       </div></template
     >
   </ExistingSlots>
-  <div style="margin-top: 2rem;">
+  <div style="margin-top: 2rem">
     <DropDownButton
       text="Velg et element"
       isPrimary
@@ -82,7 +89,7 @@ import JnDateTimePicker from "./ui-components/JnDateTimePicker/JnDateTimepicker.
 import InterviewHeader from "./components/interview-header/InterviewHeader.vue";
 import DateLocationInput from "./components/DateLocationInput.vue";
 import ExistingSlots from "./components/interview-slots/ExistingSlots.vue";
-import DropDownButton from "./ui-components/DropDownButton/DropDownButton.vue"; 
+import DropDownButton from "./ui-components/DropDownButton/DropDownButton.vue";
 
 export default {
   name: "App",
@@ -92,16 +99,17 @@ export default {
     InterviewHeader,
     DateLocationInput,
     ExistingSlots,
-    DropDownButton
+    DropDownButton,
   },
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 46,
-      jobId: 8318,
+      interviewBatchId: 1053,
+      jobId: 9269,
       selectedDates: null,
       currentInterviewBatch: null,
       emptySlotExample: {},
+      slotsHasChanged: false,
       slotExample: {
         "2022-02-17T00:00:00": [
           {
@@ -168,7 +176,17 @@ export default {
       console.info(e);
     },
     itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id),
-    setNewBatch: (e) => console.info("We are creating a new batch...", e)
+    setNewBatch: (e) => console.info("We are creating a new batch...", e),
+
+    deleteSlot(e) {
+      this.slotsHasChanged = true;
+      console.info("Deleting slot with id", e);
+
+      setTimeout(() => {
+        this.slotsHasChanged = false;
+        console.info("SlotsHasChanged is now back at initial state ", this.slotsHasChanged );
+      }, "1000");
+    },
   },
 };
 </script>

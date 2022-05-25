@@ -37,7 +37,8 @@
       "noSummaryTitle": "Tilgjengelige intervjuslots i runden",
       "none": "Ingen",
       "notRegistered": "Ikke oppgitt",
-      "place": "Sted"
+      "place": "Sted",
+      "delete": "Slett"
     },
     "selectSlots": {
       "numberSelected": "{0} valgt",
@@ -90,7 +91,8 @@
       "summaryNoExisting": "No available slots in the interview round, would you like to create slots for this round?",
       "none": "None",
       "notRegistered": "Not registered",
-      "place": "Place"
+      "place": "Place",
+      "delete": "Delete"
 
     },
     "selectSlots": {
