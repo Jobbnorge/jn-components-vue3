@@ -13,7 +13,7 @@
     </div>
     <div class="input-container">
       <SelectDuration
-        :interval="15"
+        :interval="5"
         :maxHours="5"
         :id="`duration--${candidateId}`"
         :defaultValue="getDuration()"

@@ -30,7 +30,7 @@
             <SelectDuration
               id="timePerSlot"
               :label="$t('slotSettings.timePerSlot')"
-              :interval="15"
+              :interval="5"
               :maxHours="5"
               :defaultValue="settings.timePerSlot"
               @durationSelected="setDuration"
