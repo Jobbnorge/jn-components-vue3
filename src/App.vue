@@ -38,8 +38,9 @@
     :slotsHasChanged="slotsHasChanged"
     @deleteSlot="deleteSlot"
     @selectedSlotsChanged="selectedSlotsChanged"
+    @createNewSlot="createNewSlot"
   />
-  <button @click="slotsHasChanged = !slotsHasChanged">
+  <button style="margin-top: 3rem;" @click="slotsHasChanged = !slotsHasChanged">
     TOGGLE SLOTS HAS CHANGED
   </button>
   <DateLocationInput
@@ -187,6 +188,7 @@ export default {
         console.info("SlotsHasChanged is now back at initial state ", this.slotsHasChanged );
       }, "1000");
     },
+    createNewSlot: (e) => console.info("createNewSlot, ", e)
   },
 };
 </script>

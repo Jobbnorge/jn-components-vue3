@@ -4,10 +4,14 @@
       <span>{{ $t("dateLocationInput.tidspunkt") }}</span>
       <JnDateTimepicker
         :pickPeriod="false"
-        :allowPastDates="true"
+        :allowPastDates="allowPastDates"
         type="dateTime"
         :minutesInterval="5"
-        :preselectedDate="preSelectedDetails?.startDate ? preSelectedDetails.startDate : undefined"
+        :preselectedDate="
+          preSelectedDetails?.startDate
+            ? preSelectedDetails.startDate
+            : undefined
+        "
         @selectedDateChanged="selectedDateChanged($event)"
       />
     </div>
@@ -22,7 +26,7 @@
     </div>
     <div class="input-container">
       <span>{{ $t("dateLocationInput.sted") }}</span>
-      <input style="width: 100%"  v-model="selectedValues.details" />
+      <input style="width: 100%" v-model="selectedValues.details" />
     </div>
   </div>
 </template>
@@ -36,39 +40,48 @@ import { watch } from "@vue/runtime-core";
 export default {
   setup(props, ctx) {
     const getDuration = () => {
-            if (props.preSelectedDetails?.endDate) {
-                let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'minute');
-                let diffHours = dayjs(props.preSelectedDetails.endDate).diff(dayjs(props.preSelectedDetails.startDate), 'hour');
+      if (props.preSelectedDetails?.endDate) {
+        let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(
+          dayjs(props.preSelectedDetails.startDate),
+          "minute"
+        );
+        let diffHours = dayjs(props.preSelectedDetails.endDate).diff(
+          dayjs(props.preSelectedDetails.startDate),
+          "hour"
+        );
 
-                if (diffMinutes > 59) {
-                    let minutes = diffMinutes - (diffHours * 60);
-                    return minutes < 10 
-                    ? diffHours.toString() + ":0" + minutes.toString() 
-                    : diffHours.toString() + ":" + minutes.toString();
-                } else if (diffMinutes < 10) {
-                    return "0:0" + diffMinutes.toString();
-                } else {
-                    return "0:" + diffMinutes.toString();
-                }
-            }
-            return "0:00";
-        };
+        if (diffMinutes > 59) {
+          let minutes = diffMinutes - diffHours * 60;
+          return minutes < 10
+            ? diffHours.toString() + ":0" + minutes.toString()
+            : diffHours.toString() + ":" + minutes.toString();
+        } else if (diffMinutes < 10) {
+          return "0:0" + diffMinutes.toString();
+        } else {
+          return "0:" + diffMinutes.toString();
+        }
+      }
+      return "0:00";
+    };
 
-    const selectedValues = props.preSelectedDetails ? reactive({
-          "date": props.preSelectedDetails.startDate,
-          "details": props.preSelectedDetails.details,
-          "duration": getDuration()
-        }) : reactive({
-            "date": '',
-            "details": '',
-            "duration": ''
+    const selectedValues = props.preSelectedDetails
+      ? reactive({
+          date: props.preSelectedDetails.startDate,
+          details: props.preSelectedDetails.details,
+          duration: getDuration(),
+        })
+      : reactive({
+          date: "",
+          details: "",
+          duration: "",
         });
 
-    const update = () =>
+    const update = () => {
       ctx.emit("inputChanged", {
-                candidateid: props.candidateId,
-                ...selectedValues
-            });
+        candidateid: props.candidateId,
+        ...selectedValues,
+      });
+    };
 
     const selectedDateChanged = (_date) => {
       selectedValues.date = _date;
@@ -78,20 +91,24 @@ export default {
     };
 
     watch(selectedValues, () => {
-            update();
-        })
+      update();
+    });
 
     return {
       selectedDateChanged,
       selectedDurationChanged,
       update,
       getDuration,
-      selectedValues
+      selectedValues,
     };
   },
   emits: ["inputChanged"],
   components: { JnDateTimepicker, SelectDuration },
-  props: { candidateId: Number, preSelectedDetails: Object },
+  props: {
+    candidateId: Number,
+    preSelectedDetails: Object,
+    allowPastDates: { type: Boolean, defaultValue: true },
+  },
 };
 </script>
 
