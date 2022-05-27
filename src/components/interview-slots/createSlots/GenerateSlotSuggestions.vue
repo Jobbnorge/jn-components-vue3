@@ -9,6 +9,15 @@
       @selectedDateChanged="slotDateSettingChanged"
     />
   </div>
+  <span
+    v-if="slotDateSettings.length > 0"
+    class="far fa-info-circle"
+    style="display: flex; color: var(--darkBlue)"
+  >
+    <p style="font-family: 'Roboto'; margin-left: 0.3rem; color: var(--gray)">
+      {{ $t("createSlots.info") }}
+    </p></span
+  >
   <SelectSlots
     :slotTimeSettings="slotTimeSettings"
     :slotDateSettings="slotDateSettings"
@@ -19,18 +28,10 @@
     "
     @clearSelectedSlots="($event) => $emit('clearSelectedSlots', $event)"
   />
-  <span
-    v-if="slotDateSettings.length > 0"
-    class="far fa-info-circle"
-    style="display: flex; color: var(--darkBlue)"
-  >
-    <p style="font-family: 'Roboto'; margin-left: 0.3rem; color: var(--gray)">
-      {{ $t("createSlots.info") }}
-    </p></span
-  >
 </template>
 <script>
 import SlotSettings from "../SlotSettings.vue";
+import SelectSlots from "../SelectSlots.vue";
 import JnDateTimepicker from "../../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
 import { reactive, ref } from "vue";
 export default {
@@ -58,6 +59,7 @@ export default {
   },
   components: {
     SlotSettings,
+    SelectSlots,
     JnDateTimepicker,
   },
 };

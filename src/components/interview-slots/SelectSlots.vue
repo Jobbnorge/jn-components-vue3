@@ -77,7 +77,6 @@ export default {
     const generatedSlots = ref({});
     const jobId = inject("jobId");
     const slotDateLocation = ref({});
-
     const numberSelectedSlotsPerDate = ref(new Map());
 
     const timeSlotSelected = (e, date) => {
