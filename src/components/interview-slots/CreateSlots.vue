@@ -13,16 +13,20 @@
     <hr style="border: 1px solid #f6f5f6" />
     <transition name="fade">
       <div v-if="showSlotSettings">
-        <ManuallyCreateSlots
-          @createNewSlot="slotAdded"
-          @cancelNewSlot="slotRemoved"
-        />
-        <GenerateSlotSuggestions
-          @slotAdded="slotAdded"
-          @slotRemoved="slotRemoved"
-          @slotDateLocationChanged="slotDateLocationChanged"
-          @clearSelectedSlots="clearSelectedSlots"
-        />
+        <SelectCreationMethod @toggleCreationMethod="toggleCreationMethod" />
+        <transition name="fade">
+          <component
+            :is="creationMethod"
+            @createNewSlot="slotAdded"
+            @cancelNewSlot="slotRemoved"
+            @slotAdded="slotAdded"
+            @slotRemoved="slotRemoved"
+            @slotDateLocationChanged="slotDateLocationChanged"
+            @clearSelectedSlots="clearSelectedSlots"
+          >
+          </component>
+        </transition>
+
         <ConflictingDates
           v-if="conflictingDates.length > 0"
           :conflictingDates="conflictingDates"
@@ -51,6 +55,7 @@ import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
 import ManuallyCreateSlots from "./createSlots/ManuallyCreateSlots.vue";
 import GenerateSlotSuggestions from "./createSlots/GenerateSlotSuggestions.vue";
+import SelectCreationMethod from "./createSlots/SelectCreationMethod.vue";
 
 export default {
   emits: ["selectedSlotsChanged", "deleteSlot", "createNewSlot"],
@@ -76,6 +81,20 @@ export default {
         totalNumberOfSlots.value == 0 ||
         isNewBatch.value == true
     ); //Set initial value
+
+    const useGeneratedSlots = ref(false);
+    const creationMethod = ref(GenerateSlotSuggestions);
+
+    const toggleCreationMethod = () => {
+      console.log("toggle creation method");
+      if (useGeneratedSlots.value) {
+        creationMethod.value = GenerateSlotSuggestions;
+        useGeneratedSlots.value = false;
+      } else {
+        creationMethod.value = ManuallyCreateSlots;
+        useGeneratedSlots.value = true;
+      }
+    };
 
     const fetchSlots = () => {
       fetch(
@@ -200,6 +219,8 @@ export default {
       toggleSlotSettings,
       slotDateLocationChanged,
       clearSelectedSlots,
+      toggleCreationMethod,
+      creationMethod,
     };
   },
   components: {
@@ -208,6 +229,7 @@ export default {
     ConflictingDates,
     ManuallyCreateSlots,
     GenerateSlotSuggestions,
+    SelectCreationMethod,
   },
   props: {
     jobId: {
