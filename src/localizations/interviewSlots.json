@@ -85,7 +85,7 @@
       "errorSingleSlot": "An interview slot must have a date and a duration.",
       "add": "Add",
       "removeManuallyCreated": "Remove slot",
-      "slotsAddedToList": "The following slots has been added:"
+      "slotsAddedToList": "The following slots has been added"
     },
     "conflictingDates": {
       "error": "The time slot at {0} overlaps with another event registered at {1}",
