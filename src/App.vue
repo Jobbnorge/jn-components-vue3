@@ -38,7 +38,6 @@
     :slotsHasChanged="slotsHasChanged"
     @deleteSlot="deleteSlot"
     @selectedSlotsChanged="selectedSlotsChanged"
-    @createNewSlot="createNewSlot"
   />
   <button style="margin-top: 3rem;" @click="slotsHasChanged = !slotsHasChanged">
     TOGGLE SLOTS HAS CHANGED
@@ -174,7 +173,7 @@ export default {
     dateLocationInputUpdated: (e) => console.info(e),
     selectedSlotsChanged(e) {
       this.selectedSlots = e;
-      console.info(e);
+      console.info("these are the selected slots...", e);
     },
     itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id),
     setNewBatch: (e) => console.info("We are creating a new batch...", e),
@@ -188,7 +187,6 @@ export default {
         console.info("SlotsHasChanged is now back at initial state ", this.slotsHasChanged );
       }, "1000");
     },
-    createNewSlot: (e) => console.info("createNewSlot, ", e)
   },
 };
 </script>

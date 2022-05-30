@@ -17,7 +17,8 @@
       "selectDatePeriod": "Velg den / de datoene som er aktuelle",
       "info": "Trykk på et tidspunkt for å legge til en slot i utvalget kandidatene kan velge blant.",
       "errorSingleSlot": "En intervjuslot må ha både dato og varighet.",
-      "add": "Legg til"
+      "add": "Legg til",
+      "removeManuallyCreated": "Fjern slot"
     },
     "conflictingDates": {
       "error": "kl {0} overlapper med hendelse(r) registrert kl. {1}",
@@ -81,7 +82,8 @@
       "selectDatePeriod": "Select relevant date(s)",
       "info": "Tap on a time-slot to add a it to the selection candidates can choose from.",
       "errorSingleSlot": "An interview slot must have a date and a duration.",
-      "add": "Add"
+      "add": "Add",
+      "removeManuallyCreated": "Remove slot"
     },
     "conflictingDates": {
       "error": "The time slot at {0} overlaps with another event registered at {1}",

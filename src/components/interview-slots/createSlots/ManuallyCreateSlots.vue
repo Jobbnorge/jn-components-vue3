@@ -23,7 +23,7 @@
       light
       @jnButton-clicked="cancel"
       ><span class="fal fa-times" style="margin-left: 0.3rem"></span
-      >{{ $t("createSlots.addMoreCancel") }}</JnButton
+      >{{ $t("createSlots.removeManuallyCreated") }}</JnButton
     >
   </div>
   <div v-else>
@@ -32,7 +32,7 @@
       :allowPastDates="false"
     />
     <JnButton colorTheme="blue" light @jnButton-clicked="addSlot"
-      style="margin-bottom: 1rem; "><span class="fal fa-plus" style="margin-left: 0.3rem"></span
+      style="margin: 1rem 0rem; "><span class="fal fa-plus" style="margin-left: 0.3rem"></span
       >{{ $t("createSlots.add") }}</JnButton
     >
     <div v-if="showErrorMessage">
@@ -49,7 +49,7 @@ import dayjs from "dayjs";
 import { ref, inject } from "vue";
 
 export default {
-  emits: ["createNewSlot", "cancelNewSlot"],
+  emits: ["slotAdded", "slotRemoved"],
   setup(props, ctx) {
     const jobId = inject("jobId");
     const currentSlotData = ref(undefined);
@@ -95,11 +95,11 @@ export default {
       )
         .then((res) => res.json())
         .then((data) => (slotToCreate.value = data))
-        .finally(() => ctx.emit("createNewSlot", slotToCreate.value));
+        .finally(() => ctx.emit("slotAdded", slotToCreate.value));
     };
 
     const cancel = () => {
-      ctx.emit("cancelNewSlot", slotToCreate.value);
+      ctx.emit("slotRemvoed", slotToCreate.value);
       slotToCreate.value = undefined;
     };
 
