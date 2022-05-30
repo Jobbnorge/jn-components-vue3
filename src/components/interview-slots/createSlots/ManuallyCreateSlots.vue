@@ -1,42 +1,41 @@
 <template>
-  <div v-if="slotToCreate">
-    <InfoBox colorTheme="gray" style="margin-top: 1rem">
-      <template #box-content>
-        <h2 style="font-size: 1rem">
-          {{ dayjs(slotToCreate.startDate).format("dddd DD.MM.YYYY") }}
-        </h2>
-        <div class="slot-container">
-          <InterviewSlotCard
-            :startTime="dayjs(slotToCreate.startDate).format('HH:mm')"
-            :endTime="dayjs(slotToCreate.endDate).format('HH:mm')"
-            :place="slotToCreate.location"
-            :canBeDeleted="false"
-            :buttonText="$t('AvailableSlots.delete')"
-          >
-          </InterviewSlotCard>
-        </div>
-      </template>
-    </InfoBox>
-    <JnButton
-      style="margin-top: 1rem"
-      colorTheme="blue"
-      light
-      @jnButton-clicked="cancel"
-      ><span class="fal fa-times" style="margin-left: 0.3rem"></span
-      >{{ $t("createSlots.removeManuallyCreated") }}</JnButton
-    >
-  </div>
-  <div v-else>
+  <InfoBox
+    colorTheme="gray"
+    style="margin-top: 1rem"
+    v-if="selectedSlots.length > 0"
+  >
+    <template #box-content>
+      <h2 style="font-size: 1rem">{{ $t("createSlots.slotsAddedToList") }}</h2>
+      <div class="slot-container">
+        <InterviewSlotCard
+          v-for="slot in selectedSlots"
+          :key="slot.startDate"
+          :startTime="dayjs(slot.startDate).format('HH:mm')"
+          :endTime="dayjs(slot.endDate).format('HH:mm')"
+          :place="slot.location"
+          :date="dayjs(slot.startDate).format('DD.MM.YYYY')"
+          :canBeDeleted="true"
+          :buttonText="$t('AvailableSlots.delete')"
+          @deleteSlot="($event) => $emit('slotRemoved', slot)"
+        >
+        </InterviewSlotCard>
+      </div>
+    </template>
+  </InfoBox>
+  <div>
     <DateLocationInput
       @inputChanged="($event) => (currentSlotData = $event)"
       :allowPastDates="false"
     />
-    <JnButton colorTheme="blue" light @jnButton-clicked="addSlot"
-      style="margin: 1rem 0rem; "><span class="fal fa-plus" style="margin-left: 0.3rem"></span
-      >{{ $t("createSlots.add") }}</JnButton
-    >
+    <div style="display: flex; justify-content: end; margin: 1rem 0rem">
+      <JnButton colorTheme="blue" light @jnButton-clicked="addSlot"
+        ><span class="fal fa-plus" style="margin-left: 0.3rem"></span
+        >{{ $t("createSlots.add") }}</JnButton
+      >
+    </div>
+
     <div v-if="showErrorMessage">
-      {{ $t("createSlot.errorSingleSlot") }}
+      {{ $t("createSlots.errorSingleSlot") }}
     </div>
   </div>
 </template>
@@ -98,18 +97,11 @@ export default {
         .finally(() => ctx.emit("slotAdded", slotToCreate.value));
     };
 
-    const cancel = () => {
-      ctx.emit("slotRemvoed", slotToCreate.value);
-      slotToCreate.value = undefined;
-    };
-
     return {
       currentSlotData,
       addSlot,
       showErrorMessage,
-      slotToCreate,
       dayjs,
-      cancel,
     };
   },
   components: {
@@ -117,6 +109,9 @@ export default {
     JnButton,
     InfoBox,
     InterviewSlotCard,
+  },
+  props: {
+    selectedSlots: Array,
   },
 };
 </script>

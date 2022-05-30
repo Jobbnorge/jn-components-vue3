@@ -17,6 +17,7 @@
         <transition name="fade">
           <component
             :is="creationMethod"
+            :selectedSlots="selectedSlots"
             @slotAdded="slotAdded"
             @slotRemoved="slotRemoved"
             @slotDateLocationChanged="slotDateLocationChanged"
