@@ -44,7 +44,13 @@
     },
     "selectSlots": {
       "numberSelected": "{0} valgt",
-      "empty": "Ingen valgt"
+      "empty": "Ingen valgt",
+      "suggestSlots": "Foreslå tidspunkt",
+      "manuallyCreate": "Lag egne tidspunkt",
+      "helpBox": {
+        "generatedSuggestions": "Systemet lager forslag til tidspunkt basert på instillingene under",
+        "manualCreation": "Du oppretter alle tidspunkter selv"
+      }
     },
     "selectDuration": {
       "select": "Velg",
@@ -101,7 +107,13 @@
     },
     "selectSlots": {
       "numberSelected": "{0} selected",
-      "empty": "None selected"
+      "empty": "None selected",
+      "suggestSlots": "Suggest slot times",
+      "manuallyCreate": "Manually create slots",
+      "helpBox": {
+        "generatedSuggestions": "The system will generate slot suggestions based on the settings underneat",
+        "manualCreation": "Manually create slots"
+      }
     },
     "selectDuration": {
       "select": "Select",

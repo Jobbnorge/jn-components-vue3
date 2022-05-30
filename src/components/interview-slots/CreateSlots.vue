@@ -86,7 +86,6 @@ export default {
     const creationMethod = ref(GenerateSlotSuggestions);
 
     const toggleCreationMethod = () => {
-      console.log("toggle creation method");
       if (useGeneratedSlots.value) {
         creationMethod.value = GenerateSlotSuggestions;
         useGeneratedSlots.value = false;

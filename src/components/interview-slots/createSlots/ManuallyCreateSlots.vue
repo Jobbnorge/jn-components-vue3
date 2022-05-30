@@ -32,7 +32,7 @@
       :allowPastDates="false"
     />
     <JnButton colorTheme="blue" light @jnButton-clicked="addSlot"
-      ><span class="fal fa-plus" style="margin-left: 0.3rem"></span
+      style="margin-bottom: 1rem; "><span class="fal fa-plus" style="margin-left: 0.3rem"></span
       >{{ $t("createSlots.add") }}</JnButton
     >
     <div v-if="showErrorMessage">
