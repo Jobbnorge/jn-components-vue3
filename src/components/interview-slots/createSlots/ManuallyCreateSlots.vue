@@ -5,7 +5,7 @@
     v-if="selectedSlots.length > 0"
   >
     <template #box-content>
-      <h2 style="font-size: 1rem">{{ $t("createSlots.slotsAddedToList") }}</h2>
+      <h2 style="font-size: 1rem">{{ $t("createSlots.slotsAddedToList") }}:</h2>
       <div class="slot-container">
         <InterviewSlotCard
           v-for="slot in selectedSlots"
@@ -33,7 +33,6 @@
         >{{ $t("createSlots.add") }}</JnButton
       >
     </div>
-
     <div v-if="showErrorMessage">
       {{ $t("createSlots.errorSingleSlot") }}
     </div>
