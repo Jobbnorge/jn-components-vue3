@@ -162,7 +162,9 @@ export default {
       });
       numberOfDates.value = 0;
       totalNumberOfSlots.value = 0;
-      fetchSlots();
+      if (isNewBatch.value === false) {
+        fetchSlots();
+      }
     };
 
     const clearSelectedSlots = () => {
@@ -189,6 +191,7 @@ export default {
         if (val === true) {
           setCanAddMoreSlots(true);
         }
+        deleteAndRefetchSlots();
       }
     );
 

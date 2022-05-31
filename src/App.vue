@@ -1,7 +1,6 @@
 <template>
   <InterviewHeader
     :jobId="jobId"
-    @displaySlot="displaySlotChanged"
     @selectedBatchChanged="setInterviewBatch"
     @newBatchTitleChanged="setNewBatch"
     @selectedSlotsChanged="selectedSlotsChanged"
@@ -104,8 +103,8 @@ export default {
   data: function () {
     return {
       selectedSlots: [],
-      interviewBatchId: 1053,
-      jobId: 9269,
+      interviewBatchId: 1092,
+      jobId: 9263,
       selectedDates: null,
       currentInterviewBatch: null,
       emptySlotExample: {},
