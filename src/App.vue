@@ -179,13 +179,8 @@ export default {
     setNewBatch: (e) => console.info("We are creating a new batch...", e),
 
     deleteSlot(e) {
-      this.slotsHasChanged = true;
-      console.info("Deleting slot with id", e);
-
-      setTimeout(() => {
-        this.slotsHasChanged = false;
-        console.info("SlotsHasChanged is now back at initial state ", this.slotsHasChanged );
-      }, "1000");
+      this.slotsHasChanged = !this.slotsHasChanged;
+      console.info("Deleting slot with id", e, " and we have toggled the slotsHasChanged ", this.slotsHasChanged);
     },
   },
 };

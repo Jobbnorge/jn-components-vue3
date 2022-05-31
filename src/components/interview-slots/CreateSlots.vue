@@ -171,10 +171,8 @@ export default {
 
     watch(
       () => slotsHasChanged.value,
-      (val) => {
-        if (val === true) {
-          deleteAndRefetchSlots();
-        }
+      () => {
+        deleteAndRefetchSlots();
       }
     );
     watch(
