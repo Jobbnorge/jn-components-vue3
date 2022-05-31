@@ -39,7 +39,7 @@
     @deleteSlot="deleteSlot"
     @selectedSlotsChanged="selectedSlotsChanged"
   />
-  <button style="margin-top: 3rem" @click="slotsHasChanged = !slotsHasChanged">
+  <button style="margin-top: 3rem;" @click="slotsHasChanged = !slotsHasChanged">
     TOGGLE SLOTS HAS CHANGED
   </button>
   <DateLocationInput
@@ -173,7 +173,7 @@ export default {
     dateLocationInputUpdated: (e) => console.info(e),
     selectedSlotsChanged(e) {
       this.selectedSlots = e;
-      console.info(e);
+      console.info("these are the selected slots...", e);
     },
     itemClicked: (e) => console.info("you clicked, " + e.text + " id=" + e.id),
     setNewBatch: (e) => console.info("We are creating a new batch...", e),

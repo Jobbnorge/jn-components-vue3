@@ -66,7 +66,7 @@ import { inject } from "vue";
 require("dayjs/locale/nb");
 dayjs.locale("nb");
 export default {
-  emits: ["slotAdded", "slotRemoved", "slotDateLocationChanged"],
+  emits: ["slotAdded", "slotRemoved", "slotDateLocationChanged", "clearSelectedSlots"],
   components: {
     TimeSlot,
     InfoBox,
@@ -77,7 +77,6 @@ export default {
     const generatedSlots = ref({});
     const jobId = inject("jobId");
     const slotDateLocation = ref({});
-
     const numberSelectedSlotsPerDate = ref(new Map());
 
     const timeSlotSelected = (e, date) => {
@@ -108,6 +107,7 @@ export default {
     watch(
       () => [slotTimeSettings.value, slotDateSettings.value],
       (values, prevValues) => {
+        ctx.emit('clearSelectedSlots')
         var [_timeSettings, _dateSettings] = values;
         var [, _prevDateSettings] = prevValues;
 

@@ -11,49 +11,28 @@
       @deleteSlot="($event) => $emit('deleteSlot', $event)"
     />
     <hr style="border: 1px solid #f6f5f6" />
-
     <transition name="fade">
       <div v-if="showSlotSettings">
-        <SlotSettings @slotSettingsUpdated="slotTimeSettingChanged" />
-        <div style="margin: 2rem 0rem">
-          <label>{{ $t("createSlots.selectDatePeriod") }}:</label>
-          <JnDateTimepicker
-            :multipleDates="true"
-            :allowPastDates="false"
-            type="date"
-            @selectedDateChanged="slotDateSettingChanged"
-          />
-        </div>
-        <span
-          v-if="slotDateSettings.length > 0 && conflictingDates.length === 0"
-          class="far fa-info-circle"
-          style="display: flex; color: var(--darkBlue)"
-        >
-          <p
-            style="
-              font-family: 'Roboto';
-              margin-left: 0.3rem;
-              color: var(--gray);
-            "
+        <SelectCreationMethod @toggleCreationMethod="toggleCreationMethod" />
+        <transition name="fade">
+          <component
+            :is="creationMethod"
+            :selectedSlots="selectedSlots"
+            @slotAdded="slotAdded"
+            @slotRemoved="slotRemoved"
+            @slotDateLocationChanged="slotDateLocationChanged"
+            @clearSelectedSlots="clearSelectedSlots"
           >
-            {{ $t("createSlots.info") }}
-          </p></span
-        >
+          </component>
+        </transition>
 
         <ConflictingDates
           v-if="conflictingDates.length > 0"
           :conflictingDates="conflictingDates"
         />
-        <SelectSlots
-          :slotTimeSettings="slotTimeSettings"
-          :slotDateSettings="slotDateSettings"
-          @slotAdded="slotAdded"
-          @slotRemoved="slotRemoved"
-          @slotDateLocationChanged="slotDateLocationChanged"
-        />
       </div>
     </transition>
-    <div v-if="canAddMoreSlots && selectedSlots.length === 0">
+    <div v-if="canAddMoreSlots">
       <JnMiniButton @miniButton-clicked="toggleSlotSettings"
         ><span
           :class="[showSlotSettings ? '' : 'fal fa-plus']"
@@ -70,15 +49,15 @@
 </template>
 <script>
 import ExistingSlots from "./ExistingSlots.vue";
-import SlotSettings from "./SlotSettings.vue";
 import JnMiniButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnMiniButton.vue";
-import JnDateTimepicker from "../../ui-components/JnDateTimePicker/JnDateTimepicker.vue";
-import SelectSlots from "./SelectSlots.vue";
 import ConflictingDates from "./ConflictingDates.vue";
 import { provide, reactive, ref, toRefs, watch } from "vue";
+import ManuallyCreateSlots from "./createSlots/ManuallyCreateSlots.vue";
+import GenerateSlotSuggestions from "./createSlots/GenerateSlotSuggestions.vue";
+import SelectCreationMethod from "./createSlots/SelectCreationMethod.vue";
 
 export default {
-  emits: ["selectedSlotsChanged", "deleteSlot"],
+  emits: ["selectedSlotsChanged", "deleteSlot", "createNewSlot"],
   setup(props, ctx) {
     const {
       jobId,
@@ -90,8 +69,6 @@ export default {
     provide("jobId", jobId);
     provide("interviewBatchId", interviewBatchId);
 
-    const slotTimeSettings = reactive({});
-    const slotDateSettings = ref([]);
     const selectedSlots = ref([]);
     const slots = reactive({});
     const numberOfDates = ref(0);
@@ -103,6 +80,19 @@ export default {
         totalNumberOfSlots.value == 0 ||
         isNewBatch.value == true
     ); //Set initial value
+
+    const useGeneratedSlots = ref(false);
+    const creationMethod = ref(GenerateSlotSuggestions);
+
+    const toggleCreationMethod = () => {
+      if (useGeneratedSlots.value) {
+        creationMethod.value = GenerateSlotSuggestions;
+        useGeneratedSlots.value = false;
+      } else {
+        creationMethod.value = ManuallyCreateSlots;
+        useGeneratedSlots.value = true;
+      }
+    };
 
     const fetchSlots = () => {
       fetch(
@@ -125,19 +115,11 @@ export default {
         });
     };
 
-    const slotTimeSettingChanged = (e) => Object.assign(slotTimeSettings, e);
-    const slotDateSettingChanged = (e) => {
-      slotDateSettings.value.length = 0;
-      if (!e) return;
-      e.length > 0
-        ? e.forEach((item) => slotDateSettings.value.push(item))
-        : slotDateSettings.value.push(e);
-    };
-
     const slotAdded = (date) => {
       selectedSlots.value.push({
         startDate: date.startDate,
         endDate: date.endDate,
+        location: date.location ? date.location : undefined,
       });
       if (date.conflictingDates.length > 0) conflictingDates.value.push(date);
     };
@@ -183,6 +165,10 @@ export default {
       fetchSlots();
     };
 
+    const clearSelectedSlots = () => {
+      selectedSlots.value.length = 0;
+    };
+
     watch(
       () => slotsHasChanged.value,
       () => {
@@ -215,21 +201,11 @@ export default {
       { deep: true }
     );
 
-    watch(
-      () => [slotTimeSettings, slotDateSettings.value],
-      () => (selectedSlots.value.length = 0),
-      { deep: true }
-    );
-
     return {
       slots,
       selectedSlots,
       numberOfDates,
       totalNumberOfSlots,
-      slotTimeSettingChanged,
-      slotDateSettingChanged,
-      slotTimeSettings,
-      slotDateSettings,
       slotAdded,
       slotRemoved,
       conflictingDates,
@@ -238,15 +214,18 @@ export default {
       canAddMoreSlots,
       toggleSlotSettings,
       slotDateLocationChanged,
+      clearSelectedSlots,
+      toggleCreationMethod,
+      creationMethod,
     };
   },
   components: {
-    SlotSettings,
     ExistingSlots,
     JnMiniButton,
-    JnDateTimepicker,
-    SelectSlots,
     ConflictingDates,
+    ManuallyCreateSlots,
+    GenerateSlotSuggestions,
+    SelectCreationMethod,
   },
   props: {
     jobId: {
