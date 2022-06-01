@@ -26,10 +26,11 @@
     <DateLocationInput
       @inputChanged="($event) => (currentSlotData = $event)"
       :allowPastDates="false"
+      :clearInput="slotIsAdded"
     />
     <div style="display: flex; justify-content: end; margin: 1rem 0rem">
       <JnButton colorTheme="blue" light @jnButton-clicked="addSlot"
-        ><span class="fal fa-plus" style="margin-left: 0.3rem"></span
+        ><span class="fal fa-plus" style="margin-right: 0.3rem"></span
         >{{ $t("createSlots.add") }}</JnButton
       >
     </div>
@@ -53,11 +54,13 @@ export default {
     const currentSlotData = ref(undefined);
     const showErrorMessage = ref(false);
     const slotToCreate = ref(undefined);
+    const slotIsAdded = ref(false); 
 
     const addSlot = () => {
       if (slotDataIsValid()) {
         fetchSlot();
         showErrorMessage.value = false;
+        slotIsAdded.value = !slotIsAdded.value
       } else {
         showErrorMessage.value = true;
       }
@@ -66,7 +69,7 @@ export default {
       if (
         currentSlotData.value !== undefined &&
         (currentSlotData.value.date !== undefined ||
-          currentSlotData.value.date !== null) &&
+          currentSlotData.value.date !== null || currentSlotData.value.date !== "") &&
         currentSlotData.value.duration !== ""
       )
         return true;
@@ -99,6 +102,7 @@ export default {
     return {
       currentSlotData,
       addSlot,
+      slotIsAdded,
       showErrorMessage,
       dayjs,
     };

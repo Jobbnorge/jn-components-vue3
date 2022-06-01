@@ -60,6 +60,7 @@ import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButto
 export default {
   name: "DatePicker",
   emits: ["selectedDateChanged"],
+  inject: ["clearInput"], 
   components: {
     Calendar,
     TimeSelect,
@@ -127,6 +128,7 @@ export default {
       selectedHour: 0,
       selectedMinute: 0,
       displayDate: null,
+      shouldClear: this.clearInput
     };
   },
   created() {
@@ -251,6 +253,11 @@ export default {
       });
     },
   },
+  watch: {
+    shouldClear: function() {
+      this.reset(); 
+    }
+  }
 };
 </script>
 <i18n src="..\..\localizations/datepicker.json"></i18n>

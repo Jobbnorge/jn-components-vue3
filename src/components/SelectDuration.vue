@@ -19,6 +19,7 @@ export default {
     MultiSelect,
   },
   emits: ["durationSelected"],
+  inject: ["clearInput"],
   props: {
     id: String,
     maxHours: Number,
@@ -36,6 +37,7 @@ export default {
       selectedDuration: "0:00",
       isClearable: true,
       options: [],
+      shouldClear: this.clearInput,
     };
   },
   created() {
@@ -51,6 +53,9 @@ export default {
         id: this.id,
         duration: val,
       });
+    },
+    shouldClear: function () {
+      this.selectedDuration = "0:00";
     },
   },
   methods: {

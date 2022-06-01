@@ -1,5 +1,5 @@
 <template>
-  <div class="grid">
+  <div style="display: flex; gap: 1rem; align-items: center">
     <div>
       <JnSwitch
         :defaultOn="true"
@@ -49,12 +49,6 @@ export default {
 <i18n src="../../../localizations/interviewSlots.json"></i18n>
 
 <style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 0.5rem;
-}
 .helpbox {
   background-color: var(--lightPink);
   width: fit-content;

@@ -26,7 +26,7 @@
     </div>
     <div class="input-container">
       <span>{{ $t("dateLocationInput.sted") }}</span>
-      <input style="width: 100%" v-model="selectedValues.details" />
+      <input style="width: 100%" v-model="location" />
     </div>
   </div>
 </template>
@@ -35,10 +35,14 @@
 import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicker.vue";
 import SelectDuration from "./SelectDuration.vue";
 import dayjs from "dayjs";
-import { reactive } from "vue";
+import { reactive, provide, toRefs, ref } from "vue";
 import { watch } from "@vue/runtime-core";
 export default {
   setup(props, ctx) {
+    const { clearInput } = toRefs(props);
+    provide("clearInput", clearInput);
+    const location = ref("");
+
     const getDuration = () => {
       if (props.preSelectedDetails?.endDate) {
         let diffMinutes = dayjs(props.preSelectedDetails.endDate).diff(
@@ -72,7 +76,7 @@ export default {
         })
       : reactive({
           date: "",
-          details: "",
+          details: location.value,
           duration: "",
         });
 
@@ -94,12 +98,24 @@ export default {
       update();
     });
 
+    watch(
+      () => props.clearInput,
+      () => {
+        location.value = "";
+        selectedValues.value = {
+          date: "",
+          duration: "",
+          details: ""
+        };
+      }
+    );
+
     return {
       selectedDateChanged,
       selectedDurationChanged,
       update,
       getDuration,
-      selectedValues,
+      location,
     };
   },
   emits: ["inputChanged"],
@@ -108,6 +124,7 @@ export default {
     candidateId: Number,
     preSelectedDetails: Object,
     allowPastDates: { type: Boolean, defaultValue: true },
+    clearInput: { type: Boolean, defaultValue: false },
   },
 };
 </script>
