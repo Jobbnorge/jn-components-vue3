@@ -26,7 +26,7 @@
     </div>
     <div class="input-container">
       <span>{{ $t("dateLocationInput.sted") }}</span>
-      <input style="width: 100%" v-model="location" />
+      <input style="width: 100%" v-model="selectedValues.details" />
     </div>
   </div>
 </template>
@@ -35,13 +35,12 @@
 import JnDateTimepicker from "../ui-components//JnDateTimePicker/JnDateTimepicker.vue";
 import SelectDuration from "./SelectDuration.vue";
 import dayjs from "dayjs";
-import { reactive, provide, toRefs, ref } from "vue";
+import { reactive, provide, toRefs } from "vue";
 import { watch } from "@vue/runtime-core";
 export default {
   setup(props, ctx) {
     const { clearInput } = toRefs(props);
     provide("clearInput", clearInput);
-    const location = ref("");
 
     const getDuration = () => {
       if (props.preSelectedDetails?.endDate) {
@@ -76,14 +75,14 @@ export default {
         })
       : reactive({
           date: "",
-          details: location.value,
+          details: "",
           duration: "",
         });
 
-    const update = () => {
+    const update = (val) => {
       ctx.emit("inputChanged", {
         candidateid: props.candidateId,
-        ...selectedValues,
+        ...val,
       });
     };
 
@@ -94,28 +93,23 @@ export default {
       selectedValues.duration = updatedValue.duration;
     };
 
-    watch(selectedValues, () => {
-      update();
+    watch(selectedValues, (val) => {
+      update(val);
     });
 
-    watch(
+     watch(
       () => props.clearInput,
       () => {
-        location.value = "";
-        selectedValues.value = {
-          date: "",
-          duration: "",
-          details: ""
-        };
+        selectedValues.details = '';
       }
-    );
+    ); 
 
     return {
       selectedDateChanged,
       selectedDurationChanged,
       update,
       getDuration,
-      location,
+      selectedValues
     };
   },
   emits: ["inputChanged"],
