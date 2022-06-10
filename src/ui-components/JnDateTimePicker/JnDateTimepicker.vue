@@ -1,5 +1,5 @@
 <template>
-  <div :aria-label="getLabelText" class="datetime-container">
+  <div :aria-label="getLabelText" class="datetime-container" ref="inputContainer">
     <div style="display: flex; gap: 0.5rem; align-items: center">
       <div
         class="picker"
@@ -95,6 +95,10 @@ export default {
       },
     },
     preselectedDate: String,
+    containerId: {
+      type: String,
+      default: "applicationContainer"
+    }
   },
   computed: {
     getLabelText() {
@@ -151,8 +155,10 @@ export default {
   },
   updated() {
     var el = this.$refs.dateTimeElement;
-    var { right } = el.getBoundingClientRect();
-    if (right > window.innerWidth) el.style.right = 0;
+    var container = document.querySelector(`#${this.containerId}`);
+    if(container.offSetWidth < el.offsetWidth) {
+      el.style['flex-direction'] = 'column'
+    }
   },
   methods: {
     updateSelected(date) {
