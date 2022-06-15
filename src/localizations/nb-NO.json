@@ -1,0 +1,729 @@
+{
+  "common": {
+    "Lukk": "Lukk",
+    "Avbryt": "Avbryt",
+    "OK": "Ok",
+    "Dato": "Dato",
+    "Tidspunkt": "Tidspunkt",
+    "Ikke valgt": "Ikke valgt",
+    "Ved": "v/",
+    "Time": "Time",
+    "Minutter": "Minutter",
+    "Vis mer": "Vis mer",
+    "Skjul": "Skjul",
+    "Vis mindre": "Vis mindre",
+    "Ja": "Ja",
+    "Nei": "Nei",
+    "Notat": "Notat",
+    "Behandle": "Behandle",
+    "Behandlingsvalg": "Valg for behandling",
+    "Telefon": "Telefon",
+    "Mail": "Epost",
+    "Kandidaten har oppgitt": "Kandidaten har oppgitt",
+    "excemptionToggle": {
+      "changeToYes": "Du setter u.off for kandidaten, og du må selv sende melding hvis kandidaten skal varsles. Vil du gjennomføre dette?",
+      "changeToNo": "Du fjerner u.off for kandidaten, og du må selv sende melding hvis kandidaten skal varsles. Vil du gjennomføre dette?",
+      "excemptPublicDisclosure": "Har unntatt offentlighet"
+    },
+    "Etikett": "Etikett",
+    "velg-godkjenner": "Velg godkjenner",
+    "bytt-godkjenner": "Bytt godkjenner",
+    "Saksbehandler": "Saksbehandler",
+    "Godkjenner": "Godkjenner",
+    "status": "Status: {0}",
+    "Kommentarer": "Kommentarer",
+    "Godkjenning-ikke-startet": "Godkjenning ikke startet",
+    "Opprett": "Opprett",
+    "Sok": "Søk",
+    "Ingen-resultater": "Ingen resultater",
+    "Last-ned-som-Word": "Last ned som Word",
+    "downloadWord": "Last ned som Word",
+    "fromTemplate": "Fra mal",
+    "Upload": "Last opp",
+    "EmptyDocument": "Tomt dokument",
+    "Trukket": "Trukket",
+    "Sendt-til-jobbsoker": "Sendt til jobbsøker",
+    "dokument-er-sendt-til-jobbsoker": "Dokument(ene) er sendt til jobbsøker",
+    "dokument-er-trukket-tilbake": "Dokument(ene) er trukket tilbake",
+    "Ferdig-signert": "Ferdig signert",
+    "dokumentet-er-signert-av-begge-parter": "Dokumentet er signert av begge parter",
+    "signert-av-jobbsoker": "Signert av jobbsøker",
+    "dokumentet-er-signert-av-jobbsoker": "Dokumentet er signert av jobbsøker",
+    "startet-signering": "Startet signering",
+    "dokumetet-er-sendt-til-signering-av-jobbsoker": "Dokumentet er sendt til signering av jobbsøker",
+    "dokumentet-er-sendt-til-signering": "Dokumentet er sendt til signering",
+    "Detaljer": "Detaljer",
+    "Slett": "Slett",
+    "Slette-signeringsoppdrag": "Slette signeringsoppdrag",
+    "Slett-signeringsoppdrag": "Slett signeringsoppdrag",
+    "Ingen-signatur": "Ingen signatur",
+    "begge-parter-signerer": "Begge parter signerer",
+    "kandidaten-signerer": "Kandidaten signerer",
+    "Lag-kopi": "Lag kopi",
+    "Vis dokument": "Vis dokument",
+    "Klar til utsending": "Klar til utsending",
+    "Opplastet": "Opplastet",
+    "Be om godkjenning": "Be om godkjenning",
+    "deg": "deg",
+    "Lagrer": "Lagrer",
+    "Mangler undertegner": "Mangler undertegner",
+    "Lagre": "Lagre",
+    "change_approver": "Bytt godkjenner",
+    "velg_godkjenner": "Velg godkjenner",
+    "pick_approver": "Velg godkjenner",
+    "download": {
+      "signedDocument": "Last ned signert dokument"
+    },
+    "mangler dato": "Mangler dato",
+    "mangler-signeringsrettighet": "Du må ha tilgang til “Digital signatur” for å kunne laste ned signert dokument.",
+    "seniority": "Ansiennitet",
+    "notSet": "Ikke oppgitt"
+  },
+  "ratingOverview": {
+    "title": "Stjernerangering",
+    "info": {
+      "ratingsExist": "Via stjernerangering kan brukere kommentere og sette stjerner på en søknad. Stjernerangering og kommentarer utgjør ikke en del av formelle saksdokumenter (innstilling etc.)",
+      "noRatings": "Via stjernerangering kan brukere kommentere og sette stjerner på en søknad. Stjernerangering og kommentarer utgjør ikke en del av formelle saksdokumenter (innstilling etc.)"
+    },
+    "subtitle": {
+      "error": "Noe gikk galt, kan du prøve igjen?"
+    },
+    "rating": {
+      "yourRating": "Din rangering",
+      "otherRatings": "Øvrige vurderinger"
+    },
+    "withoutComment": {
+      "ratingGivenAt": "Vurdering gitt",
+      "comment": "Ingen kommentar / begrunnelse"
+    },
+    "button": {
+      "edit": "Rediger",
+      "delete": "Slett",
+      "ok": "OK",
+      "avbryt": "Avbryt",
+      "more": "Mer om stjernerangering"
+    },
+    "Statistikk": "Statistikk",
+    "infoModal": {
+      "heading": "Hva er stjernerangering?",
+      "body": "Stjernerangering er et nyttig verktøy til hjelp i søknadsbehandlingen. Via denne funksjonen kan flere brukere sette stjerner og kommentere på søknadene, uavhengig av hverandre. Det regnes ut en snittscore basert på antall stjerner som brukerne har satt, hvilket bidrar til å holde oversikt over søkermassen.",
+      "linkText": "Les mer i vårt hjelpesenter"
+    },
+    "Legg inn rangering": "Legg inn rangering",
+    "Vis min rangering": "Vis min rangering",
+    "Se andres rangering": "Se andres rangering",
+    "Vis statistikk": "Vis statistikk"
+  },
+  "inputRating": {
+    "label": "Din rangering",
+    "placeholder": "Skriv her",
+    "button": {
+      "save": "Lagre vurdering"
+    },
+    "errorMessage": {
+      "noStars": "Alle vurderinger må ha en totalvurdering i antall stjerner. Kommentar / begrunnelse er valgfritt",
+      "postFailed": "Kunne ikke lagre vurderingen",
+      "deleteFailed": "Kunne ikke slette vurderingen",
+      "UpdateFailed": "Kunne ikke oppdatere vurderingen"
+    }
+  },
+  "ratingStats": {
+    "Laveste": "Laveste: {0}",
+    "Snitt": "Gj.snitt: {0}",
+    "Median": "Median: {0}",
+    "Empty": "Ingen andre har stjernerangert kandidaten",
+    "Highest": "Høyeste: {0}",
+    "ApplicantSubtitle": "For denne søkeren",
+    "ApplicantNotRated": "Søker er ikke rangert enda",
+    "OtherApplicants": "For øvrige søkere på stillingen"
+  },
+  "othersRating": {
+    "Empty": "Ingen andre har stjernerangert kandidaten"
+  },
+  "applicantIdNo": {
+    "singleAlreadyHired": "OBS: Kandidaten er allerede flagget som ansatt. Det er ikke mulig å innhente opplysninger på nytt.",
+    "infoHeading": "Følgende informasjon innhentes fra kandidat før onboarding i { 0 }",
+    "infoBody": "Kandidaten overføres automatisk til { 0 } når opplysningene er registrert.",
+    "idNumber": "Personnummer",
+    "bankAccount": "Kontonummer",
+    "infoPending": "Forespørsel om informasjon er sendt til jobbsøker",
+    "info": "test {0}",
+    "norwegianIdNo": "Personnummer"
+  },
+  "applicationHistory": {
+    "button": "Se søkerhistorikk",
+    "title": "Har søkt tidligere"
+  },
+  "assess": {
+    "HeadingHired": "Kandidaten er flagget som ansatt",
+    "HeadingRejected": "Kandidaten er flagget med mottatt avslagsbrev",
+    "Send invitasjon": "Send invitasjon",
+    "Send avslagsbrev": "Send avslagsbrev",
+    "Kandidaten blir markert som": "Kandidaten blir markert som {0}",
+    "En eller flere kandidater mangler innstillingsnummer": "En eller flere kandidater mangler innstillingsnummer",
+    "Referanseintervju mangler dato": "Referanseintervju {title} mangler dato",
+    "Referanseintervju mangler notater": "Referanseintervju {title} mangler notater.",
+    "En eller flere kandidater mangler referanseintervju": "En eller flere kandidater mangler referanseintervju. Fjern kandidatene som ikke skal få registrert referanseintervju fra utvalget.",
+    "Din kommentar": "Din kommentar/ begrunnelse",
+    "currentStatus": "Kandidaten står som {0}",
+    "furtherAssessment": "Videre behandling"
+  },
+  "assessmentMenu": {
+    "IsQualified": {
+      "DropdownOptions": {},
+      "Modal": {},
+      "DeleteModal": {}
+    },
+    "IsNotQualified": {
+      "DropdownOptions": {},
+      "Modal": {},
+      "DeleteModal": {}
+    },
+    "Interview": {
+      "Title": "Intervju",
+      "Intervju med": "Intervju med",
+      "Subtitle": "Kandidaten har blitt registert med intervju",
+      "No details": "Ingen intervjudetaljer foreligger",
+      "CTA": "Registrer intervjudato",
+      "DropdownOptions": {
+        "Text": "Alternativer",
+        "Delete": "Nullstill intervju",
+        "Add": "Registrer nytt intervju",
+        "SendInvite": "Send invitasjon",
+        "SetInterviewDate": "Registrer dato",
+        "SingleDelete": "Slett intervju",
+        "DownloadIcsFile": "Last ned kalenderfil",
+        "cancel": "Avlys intervju",
+        "SendSlotInvite": "Send invitasjon til å velge tidspunkt",
+        "editInterview": "Rediger intervju"
+      },
+      "Notes": "Notater",
+      "Add note": "Legg til notat",
+      "Edit note": "Rediger notat",
+      "No notes": "Intervjuet har ingen tilknyttede notater",
+      "Delete note": "Slett notat",
+      "DeleteModal": {
+        "Header": "Vil du slette / avlyse intervjuet?",
+        "HeadReset": "Nullstill intervju?",
+        "Note": "Er du sikker på at du vil slette notatet?",
+        "Interview": "Flagg for intervju vil fjernes dersom dette er kandidatens eneste intervju",
+        "Reset": "Ved sletting vil flagget for intervju fjernes, mens kandidaten beholder sin nåværende status, '{ 0 }', i søknadsflyten"
+      },
+      "InputModal": {
+        "InterviewHead": "Registrer intervjudetaljer",
+        "NoteHead": "Legg inn intervjunotat"
+      },
+      "registerInterviewDate": {
+        "body": "Registrer dato for intervju"
+      }
+    },
+    "Priority": {
+      "Body": "Kandidaten har blitt innstilt som nr",
+      "Details": "Detaljer",
+      "NoDetails": "Ingen innstillingsbegrunnelse er registrert",
+      "Reset": "Innstillingen av kandidaten vil bli nullstillt. Innstillingsnummer, begrunnelse og flagg slettes",
+      "Options": {},
+      "Error": {
+        "Missing": "Mangler",
+        "Priority": "Innstillingsnummer"
+      },
+      "Modal": {}
+    },
+    "HasCheckedReference": {
+      "Title": "Referansesjekket",
+      "Details": "Detaljer",
+      "NoDetails": "Ingen referanseintervju er registrert",
+      "ResetHeading": "Nullstill referansesjekk",
+      "ResetBody": "Vil du nullstille flagg for referansesjekk? Alle referanseintervjuer slettes også",
+      "DeleteHeading": "Slett referanseintervju",
+      "Delete": "Slett referanseintervju med {0}?",
+      "DeleteBtn": "Slett referanseintervju",
+      "Update": "Oppdater / Registrer",
+      "HasError": {
+        "Missing": "Kan ikke lagre referanseintervju, følgende felter mangler informasjon",
+        "Date": "Dato",
+        "Note": "Notat"
+      }
+    },
+    "IsRejected": {},
+    "DetailsHeading": "Utført behandling: flagg registrert på søknad",
+    "Legg til begrunnelse": "Legg til begrunnelse"
+  },
+  "assessSummaryListItem": {},
+  "ebber": {
+    "Ebber": "Ebber",
+    "report": {
+      "Hent rapport": "Hent rapport",
+      "modal": {
+        "body": "Ebber test er påbegynt. Rapporten først er tilgjengelig etter at kandidaten har fullført testen.",
+        "resolveButton": "Ok"
+      }
+    },
+    "delete": {
+      "Slett kandidat fra EBBER": "Slett kandidat fra Ebber",
+      "modal": {
+        "header": "Vil du slette kandidaten fra Ebber?",
+        "resolveButton": "Slett kandidaten"
+      }
+    }
+  },
+  "hireListItem": {
+    "Registrere ansettelse": "Registrere ansettelse",
+    "FirstDay": "Når har kandidaten sin første arbeidsdag?",
+    "moreText": "Registrer detaljer",
+    "hideText": "Skjul",
+    "startDate": "Ansettelsesdato",
+    "reset": "Nullstill",
+    "seniorityDato": "Ansennitetsdato",
+    "positioncode": "Velg/legg til stillingskode",
+    "invalidPositionCode": "Ugyldig stillingskode",
+    "salary": "Årslønn"
+  },
+  "interviewListItem": {
+    "Registrer detaljer": "Registrer detaljer",
+    "Legg til sted": "Legg til sted",
+    "Kandidaten blir markert som": "Kandidaten blir markert som",
+    "Nullstill": "Nullstill",
+    "Registrer dato for intervju": "Skal intervjuet registreres med dato? "
+  },
+  "labelDropdown": {},
+  "messages": {
+    "Send": "Send"
+  },
+  "noActionListItem": {
+    "info": "Søknaden flyttes til valgt status. Det er ikke flagg knyttet til statusen"
+  },
+  "openPDF": {
+    "Vedlegg": "Vedlegg",
+    "Egendefinert": "Egendefinert",
+    "Egendefinert PDF": "Egendefinert PDF",
+    "Inkluder i PDF": "Inkluder i PDF",
+    "CV": "CV",
+    "Lagre": "Generer PDF",
+    "Attachment": "Inkluder vedleggstype(r) i PDF",
+    "Application": "Søknad",
+    "ApplicationsCVs": "Søknad / CV",
+    "Applications/CV attachments": "Søknad / CV med vedlegg",
+    "Applications/CV": "Søknad / CV"
+  },
+  "priorityListItem": {
+    "Din kommentar/ begrunnelse": "Din kommentar/ begrunnelse",
+    "Endre": "Endre",
+    "Kandidaten blir innstilt som nummer": "Kandidaten blir innstillt som nummer",
+    "SetPriority": "Sett innstillingsnummer",
+    "leadText": "Hvordan vil du innstille kandidaten?",
+    "currentValue": "Tidligere innstilt som #",
+    "updatedValue": "Vil bli innstilt som #",
+    "setValue": "Innstille som #"
+  },
+  "profile": {
+    "Mottatt avslagsbrev": "Mottatt avslagsbrev",
+    "Ansatt": "Ansatt",
+    "manuallyRegistered": "Manuelt registrert søker"
+  },
+  "referenceCheckListItem": {
+    "Kontaktet": "Hvem er kontaktet?",
+    "Ikke valgt": "Ikke valgt",
+    "NoReferences": "...finner ingen referanser",
+    "NoReferencesHelpText": "Kandidaten har ikke registrert noen referanser i Jobbsøkerverktøyet. Du kan be kandidaten oppdatere søknaden og deretter registrere referanseintervju(ene)",
+    "AskForUpdate": "Send forespørsel om oppdatering"
+  },
+  "removeApp": {
+    "Fjern": "Fjern",
+    "delete": {
+      "confirmModal": {
+        "title": "Vil du slette søknaden?"
+      },
+      "button": "Slett søknad"
+    },
+    "withdraw": {
+      "confirmModal": {
+        "title": "Vil du trekke søknaden?"
+      },
+      "button": "Trekk søknad"
+    }
+  },
+  "IsHired": {
+    "Cancel": "Avbryt",
+    "Save": "Lagre",
+    "Reset": "Nullstill",
+    "ResetBody": "Vil du nullstille ansettelsen av kandidaten og dermed fjerne flagget for ansatt?",
+    "EditBody": "Vil du redigere ansettelsen av kandidaten?",
+    "StartDate": "Kandidaten har startdato",
+    "UnknownDate": "Kandidaten er ikke registrert med startdato",
+    "Edit": "Rediger ansettelse",
+    "HrmStatus": {
+      "Title": "Overføringsstatus",
+      "Pending": "Under overføring",
+      "Success": "Overført",
+      "Error": "Feilet"
+    },
+    "Title": "Ansatt",
+    "Subtitle": "Kandidaten er registrert som ansatt",
+    "Details": "Detaljer",
+    "EditHiredDate": "Rediger startdato"
+  },
+  "IsNotQualified": {
+    "DropdownOptions": {
+      "Text": "Alternativer",
+      "Delete": "Nullstill ikke kvalifisert",
+      "Edit": "Rediger vurdering"
+    },
+    "Show more": "Vis mer",
+    "Show less": "Vis mindre",
+    "Modal": {
+      "TextArea label": "Vurderingstekst",
+      "Header": "Rediger vurdering"
+    },
+    "Title": "Ikke kvalifisert",
+    "Subtitle": "Kandidaten er vurdert som ikke kvalifisert",
+    "Details": "Vurdering",
+    "CTA": "Legg til vurdering",
+    "No details": "Ingen vurderingstekst foreligger",
+    "DeleteModal": {
+      "Header": "Er du sikker på at du vil slette vurderingen?",
+      "Body": "Ved sletting vil flagget for vurdering fjernes, mens kandidaten beholder sin nåværende status, '{ 0 }', i søknadsflyten"
+    }
+  },
+  "IsQualified": {
+    "DropdownOptions": {
+      "Text": "Alternativer",
+      "Delete": "Nullstill kvalifisert",
+      "Edit": "Rediger kvalifisert"
+    },
+    "Show more": "Vis mer",
+    "Show less": "Vis mindre",
+    "Modal": {
+      "TextArea label": "Rediger vurdering",
+      "Header": "Rediger vurdering"
+    },
+    "Title": "Kvalifisert",
+    "Subtitle": "Kandidaten er vurdert som kvalifisert",
+    "Details": "Vurdering",
+    "No details": "Ingen vurderingstekst foreligger",
+    "CTA": "Legg til vurdering",
+    "DeleteModal": {
+      "Header": "Er du sikker på at du vil slette vurderingen?",
+      "Body": "Ved sletting vil flagget for vurdering fjernes, mens kandidaten beholder sin nåværende status '{ 0 }' i søknadsflyten"
+    }
+  },
+  "IsRejected": {
+    "Reset": "Nullstill avslag",
+    "Title": "Mottatt avslag",
+    "Subtitle": "Kandidaten har mottatt avslagsbrev",
+    "ConfirmModalBody": "Flagget for avslag vil bli slettet, men avslagsbrevet som er sendt vil ikke trekkes tilbake."
+  },
+  "Priority": {
+    "Options": {
+      "Reset": "Nullstill innstilling",
+      "Edit": "Rediger"
+    },
+    "Modal": {
+      "HeaderReset": "Nullstill innstilling?",
+      "HeaderEdit": "Rediger innstilling"
+    },
+    "Title": "Innstilt"
+  },
+  "HasCheckedReference": {
+    "Show less": "Vis mindre",
+    "Show more": "Vis mer "
+  },
+  "Applicationrequest": {},
+  "ApplicationRequest": {
+    "Title": "Søkerforespørsel",
+    "Body": "Det finnes søkerforespørsler som ikke er behandlet enda. Dette gjør at det ikke er mulig å ta ut offentlige søkerlister før disse er ferdig behandlet."
+  },
+  "CreateInterviewNote": {
+    "Title": "Intervjunotat",
+    "body": "Alle brukere med skrivetilgang kan legge inn et notat fra et intervju, notatet er og blir et notat og vil derfor ikke flettes inn i rapporter og formelle dokumenter",
+    "TextArea": {
+      "Label": "Ditt notat",
+      "placeholder": "Skriv inn her"
+    }
+  },
+  "DocumentList": {
+    "button": {
+      "addNew": "Legg til dokument",
+      "goToDocumentAction": {
+        "text": "Gå til send"
+      }
+    },
+    "Title": "Kandidatdokumenter",
+    "tableHead": {
+      "title": "Tittel",
+      "created": "Opprettet",
+      "status": "Status",
+      "lastModified": "Sist endret",
+      "sentDate": "Sendt dato",
+      "signature": "Signering"
+    },
+    "DateMissing": "Ingen dato",
+    "SentList": {
+      "Heading": "Sendt",
+      "Toggle": {
+        "Hide": "Skjul sendte dokumenter",
+        "Show": "Vis sendte dokumenter ({0})"
+      }
+    },
+    "emptyState": {
+      "documentsToSend": "Kandidaten har ingen dokumenter som kan sendes",
+      "hiddenSentDocuments": "Sendte dokumenter er skjult, bruk knappen for å vise/skjule",
+      "sentDocuments": "Sendte dokumenter vil dukke opp her",
+      "sentDocumentsHidden": "Sendte dokumenter er skjult, bruk knappen over for å vise / skjule"
+    },
+    "approval": {
+      "noApprover": "Mangler godkjenner",
+      "trenger-ikke-godkjenning": "Trenger ikke godkjenning"
+    },
+    "underApproval": "Under godkjenning",
+    "approved": "Godkjent -klar til utsending",
+    "created": "Har godkjenner"
+  },
+  "DocumentListAction": {
+    "Title": "Send til kandidat",
+    "subtitle": {
+      "withCount": "{0} dokument(er) er valgt",
+      "noCount": "Ingen dokument(er) er valgt"
+    },
+    "noDocumentSelected": {
+      "body": "Velg ett eller flere dokumenter fra listen for videre behandling",
+      "hasApproval": "Velg ett eller flere dokumenter fra listen for å sende. Husk at kun godkjente dokumenter kan sendes.  "
+    },
+    "signatureOptions": {
+      "title": "Signaturvalg"
+    },
+    "selectSigner": "Velg undertegner",
+    "selectedSigner": {
+      "info": "{0} er registrert som {1} ved {2}"
+    },
+    "message": {
+      "title": "Beskjed til kandidat"
+    },
+    "SendMessage": {
+      "TextArea": {
+        "Label": "Beskjed"
+      },
+      "Button": {
+        "Text": "Send"
+      },
+      "Subject": {
+        "Label": "Emne"
+      }
+    },
+    "missingTitle": "Feil! Emnefelt mangler"
+  },
+  "TemplatePreview": {
+    "modal": {
+      "title": "Forhåndsvisning",
+      "rejectButton": "Avbryt",
+      "resolveButton": "Opprett dokument"
+    }
+  },
+  "UploadFiles": {
+    "fileList": {
+      "heading": "Filer klar til opplasting",
+      "deleteButton": "Slett",
+      "uploadButton": "Last opp",
+      "removeInvalidFilesButton": "Fjern ugyldige filer"
+    },
+    "dropzone": {
+      "helpText": "Dra filene over hit eller klikk her for å laste opp\n",
+      "closeButton": "Lukk",
+      "addMoreText": "Du kan legge til flere filer før du laster opp"
+    }
+  },
+  "Document": {
+    "backButton": "Tilbake til oversikt"
+  },
+  "DocumentToolbar": {
+    "deleteModal": {
+      "rejectButton": "Nei, ikke slett",
+      "resolveButton": "Slett",
+      "bodyText": "Slettede dokumenter ...",
+      "title": "Er du sikker på at du vil slette dokumentet?"
+    },
+    "goBackModal": {
+      "title": "Gå tilbake uten å lagre?",
+      "rejectButton": "Gå tilbake uten å lagre",
+      "resolveButton": "Lagre",
+      "bodyText": "Du har endringer i dokumentet som ikke er lagret enda. Vil du lagre først?"
+    },
+    "modifiedOn": "Sist oppdatert: {0}",
+    "title": {
+      "srLabel": "Tittel"
+    },
+    "preview": "Forhåndsvis som PDF",
+    "edit": "Rediger",
+    "copy": "Kopier dokument",
+    "delete": "Slett",
+    "downloadPDF": "Last ned som PDF",
+    "downloadWord": "Last ned som Word",
+    "prompt-save-changes": "Lagre endringer?",
+    "unsaved-changes": "Du har tekst som ikke er lagret. Lagre siste endringer?"
+  },
+  "CandidateDocuments": {
+    "infobox": {
+      "title": "Dokumentet ble slettet",
+      "bodyText": "Hvis man trenger en tekst her"
+    }
+  },
+  "DocumentOverview": {
+    "newDocument": {
+      "title": "Tomt dokument"
+    },
+    "manuallyRegisteredInfo": "Kandidaten er manuelt registrert. Derfor vil det ikke være mulig å sende kandidatdokumenter til denne kandidaten"
+  },
+  "DocumentShipment": {
+    "StatusBox": {
+      "Title": "Status: {0}",
+      "withdrawButton": "Trekk tilbake",
+      "Signature": {
+        "Error": "Noe gikk galt, kontakt support og oppgi at det gjelder signeringsoppdrag med ID {0}"
+      }
+    },
+    "rightPane": {
+      "title": {
+        "shipment": "Detaljer for dokumentsending",
+        "signature": "Detaljer for signaturoppdrag opprettet {0}",
+        "document": "Detaljer for dokumentsending {0}"
+      },
+      "signatureDetails": "Signatur",
+      "signatureSubtitle": "Dokument(ene) skal signeres av {0}",
+      "signerType": {
+        "both": "begge parter",
+        "candidate": "kandidaten"
+      },
+      "signer": {
+        "employer": "For arbeidsgiver",
+        "candidate": "Kandidaten"
+      }
+    },
+    "Type": {
+      "Signeringsoppdrag": "signeringsoppdrag {0}"
+    },
+    "SignerInfo": {
+      "Signed": "Signert",
+      "NotSigned": "Ikke signert"
+    },
+    "DocumentInformation": {
+      "Subtitle": "Følgende dokument(er) ble sendt {0}",
+      "type": {
+        "signature": "til signering"
+      },
+      "title": {
+        "signature": "Signaturoppdrag",
+        "shipment": "Dokumentsending"
+      }
+    },
+    "loadingMessage": "Laster dokument",
+    "Download": {
+      "File": "Signaturoppdrag"
+    }
+  },
+  "DocumentShipmend": {
+    "Type": {
+      "Dokumentsending": "dokumentsending"
+    }
+  },
+  "Documentshipment": {
+    "rightPane": {
+      "signerType": {}
+    }
+  },
+  "DocumentListItem": {
+    "createdBy": "Opprettet av:",
+    "approvedBy": "Godkjent av: ",
+    "lastModifiedBy": "Sist ",
+    "sentBy": "Sendt av:"
+  },
+  "SentDocuments": {
+    "type": {
+      "signature": "Signeringsoppdrag",
+      "regular": "Dokumentsending"
+    }
+  },
+  "dokument-ene-er-opprett-og-skal-i-trad-med-dinarbeidsgiver-sine-retningslinjer-godkjennes-for-utsending": "Dokument(ene) er opprett og skal i tråd med DINARBEIDSGIVER sine retningslinjer godkjennes før utsending",
+  "approvalstatus": {
+    "can_set_approver": "Din virksomhet har aktivert godkjenning for dokumenter som opprettes i Jobbadmin. Dette dokumentet må godkjennes før det kan sendes.",
+    "can_change_approver": {
+      "document_must_be_approved_by": "Dokumentet må godkjennes av",
+      "before_it_can_be_sent": "før det kan sendes til kandidaten"
+    },
+    "user-is-not-part-of-approval": {
+      "info": "Dokumentet må godkjennes før det kan sendes videre til kandidaten"
+    }
+  },
+  "common-velg-godkjenner": "Velg godkjenner",
+  "pickApproverEmploymentDocument": {
+    "title": "Hvem skal godkjenner dokument(ene) før utsending?",
+    "infouser": "{0} er registrert som {1} {2}",
+    "noOptionsText": "Søket vil starte ved minimum 2 tegn",
+    "": "",
+    "infoDepartment": "{0} er tilknyttet avdeling '{1}'",
+    "message": {
+      "label": "Din melding",
+      "intro": ""
+    },
+    "status": {
+      "isApproved": "Dokumentet er godkjent",
+      "underApproval": "Under godkjenning"
+    },
+    "userIsExcempted": {
+      "body": "Dokumentet kan sendes til kandidaten"
+    }
+  },
+  "inputPlaceholder": "Kommenter dokumentet",
+  "Flettekoder": "Flettekoder",
+  "approvalChat": {
+    "NoMessagesTitle": "Her kan du og den som skal godkjenne dokumentet ha en dialog. Meldingene dere utveklser vil dukke opp her og er ikke synlig for andre brukere"
+  },
+  "approvalComments": {
+    "title": "Her kommer en tekst om at man kan diskutere dokumentets innhold og iterere litt frem og tilbake før det godkjennes (eller når som helst??) for å lettere ha oversikt over hva som skjer over dokumentet."
+  },
+  "DocumentPreview": {
+    "response204": "Ingenting å se her. Filen ser ut til å være tom / uten innhold",
+    "response500": "Noe gikk galt. Kan ikke vise dokumentet som PDF"
+  },
+  "StatusBox": {
+    "delete-signature-info": "Dette vil slette alle dokumenter tilknyttet dette signeringsoppdraget. Dersom du bare vil slette utsendingen, men ikke alle dokumentet(ene), kan du benytte valg for å kopiere enkeltdokument i utsendingen."
+  },
+  "DocumentApproval": {
+    "uploadedDocument": {
+      "title": "Dokumentet er lastet opp",
+      "body": "Opplastede dokumenter krever aldri godkjenning."
+    }
+  },
+  "approvalStatus": {
+    "complete": {
+      "bodytext": "Dokumentet er godkjent for utsending til jobbsøker"
+    }
+  },
+  "helpbox": {
+    "title": "Skal dokumentet signeres?",
+    "content": "Visste du at Jobbadmin er integrert med Postens signeringstjeneste, og at det er mulig å sende dokumenter til digital signering direkte fra løsningen?\n",
+    "cta": "Les mer",
+    "content2": "Ta gjerne kontakt med oss om du vil vite mer om digital signatur"
+  },
+  "modal": {
+    "header": "Spør oss om muligheter i Jobbadmin",
+    "body": {
+      "intro": "Digital signatur",
+      "main": "Våre konsulenter hjelper dere i gang med digital signering i Jobbadmin. Ta kontakt med oss for en hyggelig prat"
+    },
+    "resolveButton": "Lukk"
+  },
+  "Slette-signeringsoppdrag": "Er du sikker på at du vil slette dokumentet?",
+  "du-ma-ha-signeringsrettighet-for-a-laste-ned-signert-dokument": "Du må ha signeringsrettighet for å laste ned signert dokument",
+  "ApplicantInfo": {
+    "KunAnsvarForStilling": "Denne informasjonen vises kun for ansvarlig for stilling"
+  },
+  "t-applicantidno-idnumber": "{0}:",
+  "ansiennitet": "Ansiennitet",
+  "interviewDetails": {
+    "interviewPastDate": "Dato for intervju har vært for {0} dag(er) siden",
+    "today": "Tidspunkt for intervju har vært"
+  },
+  "InterviewListItem": {
+    "existsInBatch": "Kandidaten finnes allerede i denne intervjurunden, velg en annen runde eller opprett ny"
+  }
+}
