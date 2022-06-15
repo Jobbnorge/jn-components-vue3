@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import Popper from "./Popper";
+import Popper from "./Popper.vue";
 export default {
   name: "DropDownButton",
   components: {

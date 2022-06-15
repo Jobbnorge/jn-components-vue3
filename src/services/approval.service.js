@@ -1,3 +1,6 @@
+import { httpService } from "@jobbnorge/js-services/http.service";
+
+
 class ApprovalService {
   constructor() {
     this.jobId = new URLSearchParams(window.location.search).get("jobid");
@@ -8,42 +11,42 @@ class ApprovalService {
   }
 
   GetApproval(approvalId) {
-    return this.httpService.get(`approval/${approvalId}`);
+    return httpService.get(`approval/${approvalId}`);
   }
   GetApprovalJobGap() {
-    return this.httpService.get(`job/${this.jobId}/approval/jobanalysis`);
+    return httpService.get(`job/${this.jobId}/approval/jobanalysis`);
   }
   GetApprovers() {
-    return this.httpService.get(`approval/approvers`);
+    return httpService.get(`approval/approvers`);
   }
   FetchUsers(query) {
-    return this.httpService.get(`approval/approvers?query=${query}`);
+    return httpService.get(`approval/approvers?query=${query}`);
   }
   CreateApproval(data) {
-    return this.httpService.post(`/approval`, data);
+    return httpService.post(`/approval`, data);
   }
   UpdateApprover(data) {
-    return this.httpService.put("approval", data);
+    return httpService.put("approval", data);
   }
   AddApprovalComment(approvalid, msg) {
-    return this.httpService.post(`approval/${approvalid}/comment`, msg);
+    return httpService.post(`approval/${approvalid}/comment`, msg);
   }
   GetApprovalComments(approvalid) {
-    return this.httpService.get(`approval/comments/${approvalid}`);
+    return httpService.get(`approval/comments/${approvalid}`);
   }
   getApprovalStatusForDocument(documentId) {
-    return this.httpService.get(
+    return httpService.get(
       `approval/status/employmentdocument/${documentId}`
     );
   }
   GetApprovals() {
-    return this.httpService.get(`approval`);
+    return httpService.get(`approval`);
   }
   GetPdfFromDocument(approvalId) {
-    return this.httpService.getFile(`approval/${approvalId}/pdf`);
+    return httpService.getFile(`approval/${approvalId}/pdf`);
   }
   Approve(approvalId) {
-    return this.httpService.post(`approval/approve/${approvalId}`);
+    return httpService.post(`approval/approve/${approvalId}`);
   }
 }
 export const approvalService = new ApprovalService();
