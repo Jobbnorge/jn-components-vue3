@@ -1,59 +1,60 @@
 <template>
-  <h3>{{ $t("common.status", [GetApprovalStatus()]) }}</h3>
-  <div
-    v-if="readyToSend"
-    style="display: flex; margin-top: 5rem; justify-content: center"
-  >
+  <div>
+    <h3>{{ $t("common.status", [GetApprovalStatus()]) }}</h3>
     <div
-      style="
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-      "
+      v-if="readyToSend"
+      style="display: flex; margin-top: 5rem; justify-content: center"
     >
-      <ReadyToSend />
-      <p>
-        {{ $t("pickApproverEmploymentDocument.userIsExcempted.body") }}
-      </p>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          align-items: center;
+        "
+      >
+        <p>
+          {{ $t("pickApproverEmploymentDocument.userIsExcempted.body") }}
+        </p>
+      </div>
     </div>
-  </div>
-  <FurtherAssessment :ShowTwoContainers="true" v-else>
-    <template v-slot:content>
-      <ModalListItem>
-        <template v-slot:body>
-          <div>
-            <PickApprover
-              v-if="isChangingApprover"
-              @UpdateApprover="UpdateApprover"
-              @CancelPickApprover="isChangingApprover = false"
-              :approval="approval"
-            ></PickApprover>
-            <ApprovalStatus
-              v-else
-              :approval="approval"
-              :hasApprover="HasApprover"
-              :isChangingApprover="isChangingApprover"
-              :userIsExemptedApproval="userIsExemptedApproval"
-              @ChangeApprover="isChangingApprover = true"
-            />
-          </div>
-        </template>
-      </ModalListItem>
-    </template>
-    <template v-slot:image>
-      <transition name="component-fade" mode="out-in">
-        <component :is="currentImage"></component>
-      </transition>
-    </template>
-  </FurtherAssessment>
-  <div v-if="approval?.comments && approval.loggedInUserIsEditor">
-    <h3>{{ $t("common.Kommentarer") }}</h3>
-    <Comments
-      :comments="approval.comments"
-      :approvalId="approval.id"
-      @UpdateMessages="UpdateMessages"
-    ></Comments>
+    <FurtherAssessment :ShowTwoContainers="true" v-else>
+      <template v-slot:content>
+        <ModalListItem>
+          <template v-slot:body>
+            <div>
+              <PickApprover
+                v-if="isChangingApprover"
+                @UpdateApprover="UpdateApprover"
+                @CancelPickApprover="isChangingApprover = false"
+                :approval="approval"
+              ></PickApprover>
+              <ApprovalStatus
+                v-else
+                :approval="approval"
+                :hasApprover="HasApprover"
+                :isChangingApprover="isChangingApprover"
+                :userIsExemptedApproval="userIsExemptedApproval"
+                @ChangeApprover="isChangingApprover = true"
+              />
+            </div>
+          </template>
+        </ModalListItem>
+      </template>
+      <template v-slot:image>
+        <transition name="component-fade" mode="out-in">
+          <component :is="currentImage"></component>
+        </transition>
+      </template>
+    </FurtherAssessment>
+    <div v-if="approval?.comments && approval.loggedInUserIsEditor">
+      <h3>{{ $t("common.Kommentarer") }}</h3>
+      <Comments
+        :comments="approval.comments"
+        :approvalId="approval.id"
+        @UpdateMessages="UpdateMessages"
+      ></Comments>
+    </div>
   </div>
 </template>
 <script>
@@ -105,7 +106,7 @@ export default {
   created() {},
   data() {
     return {
-      approval: {},
+      approval: null,
       isChangingApprover: false,
     };
   },
@@ -154,7 +155,6 @@ export default {
         });
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>

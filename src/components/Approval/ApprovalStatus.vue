@@ -1,33 +1,45 @@
 <template>
   <div>
-    <p style="font-size: 1rem; margin-bottom: 1rem;">{{ getStatusText() }}</p>
-    <div v-if="UserIsNotPartOfApproval">
-      <p><span style="font-weight: bold">{{`${$t('common.Godkjenner')}: `}}</span>{{GetApproverName}}</p>
-      <p><span style="font-weight: bold">{{`${$t('common.Saksbehandler')}: `}}</span>{{GetEditorName}}</p>
+    <div>
+      <p style="font-size: 1rem; margin-bottom: 1rem">{{ getStatusText() }}</p>
+      <div v-if="UserIsNotPartOfApproval">
+        <p>
+          <span style="font-weight: bold">{{
+            `${$t("common.Godkjenner")}: `
+          }}</span
+          >{{ GetApproverName }}
+        </p>
+        <p>
+          <span style="font-weight: bold">{{
+            `${$t("common.Saksbehandler")}: `
+          }}</span
+          >{{ GetEditorName }}
+        </p>
+      </div>
     </div>
-  </div>
-  <div v-if="CanSetApprover">
-    <JnButton
-      colorTheme="blue"
-      light
-      @JnButton-clicked="$emit('ChangeApprover')"
-    >
-      <span class="fas fa-stamp"></span>
-      {{ $t("common.velg-godkjenner") }}
-    </JnButton>
-  </div>
-  <div v-if="CanChangeApprover">
-    <p>
-      {{
-        $t("approvalstatus.can_change_approver.document_must_be_approved_by")
-      }}
-      <strong>{{ GetApproverName }}</strong>
-      {{ $t("approvalstatus.can_change_approver.before_it_can_be_sent") }}
-    </p>
-    <JnButton @JnButton-clicked="$emit('ChangeApprover')">
-      <span class="fas fa-stamp"></span>
-      {{ $t("common.bytt-godkjenner") }}
-    </JnButton>
+    <div v-if="CanSetApprover">
+      <JnButton
+        colorTheme="blue"
+        light
+        @JnButton-clicked="$emit('ChangeApprover')"
+      >
+        <span class="fas fa-stamp"></span>
+        {{ $t("common.velg-godkjenner") }}
+      </JnButton>
+    </div>
+    <div v-if="CanChangeApprover">
+      <p>
+        {{
+          $t("approvalstatus.can_change_approver.document_must_be_approved_by")
+        }}
+        <strong>{{ GetApproverName }}</strong>
+        {{ $t("approvalstatus.can_change_approver.before_it_can_be_sent") }}
+      </p>
+      <JnButton @JnButton-clicked="$emit('ChangeApprover')">
+        <span class="fas fa-stamp"></span>
+        {{ $t("common.bytt-godkjenner") }}
+      </JnButton>
+    </div>
   </div>
 </template>
 

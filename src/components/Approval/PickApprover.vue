@@ -1,78 +1,85 @@
 <template>
-  <div class="pa-container">
-    <div>
-      <h4>{{ $t("pickApproverEmploymentDocument.title") }}</h4>
-      <MultiSelect
-        id="approverselect"
-        v-model="userID"
-        :minChars="2"
-        :delay="500"
-        :searchable="true"
-        :filterResults="false"
-        :resolveOnLoad="false"
-        valueProp="userID"
-        label="name"
-        :placeholder="selectPlaceholderText"
-        :noOptionsText="noOptionsText"
-        :noResultsText="noResultsText"
-        @select="Select"
-        @deselect="Deselect"
-        @clear="Deselect"
-        :options="
-          async function (query) {
-            return await FetchUsers(query);
-          }
-        "
-      >
-        <template v-slot:option="{ option }">
-          <div>
-            <p class="font-bold">{{ option.name }}</p>
-            <span class="text-muted">
-              {{ option.positionTitle }} - {{ option.department }}
-            </span>
-          </div>
-        </template>
-      </MultiSelect>
-      <div v-if="userID != null" style="margin-top: 0.5rem">
-        <span style="color: #72616c">
-          <span class="fas fa-info-circle text-blue"></span>
-          {{ InfoUser }}
-        </span>
-      </div>
-
-      <div
-        style="display: flex; margin-top: 1em; justify-content: end; gap: 1rem"
-      >
-        <JnButton @JnButton-clicked="ResetForm" colorTheme="gray" light>
-          {{ $t("common.Avbryt") }}
-        </JnButton>
-        <JnButton
-          v-if="ShowButtons"
-          @JnButton-clicked="Submit"
-          colorTheme="blue"
+  <div>
+    <div class="pa-container">
+      <div>
+        <h4>{{ $t("pickApproverEmploymentDocument.title") }}</h4>
+        <MultiSelect
+          id="approverselect"
+          v-model="userID"
+          :minChars="2"
+          :delay="500"
+          :searchable="true"
+          :filterResults="false"
+          :resolveOnLoad="false"
+          valueProp="userID"
+          label="name"
+          :placeholder="selectPlaceholderText"
+          :noOptionsText="noOptionsText"
+          :noResultsText="noResultsText"
+          @select="Select"
+          @deselect="Deselect"
+          @clear="Deselect"
+          :options="
+            async function (query) {
+              return await FetchUsers(query);
+            }
+          "
         >
-          {{ $t("common.Be om godkjenning") }}
-        </JnButton>
+          <template v-slot:option="{ option }">
+            <div>
+              <p class="font-bold">{{ option.name }}</p>
+              <span class="text-muted">
+                {{ option.positionTitle }} - {{ option.department }}
+              </span>
+            </div>
+          </template>
+        </MultiSelect>
+        <div v-if="userID != null" style="margin-top: 0.5rem">
+          <span style="color: #72616c">
+            <span class="fas fa-info-circle text-blue"></span>
+            {{ InfoUser }}
+          </span>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            margin-top: 1em;
+            justify-content: end;
+            gap: 1rem;
+          "
+        >
+          <JnButton @JnButton-clicked="ResetForm" colorTheme="gray" light>
+            {{ $t("common.Avbryt") }}
+          </JnButton>
+          <JnButton
+            v-if="ShowButtons"
+            @JnButton-clicked="Submit"
+            colorTheme="blue"
+          >
+            {{ $t("common.Be om godkjenning") }}
+          </JnButton>
+        </div>
       </div>
     </div>
+    <JnDialogComponent
+      v-bind="saveModal"
+      v-if="showSaveModal"
+      @resolveModal="resolveSaveModal"
+      @rejectModal="rejectSaveModal"
+    >
+      <template #header>
+        <h1>{{ $t("DocumentToolbar.prompt-save-changes") }}</h1>
+      </template>
+      <template #body>
+        <div>
+          <p>
+            {{ $t("DocumentToolbar.unsaved-changes") }}
+          </p>
+        </div>
+      </template>
+    </JnDialogComponent>
   </div>
-  <JnDialogComponent
-    v-bind="saveModal"
-    v-if="showSaveModal"
-    @resolveModal="resolveSaveModal"
-    @rejectModal="rejectSaveModal"
-  >
-    <template #header>
-      <h1>{{ $t("DocumentToolbar.prompt-save-changes") }}</h1>
-    </template>
-    <template #body>
-      <div>
-        <p>
-          {{ $t("DocumentToolbar.unsaved-changes") }}
-        </p>
-      </div>
-    </template>
-  </JnDialogComponent>
 </template>
 
 <script>

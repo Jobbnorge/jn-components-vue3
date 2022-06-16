@@ -1,9 +1,11 @@
 <template>
-  <p>
-    {{ $t("approvalChat.NoMessagesTitle") }}
-  </p>
-  <ApprovalChat :messages="comments"></ApprovalChat>
-  <ApprovalChatInput @send-message="SendMessage"></ApprovalChatInput>
+  <div>
+    <p>
+      {{ $t("approvalChat.NoMessagesTitle") }}
+    </p>
+    <ApprovalChat :messages="comments"></ApprovalChat>
+    <ApprovalChatInput @send-message="SendMessage"></ApprovalChatInput>
+  </div>
 </template>
 
 <script>
@@ -24,7 +26,7 @@ export default {
         approvalId: this.approvalId,
       };
       var vm = this;
-      approvalService.AddApprovalComment(data).then(() => {
+      approvalService.AddApprovalComment(this.approvalId, data).then(() => {
         vm.$emit("UpdateMessages");
       });
     },
