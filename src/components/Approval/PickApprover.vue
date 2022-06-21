@@ -89,7 +89,11 @@ import JnButton from "@jobbnorge/jn-components/src/ui_components/buttons/JnButto
 import JnDialogComponent from "@jobbnorge/jn-components/src/ui_components/dialog/JnDialogComponent.vue";
 export default {
   components: { MultiSelect, JnButton, JnDialogComponent },
-  props: { documentID: Number, approval: Object },
+  props: {
+    employmentDocumentId: Number,
+    approval: Object,
+    approvalTypeId: Number,
+  },
   mounted() {
     this.emitter.on("hasUnsavedChanges", () => {
       this.hasUnsavedChanges = true;
@@ -176,9 +180,9 @@ export default {
     },
     CreateApproval() {
       var data = {
-        documentID: this.documentID,
+        employmentDocumentId: this.employmentDocumentId,
         approverID: this.userID,
-        approvalType: 1001,
+        approvalType: this.approvalTypeId,
         jobId: parseInt(
           new URLSearchParams(window.location.search).get("jobid")
         ),

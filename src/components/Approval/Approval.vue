@@ -28,6 +28,8 @@
                 @UpdateApprover="UpdateApprover"
                 @CancelPickApprover="isChangingApprover = false"
                 :approval="approval"
+                :approvalTypeId="approvalTypeId"
+                :employmentDocumentId="employmentDocumentID"
               ></PickApprover>
               <ApprovalStatus
                 v-else
@@ -100,8 +102,10 @@ export default {
   },
   props: {
     approvalId: Number,
+    approvalTypeId: Number,
     isUploaded: Boolean,
     userIsExemptedApproval: Boolean,
+    employmentDocumentID: Number,
   },
   created() {},
   data() {
