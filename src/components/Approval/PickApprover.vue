@@ -173,7 +173,7 @@ export default {
       if (this.hasUnsavedChanges) {
         this.showSaveModal = true;
       } else {
-        if (!this.approval?.Id) this.CreateApproval();
+        if (!(this.approval?.id)) this.CreateApproval();
         else this.UpdateApprover();
         this.showSaveModal = false;
       }
