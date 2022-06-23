@@ -27,7 +27,7 @@
         >
           <template v-slot:option="{ option }">
             <div>
-              <p class="font-bold">{{ option.name }}</p>
+              <p class="font-bold">{{ option.name }} ( {{ option.email }} )</p>
               <span class="text-muted">
                 {{ option.positionTitle }} - {{ option.department }}
               </span>
@@ -93,14 +93,7 @@ export default {
     employmentDocumentId: Number,
     approval: Object,
     approvalTypeId: Number,
-  },
-  mounted() {
-    this.emitter.on("hasUnsavedChanges", () => {
-      this.hasUnsavedChanges = true;
-    });
-    this.emitter.on("savedChanges", () => {
-      this.hasUnsavedChanges = false;
-    });
+    hasUnsavedChanges: Boolean
   },
   computed: {
     InfoUser() {
@@ -133,7 +126,6 @@ export default {
       noResultsText: this.$t("common.Ingen-resultater"),
       approvers: [],
       newApprover: {},
-      hasUnsavedChanges: false,
       showSaveModal: false,
       saveModal: {
         modalId: "saveDocumentApprover",
@@ -149,7 +141,6 @@ export default {
       },
     };
   },
-  created() {},
   methods: {
     Select(val) {
       this.newApprover = this.approvers.filter((x) => x.userID == val)[0];
@@ -213,17 +204,13 @@ export default {
     },
     resolveSaveModal() {
       this.showSaveModal = false;
-      this.emitter.emit("saveDocumentBeforeApproval");
+      this.emitter.emit("saveDocument");
       //emitte lagre dokument
     },
     rejectSaveModal() {
       this.showSaveModal = false;
     },
-  },
-  unmounted() {
-    this.emitter.off("hasUnsavedChanges");
-    this.emitter.off("savedChanges");
-  },
+  }
 };
 </script>
 

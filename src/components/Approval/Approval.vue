@@ -30,6 +30,7 @@
                 :approval="approval"
                 :approvalTypeId="approvalTypeId"
                 :employmentDocumentId="employmentDocumentID"
+                :hasUnsavedChanges="hasUnsavedChanges"
               ></PickApprover>
               <ApprovalStatus
                 v-else
@@ -85,6 +86,7 @@ export default {
     ReadyToSend,
     ApprovedDocument,
   },
+  emits: ["SaveChanges"],
   computed: {
     currentImage() {
       return this.getImage();
@@ -106,8 +108,13 @@ export default {
     isUploaded: Boolean,
     userIsExemptedApproval: Boolean,
     employmentDocumentID: Number,
+    hasUnsavedChanges: Boolean
+  },  
+  created() {
+    this.emitter.on("saveDocument", () => {
+      this.$emit("SaveChanges")
+    });
   },
-  created() {},
   data() {
     return {
       approval: null,
