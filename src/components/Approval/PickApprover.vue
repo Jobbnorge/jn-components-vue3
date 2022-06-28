@@ -2,7 +2,7 @@
   <div>
     <div class="pa-container">
       <div>
-        <h4>{{ $t("pickApproverEmploymentDocument.title") }}</h4>
+        <h4>{{ $t("pickApprover.title") }}</h4>
         <MultiSelect
           id="approverselect"
           v-model="userID"
@@ -93,12 +93,12 @@ export default {
     employmentDocumentId: Number,
     approval: Object,
     approvalTypeId: Number,
-    hasUnsavedChanges: Boolean
+    hasUnsavedChanges: Boolean,
   },
   computed: {
     InfoUser() {
       if (this.newApprover.positionTitle && this.newApprover.department) {
-        return this.$t("pickApproverEmploymentDocument.infouser", [
+        return this.$t("pickApprover.infouser", [
           this.newApprover.name,
           this.newApprover.positionTitle,
           this.newApprover.department,
@@ -107,7 +107,7 @@ export default {
         !this.newApprover.positionTitle &&
         this.newApprover.department
       ) {
-        return this.$t("pickApproverEmploymentDocument.infoDepartment", [
+        return this.$t("pickApprover.infoDepartment", [
           this.newApprover.name,
           this.newApprover.department,
         ]);
@@ -122,7 +122,7 @@ export default {
     return {
       userID: null,
       selectPlaceholderText: this.$t("common.Sok"),
-      noOptionsText: this.$t("pickApproverEmploymentDocument.noOptionsText"),
+      noOptionsText: this.$t("pickApprover.noOptionsText"),
       noResultsText: this.$t("common.Ingen-resultater"),
       approvers: [],
       newApprover: {},
@@ -164,7 +164,7 @@ export default {
       if (this.hasUnsavedChanges) {
         this.showSaveModal = true;
       } else {
-        if (!(this.approval?.id)) this.CreateApproval();
+        if (!this.approval?.id) this.CreateApproval();
         else this.UpdateApprover();
         this.showSaveModal = false;
       }
@@ -210,7 +210,7 @@ export default {
     rejectSaveModal() {
       this.showSaveModal = false;
     },
-  }
+  },
 };
 </script>
 

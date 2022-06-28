@@ -675,7 +675,7 @@
   },
   "common-velg-godkjenner": "Select approver",
   "dokument-ene-er-opprett-og-skal-i-trad-med-dinarbeidsgiver-sine-retningslinjer-godkjennes-for-utsending": "Document(s) is created and in DINARBEIDSGIVER guidelines must be approved before sending",
-  "pickApproverEmploymentDocument": {
+  "pickApprover": {
     "infouser": "{0} is registered as {1} {2}",
     "noOptionsText": "The search wil start at minimum 2 characters",
     "title": "Who must approve the document(s) before sending?",

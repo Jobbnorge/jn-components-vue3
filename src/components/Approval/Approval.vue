@@ -14,7 +14,7 @@
         "
       >
         <p>
-          {{ $t("pickApproverEmploymentDocument.userIsExcempted.body") }}
+          {{ $t("pickApprover.userIsExcempted.body") }}
         </p>
       </div>
     </div>
@@ -108,11 +108,11 @@ export default {
     isUploaded: Boolean,
     userIsExemptedApproval: Boolean,
     employmentDocumentID: Number,
-    hasUnsavedChanges: Boolean
-  },  
+    hasUnsavedChanges: Boolean,
+  },
   created() {
     this.emitter.on("saveDocument", () => {
-      this.$emit("SaveChanges")
+      this.$emit("SaveChanges");
     });
   },
   data() {
@@ -136,7 +136,7 @@ export default {
     GetApprovalStatus() {
       if (this.approval) {
         if (this.approval.status === "Complete") {
-          return this.$t("pickApproverEmploymentDocument.status.isApproved");
+          return this.$t("pickApprover.status.isApproved");
         } else {
           return this.$t("DocumentList.underApproval");
         }

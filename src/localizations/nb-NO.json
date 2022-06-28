@@ -654,7 +654,7 @@
     }
   },
   "common-velg-godkjenner": "Velg godkjenner",
-  "pickApproverEmploymentDocument": {
+  "pickApprover": {
     "title": "Hvem skal godkjenner dokument(ene) før utsending?",
     "infouser": "{0} er registrert som {1} {2}",
     "noOptionsText": "Søket vil starte ved minimum 2 tegn",
