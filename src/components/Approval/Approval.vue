@@ -152,7 +152,6 @@ export default {
     },
     getApproval() {
       var vm = this;
-      console.log(this.approvalId);
       approvalService.GetApproval(this.approvalId).then(function (response) {
         vm.approval = response.data;
       });
