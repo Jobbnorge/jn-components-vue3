@@ -5,7 +5,7 @@
       class="input"
       contenteditable="true"
       v-on:keyup.enter="populateInput"
-      :placeholder="$t('inputPlaceholder')"
+      :placeholder="$t('approval.chat.input_placeholder')"
     ></div>
     <JnButton @JnButton-clicked="populateInput" style="margin-left: 0.5rem;">
       <span class="fas fa-paper-plane"></span>

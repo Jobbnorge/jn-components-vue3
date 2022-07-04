@@ -2,7 +2,7 @@
   <div>
     <div class="pa-container">
       <div>
-        <h4>{{ $t("pickApprover.title") }}</h4>
+        <h4>{{ $t("approval.pick_approver.title") }}</h4>
         <MultiSelect
           id="approverselect"
           v-model="userID"
@@ -50,14 +50,14 @@
           "
         >
           <JnButton @JnButton-clicked="ResetForm" colorTheme="gray" light>
-            {{ $t("common.Avbryt") }}
+            {{ $t("approval.pick_approver.cancel") }}
           </JnButton>
           <JnButton
             v-if="ShowButtons"
             @JnButton-clicked="Submit"
             colorTheme="blue"
           >
-            {{ $t("common.Be om godkjenning") }}
+            {{ $t("approval.pick_approver.request_approval") }}
           </JnButton>
         </div>
       </div>
@@ -69,12 +69,12 @@
       @rejectModal="rejectSaveModal"
     >
       <template #header>
-        <h1>{{ $t("DocumentToolbar.prompt-save-changes") }}</h1>
+        <h1>{{ $t("approval.pick_approver.prompt.save_changes") }}</h1>
       </template>
       <template #body>
         <div>
           <p>
-            {{ $t("DocumentToolbar.unsaved-changes") }}
+            {{ $t("approval.pick_approver.prompt.unsaved_changes") }}
           </p>
         </div>
       </template>
@@ -98,7 +98,7 @@ export default {
   computed: {
     InfoUser() {
       if (this.newApprover.positionTitle && this.newApprover.department) {
-        return this.$t("pickApprover.infouser", [
+        return this.$t("approval.pick_approver.info_user", [
           this.newApprover.name,
           this.newApprover.positionTitle,
           this.newApprover.department,
@@ -107,7 +107,7 @@ export default {
         !this.newApprover.positionTitle &&
         this.newApprover.department
       ) {
-        return this.$t("pickApprover.infoDepartment", [
+        return this.$t("approval.pick_approver.info_department", [
           this.newApprover.name,
           this.newApprover.department,
         ]);
@@ -121,9 +121,9 @@ export default {
   data() {
     return {
       userID: null,
-      selectPlaceholderText: this.$t("common.Sok"),
-      noOptionsText: this.$t("pickApprover.noOptionsText"),
-      noResultsText: this.$t("common.Ingen-resultater"),
+      selectPlaceholderText: this.$t("approval.pick_approver.search"),
+      noOptionsText: this.$t("approval.pick_approver.no_options_text"),
+      noResultsText: this.$t("approval.pick_approver.no_results"),
       approvers: [],
       newApprover: {},
       showSaveModal: false,
@@ -131,11 +131,11 @@ export default {
         modalId: "saveDocumentApprover",
         rejectButton: {
           visible: true,
-          text: this.$t("common.Avbryt"),
+          text: this.$t("approval.pick_approver.cancel"),
         },
         resolveButton: {
           visible: true,
-          text: this.$t("common.Lagre"),
+          text: this.$t("approval.pick_approver.save"),
         },
         colorTheme: "none",
       },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>
-      {{ $t("approvalChat.NoMessagesTitle") }}
+      {{ $t("approval.chat.no_messages_title") }}
     </p>
     <ApprovalChat :messages="comments"></ApprovalChat>
     <ApprovalChatInput @send-message="SendMessage"></ApprovalChatInput>

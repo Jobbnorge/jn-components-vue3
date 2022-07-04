@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{ $t("common.status", [GetApprovalStatus()]) }}</h3>
+    <h3>{{ $t("approval.approvalstatus", [GetApprovalStatus()]) }}</h3>
     <div
       v-if="readyToSend"
       style="display: flex; margin-top: 5rem; justify-content: center"
@@ -14,7 +14,7 @@
         "
       >
         <p>
-          {{ $t("pickApprover.userIsExcempted.body") }}
+          {{ $t("approval.user_is_excempted") }}
         </p>
       </div>
     </div>
@@ -51,7 +51,7 @@
       </template>
     </FurtherAssessment>
     <div v-if="approval?.comments && approval.loggedInUserIsEditor">
-      <h3>{{ $t("common.Kommentarer") }}</h3>
+      <h3>{{ $t("approval.comments") }}</h3>
       <Comments
         :comments="approval.comments"
         :approvalId="approval.id"
@@ -136,14 +136,14 @@ export default {
     GetApprovalStatus() {
       if (this.approval) {
         if (this.approval.status === "Complete") {
-          return this.$t("pickApprover.status.isApproved");
+          return this.$t("approval.is_approved");
         } else {
-          return this.$t("DocumentList.underApproval");
+          return this.$t("approval.under_approval");
         }
       } else if (this.isUploaded || this.userIsExemptedApproval) {
-        return this.$t("DocumentList.approval.trenger-ikke-godkjenning");
+        return this.$t("approval.no_need_for_approval");
       } else {
-        return this.$t("DocumentList.approval.noApprover");
+        return this.$t("approval.no_approver");
       }
     },
     UpdateApprover(data) {

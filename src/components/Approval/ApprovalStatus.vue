@@ -5,13 +5,13 @@
       <div v-if="UserIsNotPartOfApproval">
         <p>
           <span style="font-weight: bold">{{
-            `${$t("common.Godkjenner")}: `
+            `${$t("approval.status.approver")}: `
           }}</span
           >{{ GetApproverName }}
         </p>
         <p>
           <span style="font-weight: bold">{{
-            `${$t("common.Saksbehandler")}: `
+            `${$t("approval.status.case_worker")}: `
           }}</span
           >{{ GetEditorName }}
         </p>
@@ -24,20 +24,20 @@
         @JnButton-clicked="$emit('ChangeApprover')"
       >
         <span class="fas fa-stamp"></span>
-        {{ $t("common.velg-godkjenner") }}
+        {{ $t("approval.status.pick_approver") }}
       </JnButton>
     </div>
     <div v-if="CanChangeApprover">
       <p>
         {{
-          $t("approvalstatus.can_change_approver.document_must_be_approved_by")
+          $t("approval.status.must_be_approved_by", )
         }}
         <strong>{{ GetApproverName }}</strong>
-        {{ $t("approvalstatus.can_change_approver.before_it_can_be_sent") }}
+        {{ $t("approval.status.before_it_can_be_sent") }}
       </p>
       <JnButton @JnButton-clicked="$emit('ChangeApprover')">
         <span class="fas fa-stamp"></span>
-        {{ $t("common.bytt-godkjenner") }}
+        {{ $t("approval.status.change_approver") }}
       </JnButton>
     </div>
   </div>
@@ -85,13 +85,13 @@ export default {
   methods: {
     getStatusText() {
       if (this.CanSetApprover) {
-        return this.$t("approvalstatus.can_set_approver");
+        return this.$t("approval.status.can_set_approver");
       }
       if (this.UserIsNotPartOfApproval) {
-        return this.$t("approvalstatus.user-is-not-part-of-approval.info");
+        return this.$t("approval.status.user_not_part_of_approval");
       }
       if (this.approval.status === "Complete") {
-        return this.$t("approvalStatus.complete.bodytext");
+        return this.$t("approval.status.complete");
       }
     },
   },
